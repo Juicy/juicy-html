@@ -1,7 +1,7 @@
 &lt;x-html&gt;
 ==============
 
-`<x-html>` is a custom element that let's you load HTML partials into your Web Components
+`<x-html>` is a custom element that lets you load HTML partials into your Web Components
 
 If you have this:
 
@@ -32,7 +32,6 @@ Your HTML partials can contain:
  - HTML imports using `<link rel="import" href="path/to/file.html">`, with `href` value relative to the document
 
 Of course, the 2-way data binding provided by works within your partials as desired.
-
 
 ### Usage
 
