@@ -22,7 +22,7 @@ You can put it on screen with this:
 </template>
 ```
 
-Usage examples can be found in [examples](https://puppetjs.github.io/x-html/examples/index.html).
+Usage examples can be found in [examples](http://puppetjs.github.io/x-html/examples/index.html).
 
 ### Features
 
