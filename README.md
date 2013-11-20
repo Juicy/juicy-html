@@ -3,12 +3,36 @@
 
 `<x-html>` is a custom element that let's you load HTML partials into your Web Components
 
+If you have this:
+
+```javascript
+var model = {
+  appdata: {
+    username: "World",
+    html: "<h1>Hello {{ username }}</h1>"
+  }  
+}
+```
+
+You can put it on screen with this:
+
+```html
+<template bind="{{ appdata }}">
+  <x-html content="{{ html }}"></x-html>
+</template>
+```
+
+### Features
+
 Your HTML partials can contain:
  - regular HTML
  - inline scripts using `<script>//JS code here</script>`
  - inline styles using `<style>/*CSS code here*/</style>`
  - external stylesheets using `<link rel="stylesheet" href="path/to/file.css">`, with `href` value relative to the document
  - HTML imports using `<link rel="import" href="path/to/file.html">`, with `href` value relative to the document
+
+Of course, the 2-way data binding provided by works within your partials as desired.
+
 
 ### Usage
 
