@@ -1,0 +1,35 @@
+<link rel="import" href="../../x-html.html">
+<link rel="import" href="../bower_components/polymer-ui-elements/elements.html">
+
+<polymer-element name="my-app">
+  <template>
+
+    <link rel="stylesheet" href="../bower_components/polymer-ui-elements/basic.css">
+    <style>
+      polymer-ui-menu {
+        width: 300px;
+      }
+    </style>
+    <template bind="{{ viewmodel }}">
+      <x-html content="{{ subpage.html }}"></x-html>
+    </template>
+
+  </template>
+
+  <script>
+    Polymer('my-app', {
+      viewmodel: {
+        subpage: {
+          username: 'World',
+          menuItems: [
+            {label: "Item 1"},
+            {label: "Item 2"},
+            {label: "Item 3"},
+            {label: "Item 4"}
+          ],
+          html: './partials/page_3.html'
+        }
+      }
+    });
+  </script>
+</polymer-element>

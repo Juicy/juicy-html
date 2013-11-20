@@ -26,6 +26,8 @@ Load HTML partial from a URL:
 <!-- where {{ var }} equals "./path/to/file.html", a path relative to the document that must start with / or ./ -->
 ```
 
+More advanced examples can be found in [examples](https://github.com/PuppetJs/x-html/blob/master/examples) directory.
+
 ### Dependencies
 
 `<x-html>` is dependent on [Polymer](http://www.polymer-project.org/) as a polyfill for Web Components APIs. In

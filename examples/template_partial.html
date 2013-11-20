@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>&lt;x-html&gt; in a &lt;template&gt; with HTML partial loaded from a file</title>
+  <script src="./bower_components/polymer/polymer.min.js"></script>
+  <link rel="import" href="../x-html.html">
+  <style>
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<template id="test" bind>
+  <template bind="{{ subpage }}">
+    <x-html content="{{ html }}"></x-html>
+  </template>
+</template>
+
+<script>
+  var model = {
+    subpage: {
+      username: "World",
+      html: "./partials/page_1.html"
+    }
+  };
+  document.getElementById('test').model = model;
+</script>
+
+</body>
+</html>

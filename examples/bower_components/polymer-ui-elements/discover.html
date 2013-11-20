@@ -1,0 +1,124 @@
+﻿<!doctype html>
+<html>
+<head>
+  <title>Polymer UI Elements</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", Arial, Roboto, sans-serif;
+      padding: 10px 128px;
+    }
+    h2 {
+      width: auto;
+      font-size: 40px;
+      text-transform: uppercase;
+      border-radius: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 64px;
+      color: white;
+      background: #4285f4;
+    }
+    h3 {
+      color: #4285f4;
+      position: relative;
+      line-height: 24px;
+      padding: 0;
+      font-size: 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+      Xdisplay: inline-block;
+      margin-bottom: 28px;
+    }
+  </style>
+  <!--<script src="../platform/platform.js"></script>-->
+  <script src="../polymer/polymer.js"></script>
+  <link rel="import" href="../polymer-elements/elements.html">
+  <link rel="import" href="../polymer-ui-elements/polymer-ui-icon/polymer-ui-icon.html">
+  <link rel="import" href="../designer-elements/x-meta/x-meta.html">
+  <link rel="import" href="elements.html">
+  <link rel="import" href="metadata.html">
+</head>
+<body>
+  <h2>Polymer UI Elements</h2>
+  <h3>Get 'Em All</h3>
+  <a href="http://localhost:3003/bower?polymer-ui-elements=https%3A//github.com/sjmiles/polymer-ui-elements.git">Bowager Install</a>
+  <br><br>
+  <h3>Individually Wrapped</h3>
+
+  <elt-list></elt-list>
+
+  <polymer-element name="meta-archetype" attributes="meta">
+    <template></template>
+    <script>
+      Polymer('meta-archetype', {
+        meta: null,
+        metaChanged: function () {
+          if (this.meta && this.meta.archetype) {
+            this.shadowRoot.appendChild(this.meta.archetype.content.cloneNode(true));
+          }
+        }
+      });
+    </script>
+  </polymer-element>
+
+  <polymer-element name="elt-list">
+    <template>
+      <style>
+        .item {
+          border-top: 1px solid rgba(0,0,0,0.1);
+          position: relative;
+          cursor: pointer;
+          padding: 48px 0;
+        }
+        .inner {
+          height: 150px;
+        }
+        section {
+          margin-left: -100px;
+        }
+        h4 {
+          margin: 0px;
+          font-size: 20px;
+          line-height: 20px;
+          color: #666;
+          vertical-align: middle;
+          text-transform: uppercase;
+          font-weight: 400;
+        }
+        meta-archetype {
+          height: 300px;
+          width: 400px;
+          zoom: 50%;
+          X-webkit-transform-origin: 0 0;
+          X-webkit-transform: scale(0.5);
+          overflow: hidden;
+          border: 1px solid #ccc;
+          background-color: #eee;
+        }       
+      </style>
+      <x-meta id="meta" list="{{list}}"></x-meta>
+      <template repeat="{{list}}">
+        <div class="item">
+          <div class="inner">
+            <polymer-layout></polymer-layout>
+            <meta-archetype meta="{{}}"></meta-archetype>
+            <section flex>
+              <h4>{{id}}<a href="http://localhost:3003/bower?{{id}}=https%3A//github.com/sjmiles/{{id}}.git"><polymer-ui-icon icon="shortcut" style="margin: 0 0 8px 8px;"></polymer-ui-icon></a></h4>
+              <p>We don't have text descriptions in our metadata at this time, sorry. Maybe you would like to take a look at the <a href="{{id}}">test page</a>.</p>
+              <!-- <br>
+              <a href="http://localhost:3003/bower?{{id}}=https%3A//github.com/sjmiles/{{id}}.git">Bowager Install</a> -->
+            </section>
+          </div>
+        </div>
+      </template>
+    </template>
+    <script>
+      Polymer('elt-list', {
+        ready: function () {
+          console.dir(this.$.meta.list);
+        }
+      });
+    </script>
+  </polymer-element>
+</body>
+</html>
