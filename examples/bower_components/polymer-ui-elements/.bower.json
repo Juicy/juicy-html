@@ -31,7 +31,6 @@
     "commit": "3a7ba5236502436360cf94835658dd7c2b011abb"
   },
   "_source": "git://github.com/Polymer/polymer-ui-elements.git",
-  "_target": "~0.0.20131108",
-  "_originalSource": "polymer-ui-elements",
-  "_direct": true
+  "_target": "*",
+  "_originalSource": "polymer-ui-elements"
 }
