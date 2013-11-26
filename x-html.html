@@ -44,6 +44,11 @@ https://github.com/PuppetJs/x-html
       });
 
       HTMLImports.importer.load(content, function () {
+        if (content.scripts === void 0) {
+          content.scripts = [];
+          //workaround HTMLImport error "TypeError: Cannot read property 'length' of undefined "
+          //this can be removed when https://github.com/Polymer/HTMLImports/issues/40 is fixed
+        }
         HTMLImports.parser.parse(content);
         template.model = customElement.model;
 
