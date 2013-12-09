@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Polymer match media</title>
-  <script type="text/javascript" src="../../polymer/polymer.js"></script>
+  <script src="../platform/platform.js"></script>
   <link rel="import" href="polymer-media-query.html" />
 </head>
 <body>
 
   <polymer-element name="match-example">
     <template>
-      <polymer-media-query query="{{query}}" queryMatches="{{matches}}"></polymer-media-query>
-      My query of "{{query}}" {{matches ? "matches" : "doesn't match"}}
+      <polymer-media-query query="{{query}}" queryMatches="{{qMatches}}"></polymer-media-query>
+      My query of "{{query}}" {{qMatches ? "matches" : "doesn't match"}}
     </template>
     <script>
       Polymer('match-example', {

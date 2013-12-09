@@ -4,13 +4,11 @@ Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 */
 
-@host {
-  * {
-    display: inline-block;
-    white-space: nowrap;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-  }
+:host {
+  display: inline-block;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 #star {
@@ -28,10 +26,10 @@ license that can be found in the LICENSE file.
   background-image: url('assets/ic_star_rate_darkreg.png');
 }
 
-#star.polymer-ui-dark-theme {
+:host(.polymer-ui-dark-theme:host) #star {
   background-image: url('assets/ic_star_rate_lightalt.png');
 }
 
-#star.full.polymer-ui-dark-theme {
+:host(.polymer-ui-dark-theme:host) #star.full {
   background-image: url('assets/ic_star_rate_lightreg.png');
 }

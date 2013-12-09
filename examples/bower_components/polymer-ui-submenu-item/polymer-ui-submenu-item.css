@@ -4,17 +4,15 @@ Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 */
 
-@host { 
-  * {
-    display: block;
-  }
+:host { 
+  display: block;
 }
 
 /* menu */
 #menu {
   margin-left: 44px;
   height: 0;
-  /* override @host style on polymer-ui-menu */
+  /* override :host style on polymer-ui-menu */
   background-image: none !important;
   padding: 0 !important;
 }

@@ -38,15 +38,37 @@ license that can be found in the LICENSE file.
  * @type string
  * @default ''
  */
+/**
+ * Specifies the URL of the link it goes to when tapped on.
+ *
+ * Example:
+ *
+ *     <polymer-ui-menu-item icon="favorite" label="Favorite" href="http://www.polymer-project.org/"></polymer-ui-menu-item>
+ *
+ * If you want more control on the link, e.g. specify the target for where to
+ * open the linked document, you can put <a> directly inside the menu-item.
+ *
+ * Example:
+ *
+ *     <polymer-ui-menu-item icon="favorite" label="Favorite">
+ *       <a href="http://www.polymer-project.org/" target="_self"></a>
+ *     </polymer-ui-menu-item>
+ *
+ * @attribute href
+ * @type string
+ * @default ''
+ */
 -->
+<link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymer-ui-icon/polymer-ui-icon.html">
 <link rel="import" href="../polymer-ui-theme-aware/polymer-ui-theme-aware.html">
 
-<polymer-element name="polymer-ui-menu-item" extends="polymer-ui-theme-aware" attributes="src label icon item">
+<polymer-element name="polymer-ui-menu-item" extends="polymer-ui-theme-aware" attributes="src label icon item href">
   <template>
     <link rel="stylesheet" href="polymer-ui-menu-item.css">
     <polymer-ui-icon src="{{src}}" icon="{{icon}}" showing?="{{icon || src}}"></polymer-ui-icon>
     <span id="label">{{label}}<content></content></span>
+    <a id="link" href="{{href}}" hidden?="{{!href}}"></a>
   </template>
   <script>
     Polymer('polymer-ui-menu-item', {

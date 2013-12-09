@@ -1,30 +1,29 @@
 /*
- * Copyright 2013 The Polymer Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style
- * license that can be found in the LICENSE file.
- */
-@host {
-  * {
-    display: inline-block;
-    position: relative;
-    min-width: 60px;
-    height: 24px;
-    overflow: hidden;
-    border: 1px solid #b6b6b6;
-    border-radius: 2px;
-    box-shadow: inset 0px 0px 1px 0 rgba(0,0,0,0.1);
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-transition: border 0.130s ease-out;
-    transition: border 0.130s ease-out;
-    cursor: pointer;
-    font-size: 10px;
-  }
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/
 
-  *.on {
-    border: 1px solid #0fb2c6;
-  }
+:host {
+  display: inline-block;
+  position: relative;
+  min-width: 60px;
+  height: 24px;
+  overflow: hidden;
+  border: 1px solid #b6b6b6;
+  border-radius: 2px;
+  box-shadow: inset 0px 0px 1px 0 rgba(0,0,0,0.1);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-transition: border 0.130s ease-out;
+  transition: border 0.130s ease-out;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+:host([value]:host) {
+  border: 1px solid #0fb2c6;
 }
 
 .toggle {

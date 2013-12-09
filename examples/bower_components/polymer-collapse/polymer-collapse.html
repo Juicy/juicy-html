@@ -29,15 +29,15 @@ license that can be found in the LICENSE file.
  * @class polymer-collapse
  */
 -->
+<link rel="import" href="../polymer/polymer.html">
+
 <polymer-element name="polymer-collapse" attributes="targetId target horizontal closed duration fixedSize size">
   <template>
     <link rel="stylesheet" polymer-scope="controller" href="polymer-collapse.css">
     <link rel="stylesheet" href="polymer-collapse.css">
     <style>
-      @host {
-        * {
-          display: none;
-        }
+      :host {
+        display: none;
       }
     </style>
   </template>

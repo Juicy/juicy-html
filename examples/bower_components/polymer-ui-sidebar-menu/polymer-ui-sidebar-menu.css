@@ -4,15 +4,13 @@ Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 */
 
-@host {
-  * {
-    padding: 0 !important;
-    box-shadow: inset -8px 0px 8px -4px rgba(0, 0, 0, 0.4);
-  }
+:host {
+  padding: 0 !important;
+  box-shadow: inset -8px 0px 8px -4px rgba(0, 0, 0, 0.4);
+}
   
-  .polymer-ui-light-theme {
-    box-shadow: inset -8px 0px 8px -4px rgba(0, 0, 0, 0.15);
-  }
+:host(.polymer-ui-light-theme:host) {
+  box-shadow: inset -8px 0px 8px -4px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar-menu {

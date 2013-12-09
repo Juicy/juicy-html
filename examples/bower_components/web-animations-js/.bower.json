@@ -1,0 +1,13 @@
+{
+  "name": "web-animations-js",
+  "homepage": "https://github.com/web-animations/web-animations-js",
+  "_release": "bbe1532478",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "bbe15324785469a1829e0c1c2023c1facaac5eee"
+  },
+  "_source": "git://github.com/web-animations/web-animations-js.git",
+  "_target": "master",
+  "_originalSource": "web-animations/web-animations-js"
+}

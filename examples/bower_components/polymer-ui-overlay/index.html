@@ -2,15 +2,15 @@
 <html>
   <head>
     <title>polymer-overlay</title>
-    <script src="../../polymer/polymer.js"></script>
-    <link rel="import" href="../../polymer-elements/polymer-animation/polymer-animation.html">
-    <link rel="import" href="../../polymer-elements/polymer-animation/polymer-animation-group.html">
-    <link rel="import" href="../../polymer-elements/polymer-animation/polymer-fadein.html">
-    <link rel="import" href="../../polymer-elements/polymer-animation/polymer-fadeout.html">
-    <link rel="import" href="../../polymer-elements/polymer-flex-layout/polymer-flex-layout.html">
+    <script src="../platform/platform.js"></script>
+    <link rel="import" href="../polymer-animation/polymer-animation.html">
+    <link rel="import" href="../polymer-animation/polymer-animation-group.html">
+    <link rel="import" href="../polymer-animation/polymer-fadein.html">
+    <link rel="import" href="../polymer-animation/polymer-fadeout.html">
+    <link rel="import" href="../polymer-flex-layout/polymer-flex-layout.html">
     <link rel="import" href="polymer-ui-overlay.html">
     <link rel="import" href="../polymer-ui-toolbar/polymer-ui-toolbar.html">
-    <link rel="stylesheet" href="../basic.css">
+    <link rel="stylesheet" href="../polymer-ui-elements/basic.css">
   </head>
   <body class="polymer-ui-body-text polymer-ui-full-bleed polymer-ui-light-bg">
     <polymer-element name="polymer-animation-slide" extends="polymer-animation" attributes="origin slideType">
@@ -61,10 +61,40 @@
     </polymer-element>
     <polymer-element name="polymer-animation-slide-up" extends="polymer-animation-slide" origin="top" slideType="slide-out" noscript>
     </polymer-element>
+    <polymer-element name="polymer-animation-expand" extends="polymer-animation" attributes="src">
+      <script>
+        Polymer('polymer-animation-expand', {
+          duration: 0.3,
+          easing: 'ease-in',
+          fillMode: 'none',
+          src: null,
+          get animationEffect() {
+            if (!this.src) {
+              this.src = this.target.toggleSrc;
+            }
+            this.target.style['-webkit-transform-origin'] = 'top left';
+            var srect = this.src.getBoundingClientRect();
+            var trect = this.target.getBoundingClientRect();
+            var transform = 'translate3d(' + (srect.left - trect.left) + 'px,' + (srect.top - trect.top) + 'px,0) scale3d(' + (srect.width / trect.width) + ',' + (srect.height / trect.height) + ',1)';
+            console.log('srect', srect, 'trect', trect);
+            console.log('transform', transform);
+            var props = [{
+              'visibility': 'visible',
+              'position': 'fixed',
+              'transform': transform
+            }, {
+              'visibility': 'visible',
+              'position': 'fixed',
+              'transform': 'translate3d(0,0,0) scale3d(1,1,1)'
+            }];
+            return props;
+          }
+        });
+      </script>
+    </polymer-element>
     <polymer-element name="polymer-ui-overlay-demo">
       <template>
         <style>
-          /* @polyfill @host */
           :host {
             display: block;
           }
@@ -145,6 +175,7 @@
               <option>none</option>
               <option value="polymer-fadein">fade-in</option>
               <option value="polymer-animation-slide">slide-in</option>
+              <option value="polymer-animation-expand">expand</option>
             </select>
           </label>
           <span class="spacer"></span>
@@ -180,7 +211,7 @@
     <script>
       Polymer('polymer-ui-overlay-demo', {
         center: 'both',
-        openingAnimationName: 'polymer-animation-slide',
+        openingAnimationName: 'polymer-animation-expand',
         closingAnimationName: 'polymer-animation-slide-up',
         observe: {
           openingAnimationName: 'applyTransition',
@@ -215,7 +246,8 @@
             this.$.innerOverlay.toggle();
           }
         },
-        toggleAction: function() {
+        toggleAction: function(e, details, sender) {
+          this.$.overlayDemo.toggleSrc = sender;
           this.$.overlayDemo.toggle();
         }
       });

@@ -18,11 +18,13 @@ license that can be found in the LICENSE file.
  * @class polymer-ui-toggle-button
  */
 -->
+<link rel="import" href="../polymer/polymer.html">
+
 <polymer-element name="polymer-ui-toggle-button" attributes="value noCaption onCaption offCaption"
     on-tap="{{toggle}}" on-trackstart="{{trackStart}}" on-track="{{track}}" on-trackend="{{trackEnd}}" on-flick="{{flick}}">
   <template>
     <link rel="stylesheet" href="polymer-ui-toggle-button.css" />
-    <link rel="stylesheet" href="../../polymer-elements/polymer-flex-layout/polymer-flex-layout.css" />
+    <link rel="stylesheet" href="../polymer-flex-layout/polymer-flex-layout.css" />
     <div id="toggle" class="toggle">
       <span class="on-label flexbox align-center justify-center">{{noCaption ? '' : onCaption}}</span>
       <span id="thumb" class="thumb"></span>
@@ -67,7 +69,6 @@ license that can be found in the LICENSE file.
         this.value = !this.value;
       },
       valueChanged: function() {
-        this.classList.toggle('on', this.value);
         this.$.toggle.classList.toggle('on', this.value);
       },
       trackStart: function(e) {

@@ -1,7 +1,9 @@
+<link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="web-animations.html">
 <link rel="import" href="polymer-animation-keyframe.html">
 <link rel="import" href="polymer-animation-prop.html">
-<polymer-element name="polymer-animation" attributes="target keyframes sample composite duration fillMode easing iterationStart iterationCount delay direction autoplay targetSelector">
+
+<polymer-element name="polymer-animation" attributes="target keyframes sample composite duration fill easing iterationStart iterationCount delay direction autoplay targetSelector">
   <script>
     (function() {
       function findTarget(inSelector, inNode) {
@@ -102,13 +104,13 @@
         duration: 'auto',
         /**
          * "none", "forwards", "backwards", "both" or "auto". When set to
-         * "auto", the fillMode is "none" for a polymer-animation and "both"
+         * "auto", the fill is "none" for a polymer-animation and "both"
          * for a polymer-animation-group.
-         * @property fillMode
+         * @property fill
          * @type "none"|"forwards"|"backwards"|"both"|"auto"
          * @default "auto"
          */
-        fillMode: 'auto',
+        fill: 'auto',
         /**
          * A transition timing function.
          * @property easing
@@ -158,7 +160,7 @@
           sample: 'apply',
           composite: 'apply',
           duration: 'apply',
-          fillMode: 'apply',
+          fill: 'apply',
           easing: 'apply',
           iterationCount: 'apply',
           delay: 'apply',
@@ -177,6 +179,7 @@
           if (this.animation && !this.autoplay) {
             this.bindAnimationEvents();
             this.player = document.timeline.play(this.animation);
+            return this.player;
           }
         },
         /**
@@ -233,7 +236,7 @@
         get timingProps() {
           var props = {};
           var timing = {
-            fillMode: {property: 'fill'},
+            fill: {},
             easing: {},
             delay: {isNumber: true},
             iterationCount: {isNumber: true, allowInfinity: true},

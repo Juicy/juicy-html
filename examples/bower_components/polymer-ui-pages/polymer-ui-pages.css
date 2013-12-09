@@ -4,14 +4,12 @@ Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 */
 
-@host {
-  * {
-    position: relative;
-  }
+:host {
+  position: relative;
 }
 
-/*@polyfill @host > * */
-::-webkit-distributed(> *) {
+/*@polyfill :host > * */
+::content > * {
   position: absolute;
   top: 0;
   right: 0;
@@ -21,8 +19,8 @@ license that can be found in the LICENSE file.
   z-index: -1000;
 }
 
-/*@polyfill @host > *.polymer-selected */
-::-webkit-distributed(> *.polymer-selected) {
+/*@polyfill :host > *.polymer-selected */
+::content > *.polymer-selected {
   visibility: visible;
   z-index: auto;
 }

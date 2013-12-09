@@ -26,13 +26,14 @@ license that can be found in the LICENSE file.
  * @class polymer-ui-ratings
  */
 -->
+<link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymer-ui-theme-aware/polymer-ui-theme-aware.html">
 
-<polymer-element name="polymer-ui-ratings" extends="polymer-ui-theme-aware" attributes="count value color">
+<polymer-element name="polymer-ui-ratings" extends="polymer-ui-theme-aware" attributes="count value">
   <template>
     <link rel="stylesheet" href="polymer-ui-ratings.css">
     <template repeat="{{star in stars}}">
-      <span id="star" index="{{star.index}}" class="{{star.starClass}} {{color}} {{theme}}" on-tap="{{updateValue}}"></span>
+      <span id="star" index="{{star.index}}" class="{{star.starClass}}" on-tap="{{updateValue}}"></span>
     </template>
   </template>
   <script>
@@ -53,7 +54,6 @@ license that can be found in the LICENSE file.
        * @default 0
        */
       value: 0,
-      color: '',
       ready: function() {
         this.countChanged();
       },

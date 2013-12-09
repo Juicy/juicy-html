@@ -10,25 +10,23 @@ becomes the containing block; see:
 http://dev.w3.org/csswg/css3-transforms/#transform-rendering
 We address this by using script based positioning =(
 */
-@host {
-	.polymer-overlay {
-		position: fixed;
-		z-index: 10;
-		outline: none;
-		display: none;
-		-webkit-transition: opacity 0.001s;
-		transition: opacity 0.001s;
-	}
+:host(.polymer-overlay:host) {
+	position: fixed;
+	z-index: 10;
+	outline: none;
+	display: none;
+	-webkit-transition: opacity 0.001s;
+	transition: opacity 0.001s;
+}
 
-	.revealed {
-		display: block;
-		visibility: hidden;
-	}
+:host(.revealed:host) {
+	display: block;
+	visibility: hidden;
+}
 
-	.revealed.opened {
-		display: block;
-		visibility: visible;
-	}
+:host(.revealed.opened:host) {
+	display: block;
+	visibility: visible;
 }
 
 .polymer-overlay {

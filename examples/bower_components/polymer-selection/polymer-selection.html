@@ -67,13 +67,13 @@ license that can be found in the LICENSE file.
  *   @param {Object} detail.item the item element
  */
 -->
+<link rel="import" href="../polymer/polymer.html">
+
 <polymer-element name="polymer-selection" attributes="multi">
   <template>
     <style>
-      @host {
-        * {
-          display: none !important;
-        }
+      :host {
+        display: none !important;
       }
     </style>
   </template>
@@ -113,7 +113,7 @@ license that can be found in the LICENSE file.
         return this.selection.indexOf(item) >= 0;
       },
       setItemSelected: function(item, isSelected) {
-        if (item) {
+        if (item !== undefined && item !== null) {
           if (isSelected) {
             this.selection.push(item);
           } else {

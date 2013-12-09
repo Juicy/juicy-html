@@ -4,15 +4,13 @@ Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 */
 
-@host {
-  * {
-    height: 60px;
-    white-space: nowrap;
-  }
+:host {
+  height: 60px;
+  white-space: nowrap;
 }
 
-/*@polyfill @host > * */
-::-webkit-distributed(> :not(template)) {
+/*@polyfill :host > * */
+::content > :not(template) {
 	display: inline-block;
   min-width: 60px;
   height: 60px;
@@ -24,8 +22,8 @@ license that can be found in the LICENSE file.
   color: #999;
 }
 
-/*@polyfill @host > *.polymer-selected */
-::-webkit-distributed(> *.polymer-selected) {
+/*@polyfill :host > *.polymer-selected */
+::content > *.polymer-selected {
   background: #5599FF;
   color: white;
 }
