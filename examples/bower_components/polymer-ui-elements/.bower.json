@@ -37,6 +37,6 @@
   },
   "_source": "git://github.com/Polymer/polymer-ui-elements.git",
   "_target": "master",
-  "_originalSource": "polymer-ui-elements",
+  "_originalSource": "Polymer/polymer-ui-elements",
   "_direct": true
 }
