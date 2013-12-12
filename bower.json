@@ -1,6 +1,6 @@
 {
   "name": "x-html",
-  "version": "0.0.20131126",
+  "version": "0.0.20131213",
   "dependencies": {
     "polymer-ui-elements": "Polymer/polymer-ui-elements#master"
   }

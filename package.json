@@ -1,6 +1,6 @@
 {
   "name": "x-html",
-  "version": "0.0.20131126",
+  "version": "0.0.20131213",
   "description": "`<x-html>` is a custom element that let's you load HTML partials into your Web Components",
   "homepage": "https://github.com/PuppetJs/x-html",
   "repository": {
