@@ -2,6 +2,9 @@
   "name": "x-html",
   "version": "0.0.20131213",
   "dependencies": {
-    "polymer-ui-elements": "Polymer/polymer-ui-elements#master"
+    "polymer": "Polymer/polymer#0.1.1"
+  },
+  "devDependencies": {
+    "polymer-ui-elements": "Polymer/polymer-ui-elements#0.1.1"
   }
 }
