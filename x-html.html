@@ -9,7 +9,8 @@ https://github.com/PuppetJs/x-html
     Object.defineProperty(Node.prototype, 'model', {
       get: function () {
         if (this.bindings) {
-          return (this.bindings.content || this.bindings.value).model; //`content` is in DOM and `value` is in Shadow DOM
+          var obj = (this.bindings.content || this.bindings.value);//`content` is in DOM and `value` is in Shadow DOM
+          return obj.object_ || obj.model; //object_ since Polymer 0.1.3 (https://github.com/Polymer/observe-js/commits/master/src/observe.js)
         }
       }
     });
