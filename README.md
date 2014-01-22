@@ -58,18 +58,22 @@ future, it will be library-agnostic.
 
 ### Changelog
 
+#### v0.0.20140122
+
+- Compatibility fix with Polymer 0.1.3 (needed to change a way the container's data model is retrieved in the partial template)
+
 #### v0.0.20131220
 
-- Compability fix with Polymer 0.1.1 (only changes in the examples, no change in actual `x-html.html`)
+- Compatibility fix with Polymer 0.1.1 (only changes in the examples, no change in actual `x-html.html`)
 - Moved the Polymer dependencies out of the repository for a better experience using Bower
 
 #### v0.0.20131213
 
-Compability fix with recent changes in Polymer and Chrome Canary (version of Polymer 0.1.0+ checked out using Bower and saved in examples/bower_components)
+Compatibility fix with recent changes in Polymer and Chrome Canary (version of Polymer 0.1.0+ checked out using Bower and saved in examples/bower_components)
 
 #### v0.0.20131126
 
-Compability fix with recent changes in Polymer and Chrome Canary (see ticket [#1](https://github.com/PuppetJs/x-html/issues/1))
+Compatibility fix with recent changes in Polymer and Chrome Canary (see ticket [#1](https://github.com/PuppetJs/x-html/issues/1))
 
 #### v0.0.20131118
 
