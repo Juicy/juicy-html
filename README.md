@@ -22,6 +22,12 @@ You can put it on screen with this:
 </template>
 ```
 
+To produce that:
+
+```html
+<h1>Hello World</h1>
+```
+
 Usage examples can be found in [examples](http://puppetjs.github.io/x-html/examples/index.html).
 
 ### Features
