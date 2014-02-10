@@ -30,6 +30,12 @@ To produce that:
 
 Usage examples can be found in [examples](http://puppetjs.github.io/x-html/examples/index.html).
 
+### Rationale
+
+`x-html` exists because in [Polymer](http://www.polymer-project.org/) there is no built-in way to insert a `<template>` model variable as HTML (Polymer inserts every string as plain text).
+
+AngularJS has a way to do it ([ngBindHtml](http://docs.angularjs.org/api/ng.directive:ngBindHtml)) so hopefully one day Polymer gets that too and this project will become obsolete.
+
 ### Features
 
 Your HTML partials can contain:
