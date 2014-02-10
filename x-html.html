@@ -17,24 +17,25 @@ https://github.com/PuppetJs/x-html
 
     var XHTMLPrototype = Object.create(HTMLElement.prototype);
 
-    function loadTemplate(customElement) {
-      var val = customElement.getAttribute('content');
+    XHTMLPrototype.loadTemplate_ = function() {
+      var val = this.getAttribute('content');
       if (val && (val.indexOf('/') === 0 || val.indexOf('./') === 0)) {
         //val is a URL, load the partial from the HTTP server/cache
         var oReq = new XMLHttpRequest();
+        var that = this;
         oReq.onload = function (event) {
-          customElement.reattachTemplate(event.target.responseText);
+          that.reattachTemplate_(event.target.responseText);
         };
         oReq.open("GET", val, true);
         oReq.send();
       }
       else {
         //val is HTML code, insert the partial from the string
-        customElement.reattachTemplate(val);
+        this.reattachTemplate_(val);
       }
-    }
+    };
 
-    XHTMLPrototype.reattachTemplate = function(html) {
+    XHTMLPrototype.reattachTemplate_ = function(html) {
       var isNative = !HTMLImports.importer;
       this.innerHTML = '<template bind>' + html + '</template>';
 
@@ -61,7 +62,7 @@ https://github.com/PuppetJs/x-html
 
       if(isNative) {
         template.model = this.model;
-        this.parseSpecialElements(specialElems);
+        this.parseSpecialElements_(specialElems);
       }
       else {
         var that = this;
@@ -73,13 +74,13 @@ https://github.com/PuppetJs/x-html
           }
           HTMLImports.parser.parse(content);
           template.model = that.model;
-          that.parseSpecialElements(specialElems);
+          that.parseSpecialElements_(specialElems);
         });
 
       }
     };
 
-    XHTMLPrototype.parseSpecialElements = function(specialElems) {
+    XHTMLPrototype.parseSpecialElements_ = function(specialElems) {
       var that = this;
       specialElems.forEach(function (elem) {
         if (elem.nodeName === 'STYLE') {
@@ -144,13 +145,13 @@ https://github.com/PuppetJs/x-html
     };
 
     XHTMLPrototype.attachedCallback = function () {
-      var customElement = this;
-      loadTemplate(customElement);
+      var that = this;
+      this.loadTemplate_();
 
       var observer = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
           if (mutation.type === "attributes" && mutation.attributeName === "content") {
-            loadTemplate(customElement);
+            that.loadTemplate_();
           }
         });
       });
