@@ -70,6 +70,14 @@ future, it will be library-agnostic.
 
 ### Changelog
 
+#### v0.0.20140210
+
+- Compatibility changes for Polymer 0.1.4 and Canary (now works with native HTML Imports). See the [discussion](https://groups.google.com/d/topic/polymer-dev/pn1mhqLugVU/discussion)
+- Allow [Polymer Expressions](http://www.polymer-project.org/docs/polymer/expressions.html) in partials (e.g. `<template if="{{val == 1}}">`)
+- Updated `bower.json` to play well with Polymer 0.1.x (will resolve to most recent version if possible)
+- Refactor some functions to be actual XHTMLPrototype methods (cleaner code)
+- Add "Rationale" section to the readme
+
 #### v0.0.20140122
 
 - Compatibility fix with Polymer 0.1.3 (needed to change a way the container's data model is retrieved in the partial template)
