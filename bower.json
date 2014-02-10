@@ -1,6 +1,6 @@
 {
   "name": "x-html",
-  "version": "0.0.20140122",
+  "version": "0.0.20140210",
   "dependencies": {
     "polymer": "Polymer/polymer#~0.1"
   },
