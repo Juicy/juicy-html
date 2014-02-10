@@ -1,9 +1,12 @@
-<h1>Hello {{subpage.username}}</h1>
+<!-- conditional will only work if template bindingDelegate is PolymerExpressions -->
+<template if="{{ subpage.username == 'World' }}">
+  <h1>Hello {{subpage.username}}</h1>
 
-<p>This partial contains polymer-ui-menu</p>
+  <p>This partial contains polymer-ui-menu</p>
 
-<polymer-ui-menu selected="0" theme="polymer-ui-light-theme">
-  <template repeat="{{subpage.menuItems}}">
-    <polymer-ui-menu-item label="{{label}}"></polymer-ui-menu-item>
-  </template>
-</polymer-ui-menu>
+  <polymer-ui-menu selected="0" theme="polymer-ui-light-theme">
+    <template repeat="{{subpage.menuItems}}">
+      <polymer-ui-menu-item label="{{label}}"></polymer-ui-menu-item>
+    </template>
+  </polymer-ui-menu>
+</template>

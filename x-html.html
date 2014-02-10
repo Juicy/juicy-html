@@ -39,6 +39,9 @@ https://github.com/PuppetJs/x-html
       this.innerHTML = '<template bind>' + html + '</template>';
 
       var template = this.firstChild;
+      if(window.PolymerExpressions) {
+        template.bindingDelegate = new PolymerExpressions; //use PolymerExpressions if available. This allows <template if="{{val == 1}}">, etc
+      }
       var content = template.content;
 
       var specialElemSelectors = ['style', 'link[rel=stylesheet]', 'script'];
