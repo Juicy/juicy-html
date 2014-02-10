@@ -15,63 +15,92 @@ https://github.com/PuppetJs/x-html
       }
     });
 
+    var XHTMLPrototype = Object.create(HTMLElement.prototype);
+
     function loadTemplate(customElement) {
       var val = customElement.getAttribute('content');
       if (val && (val.indexOf('/') === 0 || val.indexOf('./') === 0)) {
         //val is a URL, load the partial from the HTTP server/cache
         var oReq = new XMLHttpRequest();
         oReq.onload = function (event) {
-          reattachTemplate(customElement, event.target.responseText);
+          customElement.reattachTemplate(event.target.responseText);
         };
         oReq.open("GET", val, true);
         oReq.send();
       }
       else {
         //val is HTML code, insert the partial from the string
-        reattachTemplate(customElement, val);
+        customElement.reattachTemplate(val);
       }
     }
 
-    function reattachTemplate(customElement, html) {
-      customElement.innerHTML = '<template bind>' + html + '</template>';
+    XHTMLPrototype.reattachTemplate = function(html) {
+      var isNative = !HTMLImports.importer;
+      this.innerHTML = '<template bind>' + html + '</template>';
 
-      var template = customElement.firstChild;
+      var template = this.firstChild;
       var content = template.content;
 
-      var specialElems = content.querySelectorAll(['style', 'link[rel=stylesheet]', 'script']);
+      var specialElemSelectors = ['style', 'link[rel=stylesheet]', 'script'];
+      if(isNative) {
+        specialElemSelectors.push('link[rel=import]');
+      }
+
+      var specialElems = content.querySelectorAll(specialElemSelectors);
       specialElems = Array.prototype.slice.call(specialElems, 0); //convert to array
       specialElems.forEach(function (elem) {
         elem.parentNode.removeChild(elem); //avoid being processed by HTMLImports
       });
 
-      HTMLImports.importer.load(content, function () {
-        if (content.scripts === void 0) {
-          content.scripts = [];
-          //workaround HTMLImport error "TypeError: Cannot read property 'length' of undefined "
-          //this can be removed when https://github.com/Polymer/HTMLImports/issues/40 is fixed
-        }
-        HTMLImports.parser.parse(content);
-        template.model = customElement.model;
+      //from Polymer 0.1.5, Polymer.import can be used
+      //see: https://groups.google.com/forum/#!topic/polymer-dev/pn1mhqLugVU
+      //see: http://stackoverflow.com/questions/21607663/dynamically-load-web-components-html-imports)
 
-        specialElems.forEach(function (elem) {
-          if (elem.nodeName === 'STYLE') {
-            customElement.appendChild(elem);
+      if(isNative) {
+        template.model = this.model;
+        this.parseSpecialElements(specialElems);
+      }
+      else {
+        var that = this;
+        HTMLImports.importer.load(content, function () {
+          if (content.scripts === void 0) {
+            content.scripts = [];
+            //workaround HTMLImport error "TypeError: Cannot read property 'length' of undefined "
+            //this can be removed when https://github.com/Polymer/HTMLImports/issues/40 is fixed
           }
-          else if (elem.nodeName === 'LINK') { //appending <link rel="stylesheet"> to Shadow DOM does not have any effect (9 Nov, 2013)
+          HTMLImports.parser.parse(content);
+          template.model = that.model;
+          that.parseSpecialElements(specialElems);
+        });
+
+      }
+    };
+
+    XHTMLPrototype.parseSpecialElements = function(specialElems) {
+      var that = this;
+      specialElems.forEach(function (elem) {
+        if (elem.nodeName === 'STYLE') {
+          that.appendChild(elem);
+        }
+        else if (elem.nodeName === 'LINK') { //appending <link rel="stylesheet"> to Shadow DOM does not have any effect (9 Nov, 2013)
+          if(elem.rel === "stylesheet") {
             var style = document.createElement('style');
             style.innerHTML = '@import url(' + elem.getAttribute('href') + ');';
             setTimeout(function () { //must be async, otherwise custom elements in demo puppetjs/lab/wc/page_2 display improperly
-              customElement.appendChild(style);
+              that.appendChild(style);
             }, 0);
           }
-          else if (elem.nodeName === 'SCRIPT') {
-            setTimeout(function () { //must be async
-              executeComponentScript(elem.textContent, customElement, 'script')
-            }, 0);
+          else if(elem.rel === "import") {
+            document.head.appendChild(elem);
           }
-        });
+        }
+        else if (elem.nodeName === 'SCRIPT') {
+          setTimeout(function () { //must be async
+            executeComponentScript(elem.textContent, that, 'script')
+          }, 0);
+        }
       });
-    }
+    };
 
     /**
      * Function that executes script (that is ignored by browser's .innerHTML)
@@ -111,8 +140,7 @@ https://github.com/PuppetJs/x-html
       inFunc.call(context);
     };
 
-    var XHTMLPrototype = Object.create(HTMLElement.prototype);
-    XHTMLPrototype.createdCallback = function () {
+    XHTMLPrototype.attachedCallback = function () {
       var customElement = this;
       loadTemplate(customElement);
 
@@ -127,7 +155,6 @@ https://github.com/PuppetJs/x-html
         attributes: true
       });
     };
-    XHTMLPrototype.readyCallback = XHTMLPrototype.createdCallback; //required for compatibility with polymer.js < 20130816
 
     document.register('x-html', {
       prototype: XHTMLPrototype
