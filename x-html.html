@@ -4,6 +4,8 @@ x-html.html v0.0.20140210
 MIT license
 https://github.com/PuppetJs/x-html
 -->
+<link rel="import" href="../polymer/polymer.html">
+
 <script>
   (function () {
     Object.defineProperty(Node.prototype, 'model', {
@@ -36,7 +38,6 @@ https://github.com/PuppetJs/x-html
     };
 
     XHTMLPrototype.reattachTemplate_ = function(html) {
-      var isNative = !HTMLImports.importer;
       this.innerHTML = '<template bind>' + html + '</template>';
 
       var template = this.firstChild;
@@ -45,10 +46,7 @@ https://github.com/PuppetJs/x-html
       }
       var content = template.content;
 
-      var specialElemSelectors = ['style', 'link[rel=stylesheet]', 'script'];
-      if(isNative) {
-        specialElemSelectors.push('link[rel=import]');
-      }
+      var specialElemSelectors = [/*'style', 'link[rel=stylesheet]', */'link[rel=import]', 'script'];
 
       var specialElems = content.querySelectorAll(specialElemSelectors);
       specialElems = Array.prototype.slice.call(specialElems, 0); //convert to array
@@ -56,28 +54,8 @@ https://github.com/PuppetJs/x-html
         elem.parentNode.removeChild(elem); //avoid being processed by HTMLImports
       });
 
-      //from Polymer 0.1.5, Polymer.import can be used
-      //see: https://groups.google.com/forum/#!topic/polymer-dev/pn1mhqLugVU
-      //see: http://stackoverflow.com/questions/21607663/dynamically-load-web-components-html-imports)
-
-      if(isNative) {
-        template.model = this.model;
-        this.parseSpecialElements_(specialElems);
-      }
-      else {
-        var that = this;
-        HTMLImports.importer.load(content, function () {
-          if (content.scripts === void 0) {
-            content.scripts = [];
-            //workaround HTMLImport error "TypeError: Cannot read property 'length' of undefined "
-            //this can be removed when https://github.com/Polymer/HTMLImports/issues/40 is fixed
-          }
-          HTMLImports.parser.parse(content);
-          template.model = that.model;
-          that.parseSpecialElements_(specialElems);
-        });
-
-      }
+      template.model = this.model;
+      this.parseSpecialElements_(specialElems);
     };
 
     XHTMLPrototype.parseSpecialElements_ = function(specialElems) {

@@ -1,3 +1,6 @@
+<link rel="import" href="../../polymer-ui-menu/polymer-ui-menu.html">
+<link rel="import" href="../../polymer-ui-menu-item/polymer-ui-menu-item.html">
+
 <!-- conditional will only work if template bindingDelegate is PolymerExpressions -->
 <template if="{{ subpage.username == 'World' }}">
   <h1>Hello {{subpage.username}}</h1>
@@ -6,7 +9,7 @@
 
   <polymer-ui-menu selected="0" theme="polymer-ui-light-theme">
     <template repeat="{{subpage.menuItems}}">
-      <polymer-ui-menu-item label="{{label}}"></polymer-ui-menu-item>
+      <polymer-ui-menu-item label="{{label}}" icon="{{icon}}"></polymer-ui-menu-item>
     </template>
   </polymer-ui-menu>
 </template>
