@@ -8,15 +8,6 @@ https://github.com/PuppetJs/x-html
 
 <script>
   (function () {
-    Object.defineProperty(Node.prototype, 'model', {
-      get: function () {
-        if (this.bindings) {
-          var obj = (this.bindings.content || this.bindings.value);//`content` is in DOM and `value` is in Shadow DOM
-          return obj.object_ || obj.model; //object_ since Polymer 0.1.3 (https://github.com/Polymer/observe-js/commits/master/src/observe.js)
-        }
-      }
-    });
-
     var XHTMLPrototype = Object.create(HTMLElement.prototype);
 
     XHTMLPrototype.loadTemplate_ = function() {
@@ -53,7 +44,10 @@ https://github.com/PuppetJs/x-html
       specialElems.forEach(function (elem) {
         elem.parentNode.removeChild(elem); //avoid being processed by HTMLImports
       });
-
+      if( !this.model  ){
+        //`content` is in DOM and `value` is in Shadow DOM
+        this.model  = (this.bindings.content || this.bindings.value).object_;
+      }
       template.model = this.model;
       this.parseSpecialElements_(specialElems);
     };
