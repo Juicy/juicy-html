@@ -44,7 +44,7 @@ https://github.com/PuppetJs/x-html
       specialElems.forEach(function (elem) {
         elem.parentNode.removeChild(elem); //avoid being processed by HTMLImports
       });
-      if( !this.model  ){
+      if( !this.model && this.bindings ){
         //`content` is in DOM and `value` is in Shadow DOM
         this.model  = (this.bindings.content || this.bindings.value).object_;
       }
