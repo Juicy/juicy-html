@@ -70,6 +70,11 @@ future, it will be library-agnostic.
 
 ### Changelog
 
+#### v0.0.20140221
+
+- Compatibility changes for Polymer 0.2.0 and Canary
+- Native `Node.prototype` is no longer modified
+
 #### v0.0.20140210
 
 - Compatibility changes for Polymer 0.1.4 and Canary (now works with native HTML Imports). See the [discussion](https://groups.google.com/d/topic/polymer-dev/pn1mhqLugVU/discussion)
