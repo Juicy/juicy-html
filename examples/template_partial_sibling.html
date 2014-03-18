@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>&lt;x-html&gt; in a &lt;template&gt; with HTML partial loaded as a sibling</title>
+  <script src="../../platform/platform.js"></script>
+  <link rel="import" href="../../polymer/polymer.html">
+  <link rel="import" href="../x-html.html">
+  <style>
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<template id="test" bind>
+  <h2>Hey! those are siblings:</h2>
+  <ul>
+    <li class="specialExternal">Just plain <code>&lt;li&gt;</code></li>
+    <x-html content="{{ partial }}" currentnode></x-html>
+  </ul>
+</template>
+
+<script>
+  var model = {
+    what: "the same model",
+    partial: "./partials/page_4.html"
+  };
+  document.getElementById('test').model = model;
+</script>
+
+</body>
+</html>

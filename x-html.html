@@ -5,7 +5,11 @@ MIT license
 https://github.com/PuppetJs/x-html
 -->
 <link rel="import" href="../polymer/polymer.html">
-
+<style>
+x-html[currentnode]{
+  display: none;
+}
+</style>
 <script>
   (function () {
     var XHTMLPrototype = Object.create(HTMLElement.prototype);
@@ -29,14 +33,22 @@ https://github.com/PuppetJs/x-html
     };
 
     XHTMLPrototype.reattachTemplate_ = function(html) {
-      this.innerHTML = '<template bind>' + html + '</template>';
 
-      var template = this.firstChild;
+      var template = document.createElement("template");
+      template.setAttribute("bind","");
+      template.innerHTML = html;
+      if( this.getAttribute('currentnode') || this.getAttribute('currentnode')==="" ){
+        this.parentNode.insertBefore(template, this.nextSibling);
+      } else {
+        this.appendChild( template );// = '<template bind>' + html + '</template>';
+      }
+
       if(window.PolymerExpressions) {
         template.bindingDelegate = new PolymerExpressions; //use PolymerExpressions if available. This allows <template if="{{val == 1}}">, etc
       }
       var content = template.content;
 
+      // maybe we could also consider re-importing external CSS'es https://github.com/PuppetJs/x-html/issues/5
       var specialElemSelectors = [/*'style', 'link[rel=stylesheet]', */'link[rel=import]', 'script'];
 
       var specialElems = content.querySelectorAll(specialElemSelectors);

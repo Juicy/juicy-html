@@ -63,6 +63,13 @@ Load HTML partial from a URL:
 <!-- where {{ var }} equals "./path/to/file.html", a path relative to the document that must start with / or ./ -->
 ```
 
+## Options/Attributes
+
+Attribute    | Options       | Default          | Description
+---          | ---           | ---              | ---
+`content`    | *string*		 | `""`				| Safe HTML code, or path to partial to be loaded.
+`currentnode`| *boolean*     | `false`          | Should content be loaded on current node level? (as `<x-html>` sibling)
+
 ### Dependencies
 
 `<x-html>` is dependent on [Polymer](http://www.polymer-project.org/) as a polyfill for Web Components APIs. In
