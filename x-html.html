@@ -12,7 +12,7 @@ x-html[currentnode]{
 </style>
 <script>
   (function () {
-    var XHTMLPrototype = Object.create(HTMLElement.prototype);
+    var XHTMLPrototype = Object.create( (HTMLTemplateElement || HTMLElement ).prototype);
 
     XHTMLPrototype.loadTemplate_ = function() {
       var val = this.getAttribute('content');
