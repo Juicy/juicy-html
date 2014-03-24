@@ -68,7 +68,6 @@ Load HTML partial from a URL:
 Attribute    | Options       | Default          | Description
 ---          | ---           | ---              | ---
 `content`    | *string*		 | `""`				| Safe HTML code, or path to partial to be loaded.
-`currentnode`| *boolean*     | `false`          | Should content be loaded on current node level? (as `<x-html>` sibling)
 
 ### Dependencies
 
@@ -76,6 +75,13 @@ Attribute    | Options       | Default          | Description
 future, it will be library-agnostic.
 
 ### Changelog
+
+#### v0.0.?
+
+- `currentnode` attribute added, to put content on current node level - as `<x-html>` sibling
+- Add content on `<x-html>` level (as in `<template>`)
+- `<x-html>` no longer bother about `<script>`,`<style>`, and `<link type="import">` tags, it delagates this to `<template>`. So you should **be aware of execution order of inline and external scripts**.
+If you still need blocking for dynamically added scripts consider [`<puppet-partial>`](https://github.com/PuppetJs/puppet-partial).
 
 #### v0.0.20140221
 
