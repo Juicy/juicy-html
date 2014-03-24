@@ -68,11 +68,6 @@ x-html[currentnode]{
      */
     XHTMLPrototype.clear = function(){
       return this.template.clear();
-      var child;
-      while (child = this.firstChild) {
-        this.removeChild(child);
-      }
-      return this;
     }
 
 
