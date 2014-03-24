@@ -33,34 +33,41 @@ x-html[currentnode]{
     };
 
     XHTMLPrototype.reattachTemplate_ = function(html) {
-      this.empty();
-
-      var template = document.createElement("template");
-      template.setAttribute("bind","");
-      template.innerHTML = html;
+      var template = this.template;
+      if( this.template ){
+        this.clear();
+      }else{
+        this.template = document.createElement("template");
+      }
+      this.template.setAttribute("bind","");
+      debugger;
+      this.template.innerHTML = html;
       if( this.getAttribute('currentnode') || this.getAttribute('currentnode')==="" ){
-        this.parentNode.insertBefore(template, this.nextSibling);
+        this.parentNode.insertBefore(this.template, this.nextSibling);
       } else {
-        this.appendChild( template );// = '<template bind>' + html + '</template>';
+        this.appendChild( this.template );// = '<template bind>' + html + '</template>';
       }
 
       if(window.PolymerExpressions) {
-        template.bindingDelegate = new PolymerExpressions; //use PolymerExpressions if available. This allows <template if="{{val == 1}}">, etc
+        this.template.bindingDelegate = new PolymerExpressions; //use PolymerExpressions if available. This allows <template if="{{val == 1}}">, etc
       }
 
       if( !this.model && this.bindings ){
         //`content` is in DOM and `value` is in Shadow DOM
         this.model  = (this.bindings.content || this.bindings.value).object_;
       }
-      template.model = this.model;
+      this.template.model = this.model;
+
     };
 
     /**
      * Empty xhml content.
      * @TODO clear also siblings for `x-html[currentnode]`
+     * @requires HTMLTemplateElement#clear (https://github.com/Polymer/TemplateBinding/blob/51df59c16e0922dec041cfe604016aac00918d5d/src/TemplateBinding.js#L595)
      * @return {x-html element} self
      */
-    XHTMLPrototype.empty = function(){
+    XHTMLPrototype.clear = function(){
+      return this.template.clear();
       var child;
       while (child = this.firstChild) {
         this.removeChild(child);
