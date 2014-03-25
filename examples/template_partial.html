@@ -16,9 +16,12 @@
 <body>
 
 <template id="test" bind>
+  <template bind="{{ subpage }}" is="x-html" content="{{ subpage.html }}"></template>
+  <!-- You can do it a bit longer if you need:
   <template bind="{{ subpage }}">
-    <x-html content="{{ html }}"></x-html>
+    <template is="x-html" content="{{ html }}"></template>
   </template>
+  -->
 </template>
 
 <script>

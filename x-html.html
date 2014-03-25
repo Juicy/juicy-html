@@ -5,11 +5,6 @@ MIT license
 https://github.com/PuppetJs/x-html
 -->
 <link rel="import" href="../polymer/polymer.html">
-<style>
-x-html[currentnode]{
-  display: none;
-}
-</style>
 <script>
   (function () {
     var XHTMLPrototype = Object.create( (HTMLTemplateElement || HTMLElement ).prototype);
@@ -33,30 +28,20 @@ x-html[currentnode]{
     };
 
     XHTMLPrototype.reattachTemplate_ = function(html) {
-      var template = this.template;
-      if( this.template ){
+      if( this.subTemplate ){
+        // IDEA: or maybe just this.subTempalte.clear()? - to leave lightDOM template untouched (tomalec)
         this.clear();
-      }else{
-        this.template = document.createElement("template");
-      }
-      this.template.setAttribute("bind","");
-      debugger;
-      this.template.innerHTML = html;
-      if( this.getAttribute('currentnode') || this.getAttribute('currentnode')==="" ){
-        this.parentNode.insertBefore(this.template, this.nextSibling);
       } else {
-        this.appendChild( this.template );// = '<template bind>' + html + '</template>';
+        this.subTemplate = document.createElement("template");
       }
-
+      this.subTemplate.setAttribute("bind","");
+      this.subTemplate.innerHTML = html;
+      this.parentNode.insertBefore(this.subTemplate, this.nextSibling);
+      // TODO: do we need this? (tomalec)
       if(window.PolymerExpressions) {
-        this.template.bindingDelegate = new PolymerExpressions; //use PolymerExpressions if available. This allows <template if="{{val == 1}}">, etc
+        this.subTemplate.bindingDelegate = new PolymerExpressions; //use PolymerExpressions if available. This allows <template if="{{val == 1}}">, etc
       }
-
-      if( !this.model && this.bindings ){
-        //`content` is in DOM and `value` is in Shadow DOM
-        this.model  = (this.bindings.content || this.bindings.value).object_;
-      }
-      this.template.model = this.model;
+      this.subTemplate.model = this.model;
 
     };
 
@@ -64,10 +49,11 @@ x-html[currentnode]{
      * Empty xhml content.
      * @TODO clear also siblings for `x-html[currentnode]`
      * @requires HTMLTemplateElement#clear (https://github.com/Polymer/TemplateBinding/blob/51df59c16e0922dec041cfe604016aac00918d5d/src/TemplateBinding.js#L595)
-     * @return {x-html element} self
+     * @extends HTMLTemplateElement.prototype.clear
+     * @return  see HTMLTemplateElement.prototype.clear
      */
     XHTMLPrototype.clear = function(){
-      return this.template.clear();
+      return this.subTemplate.clear() && HTMLTemplateElement.prototype.clear.call(this);
     }
 
 
@@ -88,7 +74,8 @@ x-html[currentnode]{
     };
 
     document.register('x-html', {
-      prototype: XHTMLPrototype
+      prototype: XHTMLPrototype,
+      extends: "template"
     });
   })();
 </script>

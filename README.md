@@ -8,18 +8,16 @@ If you have this:
 ```javascript
 var model = {
   appdata: {
-    username: "World",
-    html: "<h1>Hello {{ username }}</h1>"
-  }  
+    username: "World"
+  },
+  html: "<h1>Hello {{ username }}</h1>"
 }
 ```
 
 You can put it on screen with this:
 
 ```html
-<template bind="{{ appdata }}">
-  <x-html content="{{ html }}"></x-html>
-</template>
+<template is="x-html" bind="{{ appdata }}" content="{{ html }}"></template>
 ```
 
 To produce that:
@@ -52,14 +50,14 @@ Of course, the 2-way data binding provided by works within your partials as desi
 Load HTML partial from a string:
 
 ```
-<x-html content="{{ var }}"></x-html>
+<template is="x-html" content="{{ var }}"></template>
 <!-- where {{ var }} equals "<b>some</b> HTML" -->
 ```
 
 Load HTML partial from a URL:
 
 ```
-<x-html content="{{ var }}"></x-html>
+<template is="x-html" content="{{ var }}"></template>
 <!-- where {{ var }} equals "./path/to/file.html", a path relative to the document that must start with / or ./ -->
 ```
 
@@ -68,7 +66,6 @@ Load HTML partial from a URL:
 Attribute    | Options       | Default          | Description
 ---          | ---           | ---              | ---
 `content`    | *string*		 | `""`				| Safe HTML code, or path to partial to be loaded.
-`currentnode`| *boolean*     | `false`          | Should content be loaded on current node level? (as `<x-html>` sibling)
 
 
 ### Dependencies
@@ -80,10 +77,10 @@ future, it will be library-agnostic.
 
 #### v0.0.?
 
-- `currentnode` attribute added, to put content on current node level - as `<x-html>` sibling,
+- `x-html` now extends `<template>`, so use it as `<template is="x-html">`,
 - Inherit from `HTMLTemplateElement.prototype`,
-- Add content on `<x-html>` level (as in `<template>`),
-- `<x-html>` no longer bother about `<script>`,`<style>`, and `<link type="import">` tags, it delagates this to `<template>`. So you should **be aware of execution order of inline and external scripts**.
+- Content is being added on `x-html` level (as a sibling),
+- `x-html` no longer bother about `<script>`,`<style>`, and `<link type="import">` tags, it delagates this to `<template>`. So you should **be aware of execution order of inline and external scripts**.
 If you still need blocking for dynamically added scripts consider [`<puppet-partial>`](https://github.com/PuppetJs/puppet-partial).
 
 #### v0.0.20140221

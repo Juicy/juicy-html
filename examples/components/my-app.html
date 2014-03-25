@@ -12,8 +12,12 @@
       }
     </style>
     <template bind="{{ viewmodel }}">
-      <x-html content="{{ subpage.html }}"></x-html>
+      <template is="x-html" content="{{ subpage.html }}"></template>
     </template>
+    <!-- This should work, as well:
+    <template bind="{{ viewmodel }}" is="x-html" content="{{ viewmodel.subpage.html }}"></template> 
+    but it don't. Let's leave it fo further investigation. (tomalec)
+    -->
 
   </template>
 
