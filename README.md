@@ -70,6 +70,11 @@ future, it will be library-agnostic.
 
 ### Changelog
 
+#### v0.0.20140326
+
+- Compatibility changes for Polymer 0.2.2 (use element `templateInstance` property instead of `bindings`) (see ticket [#7](https://github.com/PuppetJs/x-html/issues/7))
+- Add "web-components" keyword for [CustomElements.io](http://customelements.io/)
+
 #### v0.0.20140221
 
 - Compatibility changes for Polymer 0.2.0 and Canary
