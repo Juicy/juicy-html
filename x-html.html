@@ -37,7 +37,6 @@ https://github.com/PuppetJs/x-html
       this.subTemplate.setAttribute("bind","");
       this.subTemplate.innerHTML = html;
       this.parentNode.insertBefore(this.subTemplate, this.nextSibling);
-      // TODO: do we need this? (tomalec)
       if(window.PolymerExpressions) {
         this.subTemplate.bindingDelegate = new PolymerExpressions; //use PolymerExpressions if available. This allows <template if="{{val == 1}}">, etc
       }
