@@ -83,6 +83,11 @@ future, it will be library-agnostic.
 - `x-html` no longer bother about `<script>`,`<style>`, and `<link type="import">` tags, it delagates this to `<template>`. So you should **be aware of execution order of inline and external scripts**.
 If you still need blocking for dynamically added scripts consider [`<puppet-partial>`](https://github.com/PuppetJs/puppet-partial).
 
+#### v0.0.20140326
+
+- Compatibility changes for Polymer 0.2.2 (use element `templateInstance` property instead of `bindings`) (see ticket [#7](https://github.com/PuppetJs/x-html/issues/7))
+- Add "web-components" keyword for [CustomElements.io](http://customelements.io/)
+
 #### v0.0.20140221
 
 - Compatibility changes for Polymer 0.2.0 and Canary
