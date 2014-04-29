@@ -77,7 +77,7 @@ future, it will be library-agnostic.
 
 ### Changelog
 
-#### v0.0.?
+#### v0.0.20140429
 
 - `x-html` now extends `<template>`, so use it as `<template is="x-html">`,
 - Inherit from `HTMLTemplateElement.prototype`,
