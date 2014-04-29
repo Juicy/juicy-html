@@ -41,9 +41,11 @@ Your HTML partials can contain:
  - inline scripts using `<script>//JS code here</script>`
  - inline styles using `<style>/*CSS code here*/</style>`
  - external stylesheets using `<link rel="stylesheet" href="path/to/file.css">`, with `href` value relative to the document
- - HTML imports using `<link rel="import" href="path/to/file.html">`, with `href` value relative to the document
+ - external scripts using `<script src="path/relative/to/main/document.js"></script>`
 
 Of course, the 2-way data binding provided by works within your partials as desired.
+
+Pleas note, that `<script>` and `<style>` support is handled by `<template>` itself.
 
 ### Usage
 
@@ -81,7 +83,7 @@ future, it will be library-agnostic.
 - Inherit from `HTMLTemplateElement.prototype`,
 - Content is being added on `x-html` level (as a sibling),
 - `x-html` no longer bother about `<script>`,`<style>`, and `<link type="import">` tags, it delagates this to `<template>`. So you should **be aware of execution order of inline and external scripts**.
-If you still need blocking for dynamically added scripts consider [`<puppet-partial>`](https://github.com/PuppetJs/puppet-partial).
+If you still need blocking for dynamically added scripts consider [`<imported-template>`](https://github.com/PuppetJs/imported-template).
 
 #### v0.0.20140326
 
