@@ -1,13 +1,26 @@
 {
   "name": "x-html",
+  "description": "Custom Element that lets you load HTML partials into your Web Components",
   "version": "0.0.20140326",
+  "homepage": "https://github.com/PuppetJs/x-html",
+  "authors": [
+    "Joachim Wester <joachimwester@me.com>",
+    "Marcin Warpechowski <marcin@nextgen.pl>",
+    "Tomek Wytrebowicz <tomalecpub@gmail.com>"
+  ],
+  "main": "x-html.html",
+  "license": "https://github.com/PuppetJs/x-html/blob/master/LICENSE",
+  "keywords": [
+    "web-components",
+    "partials"
+  ],
+  "ignore": [
+    "examples"
+  ],
   "dependencies": {
     "polymer": "Polymer/polymer#~0.2"
   },
   "devDependencies": {
     "polymer-ui-elements": "Polymer/polymer-ui-elements#~0.2"
-  },
-  "keywords": [
-    "web-components"
-  ]
+  }
 }
