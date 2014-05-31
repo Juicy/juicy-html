@@ -2,13 +2,13 @@
   "name": "x-html",
   "version": "0.0.20140429",
   "description": "`<x-html>` is a custom element that let's you load HTML partials into your Web Components",
-  "homepage": "https://github.com/PuppetJs/x-html",
+  "homepage": "https://github.com/Juicy/x-html",
   "repository": {
     "type": "git",
-    "url": "git://github.com/PuppetJs/x-html.git"
+    "url": "git://github.com/Juicy/x-html.git"
   },
   "bugs": {
-    "url": "https://github.com/PuppetJs/x-html/issues"
+    "url": "https://github.com/Juicy/x-html/issues"
   },
   "author": {
     "name": "Joachim Wester",

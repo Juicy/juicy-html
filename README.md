@@ -26,7 +26,7 @@ To produce that:
 <h1>Hello World</h1>
 ```
 
-Usage examples can be found in [examples](http://puppetjs.github.io/x-html/examples/index.html).
+Usage examples can be found in [examples](http://juicy.github.io/x-html/examples/index.html).
 
 ### Rationale
 
@@ -76,6 +76,10 @@ Attribute    | Options       | Default          | Description
 future, it will be library-agnostic.
 
 ### Changelog
+
+#### v?.?.?
+
+- repo was moved to [Juicy](//github.com/Juicy) organization
 
 #### v0.0.20140429
 

@@ -2,14 +2,14 @@
   "name": "x-html",
   "description": "Custom Element that lets you load HTML partials into your Web Components",
   "version": "0.0.20140429",
-  "homepage": "https://github.com/PuppetJs/x-html",
+  "homepage": "https://github.com/Juicy/x-html",
   "authors": [
     "Joachim Wester <joachimwester@me.com>",
     "Marcin Warpechowski <marcin@nextgen.pl>",
     "Tomek Wytrebowicz <tomalecpub@gmail.com>"
   ],
   "main": "x-html.html",
-  "license": "https://github.com/PuppetJs/x-html/blob/master/LICENSE",
+  "license": "https://github.com/Juicy/x-html/blob/master/LICENSE",
   "keywords": [
     "web-components",
     "partials"
