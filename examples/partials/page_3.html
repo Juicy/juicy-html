@@ -2,11 +2,11 @@
 <template if="{{ subpage.username == 'World' }}">
   <h1>Hello {{subpage.username}}</h1>
 
-  <p>This partial contains polymer-ui-menu</p>
+  <p>This partial contains <code>&lt;core-menu&gt;</code> Custom Element</p>
 
-  <polymer-ui-menu selected="0" theme="polymer-ui-light-theme">
+  <core-menu selected="0" theme="core-light-theme">
     <template repeat="{{subpage.menuItems}}">
-      <polymer-ui-menu-item label="{{label}}" icon="{{icon}}"></polymer-ui-menu-item>
+      <core-item label="{{label}}" icon="{{icon}}"></core-item>
     </template>
-  </polymer-ui-menu>
+  </core-menu>
 </template>

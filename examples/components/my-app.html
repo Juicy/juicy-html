@@ -1,13 +1,14 @@
 <link rel="import" href="../../juicy-html.html">
 
-<link rel="import" href="../../../polymer-ui-menu/polymer-ui-menu.html">
-<link rel="import" href="../../../polymer-ui-menu-item/polymer-ui-menu-item.html">
+
+<link rel="import" href="../../../core-icons/core-icons.html">
+<link rel="import" href="../../../core-menu/core-menu.html">
+<link rel="import" href="../../../core-item/core-item.html">
 <polymer-element name="my-app">
   <template>
 
-    <link rel="stylesheet" href="../../../polymer-ui-base-css/base.css">
     <style>
-      polymer-ui-menu {
+      core-menu {
         width: 300px;
       }
     </style>
@@ -29,8 +30,8 @@
           menuItems: [
             {label: "Item 1", icon: "add"},
             {label: "Item 2", icon: "settings"},
-            {label: "Item 3", icon: "trash"},
-            {label: "Item 4", icon: "briefcase"}
+            {label: "Item 3", icon: "delete"},
+            {label: "Item 4", icon: "work"}
           ],
           html: './partials/page_3.html'
         }
