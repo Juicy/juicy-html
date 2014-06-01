@@ -1,4 +1,4 @@
-<link rel="import" href="../../x-html.html">
+<link rel="import" href="../../juicy-html.html">
 
 <link rel="import" href="../../../polymer-ui-menu/polymer-ui-menu.html">
 <link rel="import" href="../../../polymer-ui-menu-item/polymer-ui-menu-item.html">
@@ -12,10 +12,10 @@
       }
     </style>
     <template bind="{{ viewmodel }}">
-      <template is="x-html" content="{{ subpage.html }}"></template>
+      <template is="juicy-html" content="{{ subpage.html }}"></template>
     </template>
     <!-- This should work, as well:
-    <template bind="{{ viewmodel }}" is="x-html" content="{{ viewmodel.subpage.html }}"></template> 
+    <template bind="{{ viewmodel }}" is="juicy-html" content="{{ viewmodel.subpage.html }}"></template> 
     but it don't. Let's leave it fo further investigation. (tomalec)
     -->
 

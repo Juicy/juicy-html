@@ -1,14 +1,14 @@
 {
-  "name": "x-html",
+  "name": "juicy-html",
   "version": "0.0.20140429",
-  "description": "`<x-html>` is a custom element that let's you load HTML partials into your Web Components",
-  "homepage": "https://github.com/Juicy/x-html",
+  "description": "`<juicy-html>` is a custom element that let's you load HTML partials into your Web Components",
+  "homepage": "https://github.com/Juicy/juicy-html",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Juicy/x-html.git"
+    "url": "git://github.com/Juicy/juicy-html.git"
   },
   "bugs": {
-    "url": "https://github.com/Juicy/x-html/issues"
+    "url": "https://github.com/Juicy/juicy-html/issues"
   },
   "author": {
     "name": "Joachim Wester",
@@ -21,5 +21,5 @@
       "url": "http://www.opensource.org/licenses/MIT"
     }
   ],
-  "main": "./x-html.html"
+  "main": "./juicy-html.html"
 }

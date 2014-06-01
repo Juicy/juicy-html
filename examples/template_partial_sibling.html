@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>&lt;x-html&gt; in a &lt;template&gt; with HTML partial loaded as a sibling</title>
+  <title>&lt;juicy-html&gt; in a &lt;template&gt; with HTML partial loaded as a sibling</title>
   <script src="../../platform/platform.js"></script>
   <link rel="import" href="../../polymer/polymer.html">
-  <link rel="import" href="../x-html.html">
+  <link rel="import" href="../juicy-html.html">
   <style>
     body {
       font-family: Helvetica, Arial, sans-serif;
@@ -19,7 +19,7 @@
   <h2>Hey! those are siblings:</h2>
   <ul>
     <li class="specialExternal">Just plain <code>&lt;li&gt;</code></li>
-    <template is="x-html" content="{{ partial }}" currentnode></template>
+    <template is="juicy-html" content="{{ partial }}" currentnode></template>
   </ul>
 </template>
 

@@ -1,15 +1,15 @@
 <!--
-x-html.html v0.0.20140429
+juicy-html.html v0.0.20140429
 (c) 2013 Joachim Wester
 MIT license
-https://github.com/Juicy/x-html
+https://github.com/Juicy/juicy-html
 -->
 <link rel="import" href="../polymer/polymer.html">
 <script>
   (function () {
-    var XHTMLPrototype = Object.create( (HTMLTemplateElement || HTMLElement ).prototype);
+    var JuicyHTMLPrototype = Object.create( (HTMLTemplateElement || HTMLElement ).prototype);
 
-    XHTMLPrototype.loadTemplate_ = function() {
+    JuicyHTMLPrototype.loadTemplate_ = function() {
       var val = this.getAttribute('content');
       if (val && (val.indexOf('/') === 0 || val.indexOf('./') === 0)) {
         //val is a URL, load the partial from the HTTP server/cache
@@ -27,7 +27,7 @@ https://github.com/Juicy/x-html
       }
     };
 
-    XHTMLPrototype.reattachTemplate_ = function(html) {
+    JuicyHTMLPrototype.reattachTemplate_ = function(html) {
       if( this.subTemplate ){
         // IDEA: or maybe just this.subTempalte.clear()? - to leave lightDOM template untouched (tomalec)
         this.clear();
@@ -46,17 +46,17 @@ https://github.com/Juicy/x-html
 
     /**
      * Empty xhml content.
-     * @TODO clear also siblings for `x-html[currentnode]`
+     * @TODO clear also siblings for `juicy-html[currentnode]`
      * @requires HTMLTemplateElement#clear (https://github.com/Polymer/TemplateBinding/blob/51df59c16e0922dec041cfe604016aac00918d5d/src/TemplateBinding.js#L595)
      * @extends HTMLTemplateElement.prototype.clear
      * @return  see HTMLTemplateElement.prototype.clear
      */
-    XHTMLPrototype.clear = function(){
+    JuicyHTMLPrototype.clear = function(){
       return this.subTemplate.clear() && HTMLTemplateElement.prototype.clear.call(this);
     }
 
 
-    XHTMLPrototype.attachedCallback = function () {
+    JuicyHTMLPrototype.attachedCallback = function () {
       var that = this;
       this.loadTemplate_();
 
@@ -72,8 +72,8 @@ https://github.com/Juicy/x-html
       });
     };
 
-    document.register('x-html', {
-      prototype: XHTMLPrototype,
+    document.register('juicy-html', {
+      prototype: JuicyHTMLPrototype,
       extends: "template"
     });
   })();

@@ -1,7 +1,7 @@
-&lt;x-html&gt;
+&lt;juicy-html&gt;
 ==============
 
-`<x-html>` is a custom element that lets you load HTML partials into your Web Components
+`<juicy-html>` is a custom element that lets you load HTML partials into your Web Components
 
 If you have this:
 
@@ -17,7 +17,7 @@ var model = {
 You can put it on screen with this:
 
 ```html
-<template is="x-html" bind="{{ appdata }}" content="{{ html }}"></template>
+<template is="juicy-html" bind="{{ appdata }}" content="{{ html }}"></template>
 ```
 
 To produce that:
@@ -26,11 +26,11 @@ To produce that:
 <h1>Hello World</h1>
 ```
 
-Usage examples can be found in [examples](http://juicy.github.io/x-html/examples/index.html).
+Usage examples can be found in [examples](http://juicy.github.io/juicy-html/examples/index.html).
 
 ### Rationale
 
-`x-html` exists because in [Polymer](http://www.polymer-project.org/) there is no built-in way to insert a `<template>` model variable as HTML (Polymer inserts every string as plain text).
+`juicy-html` exists because in [Polymer](http://www.polymer-project.org/) there is no built-in way to insert a `<template>` model variable as HTML (Polymer inserts every string as plain text).
 
 AngularJS has a way to do it ([ngBindHtml](http://docs.angularjs.org/api/ng.directive:ngBindHtml)) so hopefully one day Polymer gets that too and this project will become obsolete.
 
@@ -52,14 +52,14 @@ Pleas note, that `<script>` and `<style>` support is handled by `<template>` its
 Load HTML partial from a string:
 
 ```
-<template is="x-html" content="{{ var }}"></template>
+<template is="juicy-html" content="{{ var }}"></template>
 <!-- where {{ var }} equals "<b>some</b> HTML" -->
 ```
 
 Load HTML partial from a URL:
 
 ```
-<template is="x-html" content="{{ var }}"></template>
+<template is="juicy-html" content="{{ var }}"></template>
 <!-- where {{ var }} equals "./path/to/file.html", a path relative to the document that must start with / or ./ -->
 ```
 
@@ -72,14 +72,14 @@ Attribute    | Options       | Default          | Description
 
 ### Dependencies
 
-`<x-html>` is dependent on [Polymer](http://www.polymer-project.org/) as a polyfill for Web Components APIs. In
+`<juicy-html>` is dependent on [Polymer](http://www.polymer-project.org/) as a polyfill for Web Components APIs. In
 future, it will be library-agnostic.
 
 ### Changelog
 
 #### v?.?.?
 
-- repo was moved to [Juicy](//github.com/Juicy) organization
+- repo was moved and renamed to [Juicy/juicy-html](//github.com/Juicy/juicy-html)
 
 #### v0.0.20140429
 
