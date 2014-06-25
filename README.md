@@ -26,7 +26,9 @@ To produce that:
 <h1>Hello World</h1>
 ```
 
-Usage examples can be found in [examples](http://juicy.github.io/juicy-html/examples/index.html).
+## Demo
+
+[Live examples](http://Juicy.github.io/juicy-html)
 
 ### Rationale
 
