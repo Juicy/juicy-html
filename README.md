@@ -42,26 +42,42 @@ Your HTML partials can contain:
  - inline styles using `<style>/*CSS code here*/</style>`
  - external stylesheets using `<link rel="stylesheet" href="path/to/file.css">`, with `href` value relative to the document
  - external scripts using `<script src="path/relative/to/main/document.js"></script>`
+ - native, regular, inline `<template>` features (binding, attributes, etc.)
 
 Of course, the 2-way data binding provided by works within your partials as desired.
 
 Pleas note, that `<script>` and `<style>` support is handled by `<template>` itself.
 
-### Usage
 
-Load HTML partial from a string:
+## Usage
 
-```
-<template is="juicy-html" content="{{ var }}"></template>
-<!-- where {{ var }} equals "<b>some</b> HTML" -->
-```
+1. Import Web Components' polyfill:
 
-Load HTML partial from a URL:
+    ```html
+    <script src="bower_components/platform/platform.js"></script>
+    ```
 
-```
-<template is="juicy-html" content="{{ var }}"></template>
-<!-- where {{ var }} equals "./path/to/file.html", a path relative to the document that must start with / or ./ -->
-```
+2. Import Custom Element:
+
+    ```html
+    <link rel="import" href="bower_components/juicy-html/juicy-html.html">
+    ```
+
+3. Start using it!
+
+	Load HTML partial from a string:
+
+	```html
+	<template is="juicy-html" content="{{ var }}"></template>
+	<!-- where {{ var }} equals "<b>some</b> HTML" -->
+	```
+
+	Load HTML partial from a URL:
+
+	```html
+	<template is="juicy-html" content="{{ var }}"></template>
+	<!-- where {{ var }} equals "./path/to/file.html", a path relative to the document that must start with / or ./ -->
+	```
 
 ## Options/Attributes
 

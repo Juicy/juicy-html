@@ -34,7 +34,9 @@ https://github.com/Juicy/juicy-html
       } else {
         this.subTemplate = document.createElement("template");
       }
-      this.subTemplate.setAttribute("bind","");
+      this.subTemplate.setAttribute("bind", this.getAttribute("bind") || "");
+      this.subTemplate.setAttribute("repeat", this.getAttribute("repeat") );
+      this.subTemplate.setAttribute("if", this.getAttribute("if") );
       this.subTemplate.innerHTML = html;
       this.parentNode.insertBefore(this.subTemplate, this.nextSibling);
       if(window.PolymerExpressions) {
@@ -70,6 +72,8 @@ https://github.com/Juicy/juicy-html
       observer.observe(this, {
         attributes: true
       });
+
+      return true;
     };
 
     document.register('juicy-html', {
