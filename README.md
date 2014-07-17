@@ -95,9 +95,10 @@ future, it will be library-agnostic.
 
 ### Changelog
 
-#### v?.?.?
+#### v0.0.20140717
 
 - repo was moved and renamed to [Juicy/juicy-html](//github.com/Juicy/juicy-html)
+- most of `<template>` (Polymer's Template Binding) features are now also supported
 
 #### v0.0.20140429
 
