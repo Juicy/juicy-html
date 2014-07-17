@@ -17,6 +17,12 @@
     h2 > code{
       font-size: 1em;
     }
+    .code{
+      width: 100%;
+    }
+    .example{
+      display: flex;
+    }
   </style>
 </head>
 <body class="markdown-body">
@@ -26,9 +32,21 @@
 
 <template id="demo" bind>
   <h2>Regular template content</h2>
-  <template is="juicy-html" content="{{ example1.html }}" bind>
-    I also work as native template with <em>{{example1.mustaches}}</em>.
-  </template>
+  <section class="example">
+    <div class="demo">
+      <template is="juicy-html" content="{{ example1.html }}" bind>
+        I also work as native template with <em>{{example1.mustaches}}</em>.
+      </template>
+    </div>
+    <div class="code">
+      <pre>
+&lt;template is="juicy-html" content="{&#8203;{ example1.html }}" bind&gt;
+  I also work as native template with &lt;em&gt;{{example1.mustaches}}&lt;/em&gt;.
+&lt;/template&gt;</pre>
+      <h4>example1.html:</h4>
+      <textarea value="{{example1.html}}" class="code"></textarea>
+    </div>
+  </section>
 
   <h2><code>bind="{&#8203;{scope}}"</code> attribute</h2>
   <template is="juicy-html" content="{{ example2.html }}" bind="{{example2}}">
