@@ -97,7 +97,7 @@ future, it will be library-agnostic.
 
 #### v0.0.20140720
 
- - Polymer moved to dev dependencies, Platform polyfills are the only dependency.
+ - Polymer dependency, Platform polyfills are the only dependency. Polymer is indirectly used as devDependency for core-menu demos.
 
 #### v0.0.20140717
 
