@@ -95,6 +95,10 @@ future, it will be library-agnostic.
 
 ### Changelog
 
+#### v0.0.20140720
+
+ - Polymer moved to dev dependencies, Platform polyfills are the only dependency.
+
 #### v0.0.20140717
 
 - repo was moved and renamed to [Juicy/juicy-html](//github.com/Juicy/juicy-html)
