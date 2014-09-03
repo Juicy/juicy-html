@@ -1,7 +1,7 @@
 &lt;juicy-html&gt;
 ==============
 
-`<juicy-html>` is a custom element that lets you load HTML partials into your Web Components
+`<juicy-html>` is a custom element that lets you load (inline & external) HTML partials into your Web Components
 
 If you have this:
 
@@ -10,7 +10,7 @@ var model = {
   appdata: {
     username: "World"
   },
-  html: "<h1>Hello {{ username }}</h1>"
+  html: "<h1>Hello {{ username }}</h1>" // or "./path/to/hello.html"
 }
 ```
 
