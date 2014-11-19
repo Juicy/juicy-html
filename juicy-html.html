@@ -54,7 +54,7 @@ https://github.com/Juicy/juicy-html
      */
     JuicyHTMLPrototype.clear = function(){
       return this.subTemplate.clear() && HTMLTemplateElement.prototype.clear.call(this);
-    }
+    };
 
 
     JuicyHTMLPrototype.attachedCallback = function () {
@@ -75,7 +75,7 @@ https://github.com/Juicy/juicy-html
       return true;
     };
 
-    document.register('juicy-html', {
+    document.registerElement('juicy-html', {
       prototype: JuicyHTMLPrototype,
       extends: "template"
     });
