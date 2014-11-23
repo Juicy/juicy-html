@@ -18,7 +18,7 @@
     "examples"
   ],
   "dependencies": {
-    "polymer-platform": "~0.3.4"
+    "polymer": "Polymer/polymer#~0.5"
   },
   "devDependencies": {
     "core-menu": "Polymer/core-menu",
