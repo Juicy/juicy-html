@@ -91,7 +91,9 @@
       html: "Both <code>content</code>"
     }
   };
-  document.getElementById('demo').model = model;
+  document.addEventListener("polymer-ready", function(){
+    document.getElementById('demo').model = model;
+  });
 </script>
 
 </body>

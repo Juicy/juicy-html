@@ -57,22 +57,18 @@ https://github.com/Juicy/juicy-html
       return this.subTemplate.clear() && HTMLTemplateElement.prototype.clear.call(this);
     };
 
+    JuicyHTMLPrototype.isAttached = false;
     JuicyHTMLPrototype.attachedCallback = function () {
-      var that = this;
+      this.isAttached = true;
       this.loadTemplate_();
-
-      var observer = new MutationObserver(function (mutations) {
-        mutations.forEach(function (mutation) {
-          if (mutation.type === "attributes" && mutation.attributeName === "content") {
-            that.loadTemplate_();
-          }
-        });
-      });
-      observer.observe(this, {
-        attributes: true
-      });
-
-      return true;
+    };
+    JuicyHTMLPrototype.detachedCallback = function(){
+      this.isAttached = false;
+    };
+    JuicyHTMLPrototype.attributeChangedCallback = function(name, oldVal, newVal){
+      if(this.isAttached && name === "content") {
+        this.loadTemplate_();
+      }
     };
 
     document.registerElement('juicy-html', {
