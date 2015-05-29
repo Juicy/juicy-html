@@ -3,7 +3,7 @@
 
 `<juicy-html>` is a custom element that lets you load (inline & external) HTML partials into your Web Components
 
-If you have this:
+If you have data like this:
 
 ```javascript
 var model = {
@@ -17,7 +17,7 @@ var model = {
 You can put it on screen with this:
 
 ```html
-<template is="juicy-html" bind="{{ appdata }}" content="{{ html }}"></template>
+<template is="juicy-html" bind="{{ appdata }}" content$="{{ html }}"></template>
 ```
 
 To produce that:
@@ -91,7 +91,7 @@ Attribute    | Options       | Default          | Description
 ### Dependencies
 
 `<juicy-html>` is dependent on [Polymer](http://www.polymer-project.org/) as a polyfill for Web Components APIs. In
-future, it will be library-agnostic.
+future, it will be library-agnostic. It is also used as `{{ }}` binding library, if needed.
 
 ## Contributing
 

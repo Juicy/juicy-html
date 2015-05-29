@@ -32,8 +32,10 @@ https://github.com/Juicy/juicy-html
         // IDEA: or maybe just this.subTempalte.clear()? - to leave lightDOM template untouched (tomalec)
         this.clear();
       } else {
-        this.subTemplate = document.createElement("template");
+        // IDEA: Here comes dependency on Polymer, maybe we could separate it out of entire library (tomalec)
+        this.subTemplate = document.createElement("template", "dom-bind");
       }
+      debugger
       this.subTemplate.setAttribute("bind", this.getAttribute("bind") || "");
       this.subTemplate.setAttribute("repeat", this.getAttribute("repeat") );
       this.subTemplate.setAttribute("if", this.getAttribute("if") );

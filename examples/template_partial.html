@@ -14,8 +14,8 @@
 </head>
 <body>
 
-<template id="test" bind>
-  <template bind="{{ subpage }}" is="juicy-html" content="{{ subpage.html }}"></template>
+<template id="test" is="dom-bind">
+  <template bind="{{ model.subpage }}" is="juicy-html" content$="{{ model.subpage.html }}"></template>
   <!-- You can do it a bit longer if you need:
   <template bind="{{ subpage }}">
     <template is="juicy-html" content="{{ html }}"></template>

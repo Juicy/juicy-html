@@ -2,11 +2,11 @@
 <template if="{{ subpage.username == 'World' }}">
   <h1>Hello {{subpage.username}}</h1>
 
-  <p>This partial contains <code>&lt;core-menu&gt;</code> Custom Element</p>
+  <p>This partial contains <code>&lt;paper-menu&gt;</code> Custom Element</p>
 
-  <core-menu selected="0" theme="core-light-theme">
+  <paper-menu selected="0" theme="paper-light-theme">
     <template repeat="{{subpage.menuItems}}">
-      <core-item label="{{label}}" icon="{{icon}}"></core-item>
+      <paper-menu-button label="{{label}}" icon="{{icon}}"></paper-menu-button>
     </template>
-  </core-menu>
+  </paper-menu>
 </template>

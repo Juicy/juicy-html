@@ -29,38 +29,38 @@
   <p><code>&lt;juicy-html&gt;</code> features could be easily mixed with native <code>&lt;template&gt;</code> ones.</p>
 
 
-<template id="demo" bind>
+<template id="demo" is="dom-bind">
   <h2>Regular template content</h2>
   <section class="example">
     <div class="demo">
-      <template is="juicy-html" content="{{ example1.html }}" bind>
-        I also work as native template with <em>{{example1.mustaches}}</em>.
+      <template is="juicy-html" content$="{{ model.example1.html }}" bind>
+        I also work as native template with <em>{{model.example1.mustaches}}</em>.
       </template>
     </div>
     <div class="code">
       <pre>
-&lt;template is="juicy-html" content="{&#8203;{ example1.html }}" bind&gt;
-  I also work as native template with &lt;em&gt;{{example1.mustaches}}&lt;/em&gt;.
+&lt;template is="juicy-html" content$="{&#8203;{ model.example1.html }}" bind&gt;
+  I also work as native template with &lt;em&gt;{{model.example1.mustaches}}&lt;/em&gt;.
 &lt;/template&gt;</pre>
-      <h4>example1.html:</h4>
-      <textarea value="{{example1.html}}" class="code"></textarea>
+      <h4>model.example1.html:</h4>
+      <textarea value="{{model.example1.html}}" class="code"></textarea>
     </div>
   </section>
 
   <h2><code>bind="{&#8203;{scope}}"</code> attribute</h2>
-  <template is="juicy-html" content="{{ example2.html }}" bind="{{example2}}">
+  <template is="juicy-html" content$="{{ model.example2.html }}" bind="{{model.example2}}">
     with <em>{{mustaches}}</em>.
   </template>
 
   <h2><code>repeat="{&#8203;{list}}"</code> attribute</h2>
   <ul>
-    <template is="juicy-html" content="{{ example3.html }}" repeat="{{example3.list}}">
+    <template is="juicy-html" content$="{{ model.example3.html }}" repeat="{{model.example3.list}}">
       <li>List item from regular template: <em>{{name}}</em>.</li>
     </template>
   </ul>
 
   <h2><code>if="{&#8203;{condition}}"</code> attribute</h2>
-  <template is="juicy-html" content="{{ example4.html }}" bind if="{{ example4.visible }}">
+  <template is="juicy-html" content$="{{ model.example4.html }}" bind if="{{ model.example4.visible }}">
     and regular template stuff.
   </template>
   will be visible as long as <em><code>model.example4.visible</code></em> is set to <code>true</code>. Feel free to edit it in your console.

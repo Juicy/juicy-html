@@ -14,11 +14,11 @@
 </head>
 <body>
 
-<template id="test" bind>
+<template id="test" is="dom-bind">
   <h2>Hey! those are siblings:</h2>
   <ul>
     <li class="specialExternal">Just plain <code>&lt;li&gt;</code></li>
-    <template is="juicy-html" content="{{ partial }}" currentnode></template>
+    <template is="juicy-html" content$="{{ model.partial }}" currentnode></template>
   </ul>
 </template>
 

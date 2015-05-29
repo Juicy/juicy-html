@@ -18,11 +18,10 @@
     "examples"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5"
+    "polymer": "Polymer/polymer#~1.0.0"
   },
   "devDependencies": {
-    "core-menu": "Polymer/core-menu",
-    "core-item": "Polymer/core-item",
-    "core-icon": "Polymer/core-icon"
+    "paper-menu": "PolymerElements/paper-menu",
+    "paper-menu-button": "PolymerElements/paper-menu-button"
   }
 }

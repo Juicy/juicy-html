@@ -16,8 +16,11 @@
 <body>
 <code>&lt;template is="juicy-html" content="./partials/basic.html"&gt;&lt;/template&gt;</code>:
 <template is="juicy-html" content="./partials/basic.html"></template>
+<!-- 
+Since Polymer 1.0.0 TemplateBinding was replaced with `dom-bind` which stamps automatically, so we no longer need to attach any model
 <script>
   document.querySelector('template').model = {};
-</script>
+</script> 
+-->
 </body>
 </html>
