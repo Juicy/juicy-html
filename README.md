@@ -1,7 +1,7 @@
 &lt;juicy-html&gt;
 ==============
 
-`<juicy-html>` is a custom element that lets you load HTML partials from JS objects and external files into your DOM. It also keep Polymer Template Binding work for your partial internals.
+`<juicy-html>` is a custom element that lets you load HTML partials from JS objects and external files into your DOM. It acts more or less, as `include` statement known in many other languages. It also keep Polymer Template Binding work for your partial internals.
 
 ### External files
 To load HTML from external file all you need is: 
