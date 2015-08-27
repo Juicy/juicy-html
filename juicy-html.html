@@ -1,14 +1,23 @@
 <!--
 juicy-html.html v0.0.20141119
-(c) 2013 Joachim Wester
+(c) 2013-2015 Juicy
 MIT license
 https://github.com/Juicy/juicy-html
 -->
-<link rel="import" href="../polymer/polymer.html">
 <script>
   (function () {
+    function attachModels(arrayOfElements, model){
+      if(model === null){
+          return;
+      }
+      for(var childNo = 0; childNo < arrayOfElements.length; childNo++){
+        arrayOfElements[childNo].model = model;
+      }
+    }
     var JuicyHTMLPrototype = Object.create( (HTMLTemplateElement || HTMLElement ).prototype);
 
+    JuicyHTMLPrototype.model = null;
+    JuicyHTMLPrototype.stampedNodes = null;
     JuicyHTMLPrototype.loadTemplate_ = function() {
       var val = this.getAttribute('content');
       if (val && (val.indexOf('/') === 0 || val.indexOf('./') === 0)) {
@@ -28,35 +37,27 @@ https://github.com/Juicy/juicy-html
     };
 
     JuicyHTMLPrototype.reattachTemplate_ = function(html) {
-      if( this.subTemplate ){
-        // IDEA: or maybe just this.subTempalte.clear()? - to leave lightDOM template untouched (tomalec)
-        this.clear();
-      } else {
-        // IDEA: Here comes dependency on Polymer, maybe we could separate it out of entire library (tomalec)
-        this.subTemplate = document.createElement("template", "dom-bind");
-      }
-      debugger
-      this.subTemplate.setAttribute("bind", this.getAttribute("bind") || "");
-      this.subTemplate.setAttribute("repeat", this.getAttribute("repeat") );
-      this.subTemplate.setAttribute("if", this.getAttribute("if") );
-      this.subTemplate.innerHTML = html;
-      this.parentNode.insertBefore(this.subTemplate, this.nextSibling);
-      if(window.PolymerExpressions) {
-        this.subTemplate.bindingDelegate = new PolymerExpressions; //use PolymerExpressions if available. This allows <template if="{{val == 1}}">, etc
-      }
-      this.subTemplate.model = this.model;
+      this.clear();
+      // fragmentFromString(strHTML) from http://stackoverflow.com/a/25214113/868184
+      var fragment = document.createRange().createContextualFragment(html);
+      // convert dynamic NodeList to regullar array
+      this.stampedNodes = Array.prototype.slice.call(fragment.childNodes);
+      // attach models
+      this.attributeChangedCallback("model", undefined, this.model || this.getAttribute("model"));
+      this.parentNode.insertBefore(fragment, this.nextSibling);
 
     };
 
     /**
-     * Empty xhml content.
-     * @TODO clear also siblings for `juicy-html[currentnode]`
-     * @requires HTMLTemplateElement#clear (https://github.com/Polymer/TemplateBinding/blob/51df59c16e0922dec041cfe604016aac00918d5d/src/TemplateBinding.js#L595)
-     * @extends HTMLTemplateElement.prototype.clear
-     * @return  see HTMLTemplateElement.prototype.clear
+     * Remove stamped content.
      */
     JuicyHTMLPrototype.clear = function(){
-      return this.subTemplate.clear() && HTMLTemplateElement.prototype.clear.call(this);
+      var parent = this.parentNode;
+      var childNo = this.stampedNodes && this.stampedNodes.length || 0;
+      while(childNo--){
+        // this.stampedNodes[childNo].remove();
+        parent.removeChild(this.stampedNodes[childNo]);
+      }
     };
 
     JuicyHTMLPrototype.isAttached = false;
@@ -68,8 +69,20 @@ https://github.com/Juicy/juicy-html
       this.isAttached = false;
     };
     JuicyHTMLPrototype.attributeChangedCallback = function(name, oldVal, newVal){
-      if(this.isAttached && name === "content") {
-        this.loadTemplate_();
+      if(this.isAttached){
+          switch(name){
+              case "model":
+                if(typeof newVal === "string"){
+                    this.model = newVal ? JSON.parse(newVal) : null;
+                } else {
+                    this.model = newVal;
+                }
+                attachModels(this.stampedNodes, this.model);
+                break;
+              case "content":
+                this.loadTemplate_();
+                break;
+          }
       }
     };
 

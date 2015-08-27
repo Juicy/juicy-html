@@ -4,23 +4,19 @@
   <meta charset="utf-8">
   <title>&lt;juicy-html&gt; basic partial from file</title>
   <script src="../../webcomponentsjs/webcomponents.js"></script>
-  <link rel="import" href="../../polymer/polymer.html">
+  <link rel="stylesheet" href="//juicy.github.io/juicy-tile-list/examples/github-markdown.css">
   <link rel="import" href="../juicy-html.html">
   <style>
     body {
       font-family: Helvetica, Arial, sans-serif;
       color: #333;
+      padding: 2em;
     }
   </style>
 </head>
-<body>
-<code>&lt;template is="juicy-html" content="./partials/basic.html"&gt;&lt;/template&gt;</code>:
+<body class="markdown-body">
 <template is="juicy-html" content="./partials/basic.html"></template>
-<!-- 
-Since Polymer 1.0.0 TemplateBinding was replaced with `dom-bind` which stamps automatically, so we no longer need to attach any model
-<script>
-  document.querySelector('template').model = {};
-</script> 
--->
+<h2>code</h2>
+<pre><code>&lt;template is="juicy-html" content="./partials/basic.html"&gt;&lt;/template&gt;</code></pre>
 </body>
 </html>

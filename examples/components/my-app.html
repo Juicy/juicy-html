@@ -1,3 +1,5 @@
+
+<link rel="import" href="../../../polymer/polymer.html">
 <link rel="import" href="../../juicy-html.html">
 
 
@@ -6,18 +8,15 @@
 <link rel="import" href="../../../paper-item/paper-item.html"> -->
 <dom-module id="my-app">
   <template>
-    <h1>PolymerElements are disabled as they does not work in Polymer 1.0.0.</h1>
-    <tiny>mmm...ah. Google I/O marketing</tiny>
     <h2>My-app custom element</h2>
-    <tiny>with polymer template binding which now requires a tons of configuration</tiny>
     <style>
       paper-menu {
         width: 300px;
       }
     </style>
-    <template is="juicy-html" content="{{ viewmodel.html }}"></template>
+    <template is="juicy-html" content$="{{viewmodel.html}}" model="{{viewmodel}}"></template>
     <!-- This should work, as well:
-    <template bind="{{ viewmodel }}" is="juicy-html" content$="{{viewmodel.subpage.html}}"></template> 
+    <template bind="{{ viewmodel }}" is="juicy-html" content$="{{viewmodel.subpage.html}}"></template>
     but it don't. Let's leave it fo further investigation. (tomalec)
     -->
 
@@ -26,7 +25,7 @@
 <script>
   Polymer({
     is: "my-app",
-   
+
     ready: function() {
       this.viewmodel= {
         username: 'World',
@@ -39,6 +38,6 @@
         html: './partials/page_3.html'
       }
     }
-      
+
   });
 </script>

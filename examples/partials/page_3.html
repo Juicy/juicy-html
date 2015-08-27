@@ -1,12 +1,11 @@
-<!-- conditional will only work if template bindingDelegate is PolymerExpressions -->
-<template if="{{ subpage.username == 'World' }}">
-  <h1>Hello {{subpage.username}}</h1>
+<dom-template>
+    <h1>Hello <span>{{model.username}}</span></h1>
 
-  <p>This partial contains <code>&lt;paper-menu&gt;</code> Custom Element</p>
+    <p>This partial contains <code>&lt;paper-menu&gt;</code> Custom Element</p>
 
-  <paper-menu selected="0" theme="paper-light-theme">
-    <template repeat="{{subpage.menuItems}}">
-      <paper-menu-button label="{{label}}" icon="{{icon}}"></paper-menu-button>
-    </template>
-  </paper-menu>
-</template>
+    <paper-menu selected="0" theme="paper-light-theme">
+        <dom-repeat items="{{model.menuItems}}">
+            <paper-menu-button label="{{item.label}}" icon="{{item.icon}}"></paper-menu-button>
+        </template>
+    </paper-menu>
+</dom-template>

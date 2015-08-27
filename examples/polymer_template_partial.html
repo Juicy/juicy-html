@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>&lt;juicy-html&gt; in a &lt;template&gt; with HTML partial loaded from a file</title>
+    <script src="../../webcomponentsjs/webcomponents.js"></script>
+
+    <link rel="import" href="../juicy-html.html">
+    <link rel="import" href="../../polymer/polymer.html">
+
+    <style>
+        body {
+          font-family: Helvetica, Arial, sans-serif;
+          color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<template id="test" is="dom-bind">
+    <template model="{{model.subpage}}" is="juicy-html" content$="{{model.subpage.html}}"></template>
+</template>
+
+<script>
+    var model = {
+        subpage: {
+            username: "World",
+            html: "./partials/page_1.html"
+        }
+    };
+    document.getElementById('test').model = model;
+</script>
+
+</body>
+</html>

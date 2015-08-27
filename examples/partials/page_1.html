@@ -1,6 +1,6 @@
-<h1>Hello {{username}}</h1>
+<template is="dom-bind"><h1>Hello <span>{{model.username}}</span></h1></template>
 <p>This is the Page 1.
-  <button onclick="document.getElementById('test').model.subpage.html = './partials/page_2.html'">Press here</button>
+  <button onclick="document.getElementById('test').set('model.subpage.html', './partials/page_2.html')">Press here</button>
   to replace the template with Page 2
 </p>
 
