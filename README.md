@@ -44,9 +44,9 @@ HTML may naturally be provided from external file, and `model` can be provided u
 
 ### Rationale
 
-`juicy-html` provides a way to extend native `<template>`'s feature to be able to load content from outside (external file, data server, etc.).
+`juicy-html` provides a way to extend native [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)'s feature to be able to load content from outside (external file, data server, etc.).
 
-It was started as an addition to [Polymer](http://www.polymer-project.org/)'s template binding, as there is no built-in way to insert a `<template>`'s model variable as HTML (Polymer inserts every string as plain text), AngularJS has a way to do it ([ngBindHtml](http://docs.angularjs.org/api/ng.directive:ngBindHtml)) so we found it convinient to do so in Polymer.
+It was started as an addition to [Polymer](http://www.polymer-project.org/)'s template binding, as there is no built-in way to insert a `<template>`'s model variable as HTML (Polymer inserts every string as plain text), AngularJS has a way to do it ([ngBindHtml](http://docs.angularjs.org/api/ng.directive:ngBindHtml)) so we found it convenient to do so in Polymer.
 
 Currently it plain JavaScript, library agnostic custom element, that should work fine with any kind of binding, or none - as simple way to include HTML content from outside.
 
