@@ -18,9 +18,9 @@
     "examples"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~1.0.0"
   },
   "devDependencies": {
+    "polymer": "Polymer/polymer#~1.1.0",
     "paper-menu": "PolymerElements/paper-menu",
     "paper-menu-button": "PolymerElements/paper-menu-button"
   }
