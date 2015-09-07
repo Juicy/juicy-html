@@ -59,9 +59,11 @@ https://github.com/Juicy/juicy-html
     JuicyHTMLPrototype.clear = function(){
       var parent = this.parentNode;
       var childNo = this.stampedNodes && this.stampedNodes.length || 0;
+      var child;
       while(childNo--){
         // this.stampedNodes[childNo].remove();
-        parent.removeChild(this.stampedNodes[childNo]);
+        child = this.stampedNodes[childNo];
+        child.parentNode.removeChild(child);
       }
     };
 

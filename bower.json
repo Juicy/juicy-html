@@ -17,7 +17,9 @@
      "web-components"
   ],
   "ignore": [
-    "examples"
+    "examples",
+    "index.html",
+    ".gitignore"
   ],
   "dependencies": {
   },
