@@ -100,7 +100,19 @@ Please note, that loaded `<script>` and `<style>` will be executed every time HT
 Attribute           | Options         | Default     | Description
 ---                 | ---             | ---         | ---
 `content`           | *string*		  | `""`	    | Safe HTML code, or path to partial to be loaded.
-`model`(_optional_) | *Object|String* | `undefined` | Object (or `JSON.stringify`'ied Object) to be attached to everyroot node of loaded document
+`model`(_optional_) | *Object|String* | `undefined` | Object (or `JSON.stringify`'ied Object) to be attached to every root node of loaded document
+
+## Properties
+
+Property | Type     | Default     | Description
+---      | ---      | ---         | ---
+`model`  | *Object* | `undefined` | see above
+
+## Events
+
+Name      | details            | Description
+---       | ---                | ---
+`stamped` | *Array* of *Node* s | Trigger every time content is (re-)stamped, with array of stamped nodes in `event.detail`
 
 
 ### Dependencies

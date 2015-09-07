@@ -49,6 +49,7 @@ https://github.com/Juicy/juicy-html
       // attach models
       this.attributeChangedCallback("model", undefined, this.model || this.getAttribute("model"));
       this.parentNode.insertBefore(fragment, this.nextSibling);
+      this.dispatchEvent(new CustomEvent("stamped", {detail: this.stampedNodes}));
 
     };
 
