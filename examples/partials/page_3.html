@@ -1,11 +1,14 @@
-<dom-template>
-    <h1>Hello <span>{{model.username}}</span></h1>
+<!-- <template is="dom-template"> -->
+    <h1>Hello <span>{{username}}</span></h1>
 
     <p>This partial contains <code>&lt;paper-menu&gt;</code> Custom Element</p>
 
     <paper-menu selected="0" theme="paper-light-theme">
-        <dom-repeat items="{{model.menuItems}}">
-            <paper-menu-button label="{{item.label}}" icon="{{item.icon}}"></paper-menu-button>
+        <template is="dom-repeat" items="{{menuItems}}">
+            <paper-item>
+              <iron-icon icon="{{item.icon}}"></iron-icon>
+              <paper-item-body>{{item.label}}</paper-item-body>
+            </paper-item>
         </template>
     </paper-menu>
-</dom-template>
+<!-- </template> -->

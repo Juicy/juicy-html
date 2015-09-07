@@ -5,18 +5,22 @@ MIT license
 https://github.com/Juicy/juicy-html
 -->
 <script>
-  (function () {
-    function attachModels(arrayOfElements, model){
-      if(model === null){
-          return;
-      }
-      for(var childNo = 0; childNo < arrayOfElements.length; childNo++){
-        arrayOfElements[childNo].model = model;
-      }
-    }
+  (function (scope) {
     var JuicyHTMLPrototype = Object.create( (HTMLTemplateElement || HTMLElement ).prototype);
 
-    JuicyHTMLPrototype.model = null;
+
+    JuicyHTMLPrototype.createdCallback = function(){
+        var model = null;
+        Object.defineProperty(this, "model",{
+            set: function(newValue){
+                model = newValue;
+                this.attachModel(newValue);
+            },
+            get: function(){
+             return model;
+            }
+        });
+    };
     JuicyHTMLPrototype.stampedNodes = null;
     JuicyHTMLPrototype.loadTemplate_ = function() {
       var val = this.getAttribute('content');
@@ -67,17 +71,16 @@ https://github.com/Juicy/juicy-html
     };
     JuicyHTMLPrototype.detachedCallback = function(){
       this.isAttached = false;
+      this.clear();
     };
     JuicyHTMLPrototype.attributeChangedCallback = function(name, oldVal, newVal){
       if(this.isAttached){
           switch(name){
               case "model":
-                if(typeof newVal === "string"){
-                    this.model = newVal ? JSON.parse(newVal) : null;
-                } else {
-                    this.model = newVal;
+                if (typeof newVal === "string") {
+                    newVal = newVal ? JSON.parse(newVal) : null;
                 }
-                attachModels(this.stampedNodes, this.model);
+                this.model = newVal;
                 break;
               case "content":
                 this.loadTemplate_();
@@ -86,9 +89,19 @@ https://github.com/Juicy/juicy-html
       }
     };
 
-    document.registerElement('juicy-html', {
+    JuicyHTMLPrototype.attachModel = function(model, arrayOfElements){
+        arrayOfElements || (arrayOfElements = this.stampedNodes);
+        if (model === null || !arrayOfElements) {
+            return;
+        }
+        for (var childNo = 0; childNo < arrayOfElements.length; childNo++) {
+            arrayOfElements[childNo].model = model;
+        }
+    };
+
+    scope.JuicyHTMLElement = document.registerElement('juicy-html', {
       prototype: JuicyHTMLPrototype,
       extends: "template"
     });
-  })();
+})(window);
 </script>

@@ -2,10 +2,16 @@
 <link rel="import" href="../../../polymer/polymer.html">
 <link rel="import" href="../../juicy-html.html">
 
+<link rel="stylesheet" href="../../../paper-menu/paper-menu-shared.css">
+<link rel="stylesheet" href="../../../paper-item/paper-item-shared.css">
 
-<!-- <link rel="import" href="../../../paper-icons/paper-icons.html">
+<!-- <link rel="import" href="../../../paper-icons/paper-icons.html">-->
 <link rel="import" href="../../../paper-menu/paper-menu.html">
-<link rel="import" href="../../../paper-item/paper-item.html"> -->
+<link rel="import" href="../../../paper-item/paper-item.html">
+<link rel="import" href="../../../paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../../../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../iron-icons/iron-icons.html">
+
 <dom-module id="my-app">
   <template>
     <h2>My-app custom element</h2>
@@ -14,17 +20,14 @@
         width: 300px;
       }
     </style>
-    <template is="juicy-html" content$="{{viewmodel.html}}" model="{{viewmodel}}"></template>
-    <!-- This should work, as well:
-    <template bind="{{ viewmodel }}" is="juicy-html" content$="{{viewmodel.subpage.html}}"></template>
-    but it don't. Let's leave it fo further investigation. (tomalec)
-    -->
+    <template is="juicy-html" content$="{{viewmodel.html}}" model="{{viewmodel}}" on-stamped="stamped"></template>
 
   </template>
 </dom-module>
 <script>
   Polymer({
     is: "my-app",
+    behaviors: [Polymer.Templatizer],
 
     ready: function() {
       this.viewmodel= {
@@ -37,6 +40,9 @@
         ],
         html: './partials/page_3.html'
       }
+    },
+    stamped: function(event){
+        // Play with Polymer's templating voodoo
     }
 
   });
