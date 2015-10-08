@@ -63,7 +63,9 @@ https://github.com/Juicy/juicy-html
       while(childNo--){
         // this.stampedNodes[childNo].remove();
         child = this.stampedNodes[childNo];
-        child.parentNode.removeChild(child);
+        if (child.parentNode) {
+          child.parentNode.removeChild(child);
+        }
       }
     };
 
