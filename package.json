@@ -21,5 +21,9 @@
       "url": "http://www.opensource.org/licenses/MIT"
     }
   ],
-  "main": "./juicy-html.html"
+  "main": "./juicy-html.html",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-bump": "^0.3.0"
+  }
 }
