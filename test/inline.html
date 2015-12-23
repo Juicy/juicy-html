@@ -28,11 +28,11 @@
         describe('<juicy-html>', function() {
             var myEl;
             context('when created with HTML markup in content attribute', function() {
-                before(function() {
+                beforeEach(function() {
                     myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
                 });
                 it('should stamp it into DOM as a sibling', function(){
-                    expect(myEl.nextElementSibling).to.be.defined;
+                    expect(myEl.nextElementSibling).to.be.not.null;
                     expect(myEl.nextElementSibling.tagName).to.equal('H1');
                     expect(myEl.nextElementSibling.innerHTML).to.equal('Hello World');
                 });
@@ -41,6 +41,14 @@
                     myEl.setAttribute('content', null);
                     expect(myEl.nextElementSibling).to.be.null;
                     expect(myEl.previousElementSibling).to.be.null;
+                });
+
+                it('after markup is changed, should re-stamp it into DOM as a sibling', function(){
+                    myEl.setAttribute('content', '<h2>new content</h2>');
+                    expect(myEl.nextElementSibling).to.be.not.null;
+                    expect(myEl.nextElementSibling.tagName).to.equal('H2');
+                    expect(myEl.nextElementSibling.innerHTML).to.equal('new content');
+                    expect(myEl.parentNode.children.length).to.equal(2);
                 });
 
                 it('should remove stamped nodes after it\s detached from DOM', function(){
