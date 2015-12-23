@@ -8,7 +8,7 @@ before_script:
 branches:
   only:
     - gh-pages
-    - master
+    - /^.*$/
 node_js: 4
 addons:
   firefox: latest
