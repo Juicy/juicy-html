@@ -7,6 +7,14 @@ version: 1.0.1
 -->
 <script>
   (function (scope) {
+    var is_createContextualFragment = false;
+    try{
+      document.createRange().createContextualFragment('');
+      is_createContextualFragment = true;
+    } catch (e) {
+
+    }
+
     var JuicyHTMLPrototype = Object.create( (HTMLTemplateElement || HTMLElement ).prototype);
 
 
@@ -43,8 +51,16 @@ version: 1.0.1
 
     JuicyHTMLPrototype.reattachTemplate_ = function(html) {
       this.clear();
+      var fragment;
       // fragmentFromString(strHTML) from http://stackoverflow.com/a/25214113/868184
-      var fragment = document.createRange().createContextualFragment(html);
+      // Safari support workaround
+      if(false && is_createContextualFragment){
+          fragment = document.createRange().createContextualFragment(html);
+      } else {
+          var temp = document.createElement('TEMPLATE');
+          temp.innerHTML = html;
+          fragment = temp.content;
+      }
       // convert dynamic NodeList to regullar array
       this.stampedNodes = Array.prototype.slice.call(fragment.childNodes);
       // attach models
