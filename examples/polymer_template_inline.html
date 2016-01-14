@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 
 <head>
@@ -43,8 +43,8 @@
                 "</template>\n" +
                 "<div></div>\n" +
                 "<script>\n" +
-                "    document.currentScript.previousElementSibling.innerHTML = document.currentScript.model.vanilla;\n" +
-                "    console.info(\"attached model\", document.currentScript.model);\n</" +
+                "    document.currentScript.previousElementSibling.innerHTML = (document._currentScript || document.currentScript).model.vanilla;\n" +
+                "    console.info(\"attached model\", (document._currentScript || document.currentScript).model);\n</" +
                 "script>"
              }
         };
