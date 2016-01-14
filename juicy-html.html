@@ -8,7 +8,7 @@ version: 1.0.1
 <script>
   (function (scope) {
     var JuicyHTMLPrototype = Object.create( (HTMLTemplateElement || HTMLElement ).prototype);
-
+    var isSafari = navigator.vendor && navigator.vendor.indexOf("Apple") > -1 && navigator.userAgent && !navigator.userAgent.match("CriOS");
 
     JuicyHTMLPrototype.createdCallback = function(){
         var model = null;
@@ -44,7 +44,14 @@ version: 1.0.1
     JuicyHTMLPrototype.reattachTemplate_ = function(html) {
       this.clear();
       // fragmentFromString(strHTML) from http://stackoverflow.com/a/25214113/868184
-      var fragment = document.createRange().createContextualFragment(html);
+      var range = document.createRange();
+
+      // Safari does not support `createContextualFragment` without selecting a node.
+      if (isSafari) {
+        range.selectNode(this);
+      }
+
+      var fragment = range.createContextualFragment(html);
       // convert dynamic NodeList to regullar array
       this.stampedNodes = Array.prototype.slice.call(fragment.childNodes);
       // attach models
