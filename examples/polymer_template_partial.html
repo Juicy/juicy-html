@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -10,26 +10,23 @@
 
     <style>
         body {
-          font-family: Helvetica, Arial, sans-serif;
-          color: #333;
+            font-family: Helvetica, Arial, sans-serif;
+            color: #333;
         }
     </style>
 </head>
 <body>
-
-<template id="test" is="dom-bind">
-    <template model="{{model.subpage}}" is="juicy-html" content$="{{model.subpage.html}}"></template>
-</template>
-
-<script>
-    var model = {
-        subpage: {
-            username: "World",
-            html: "./partials/page_1.html"
-        }
-    };
-    document.getElementById('test').model = model;
-</script>
-
+    <template id="test" is="dom-bind">
+        <template model="{{model.subpage}}" is="juicy-html" content$="{{model.subpage.html}}"></template>
+    </template>
+    <script>
+        var model = {
+            subpage: {
+                username: "World",
+                html: "./partials/page_1.html"
+            }
+        };
+        document.getElementById('test').model = model;
+    </script>
 </body>
 </html>

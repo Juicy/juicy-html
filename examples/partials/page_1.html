@@ -1,60 +1,64 @@
-<template is="dom-bind"><h1>Hello <span>{{model.username}}</span></h1></template>
-<p>This is the Page 1.
-  <button onclick="document.getElementById('test').set('model.subpage.html', './partials/page_2.html')">Press here</button>
-  to replace the template with Page 2
+<template is="dom-bind">
+    <h1>Hello <span>{{model.username}}</span></h1>
+</template>
+<p>
+    This is the Page 1.
+    <button onclick="document.getElementById('test').set('model.subpage.html', './partials/page_2.html')">Press here</button>
+    to replace the template with Page 2
 </p>
 
-<p>This page has some styles defined <span class="specialInline">inline</span> and in a separate <span
-  class="specialExternal">stylesheet</span>.</p>
+<p>
+    This page has some styles defined <span class="specialInline">inline</span> and in a separate <span class="specialExternal">stylesheet</span>.
+</p>
 
 <style>
-  p {
-    margin-top: 2em;
-  }
+    p {
+        margin-top: 2em;
+    }
 
-  .specialInline {
-    font-family: Georgia, serif;
-    font-style: italic;
-    font-size: 160%;
-    vertical-align: baseline;
-    position: relative;
-    top: -0.4em;
-  }
+    .specialInline {
+        font-family: Georgia, serif;
+        font-style: italic;
+        font-size: 160%;
+        vertical-align: baseline;
+        position: relative;
+        top: -0.4em;
+    }
 
-  #scriptResult {
-    font-family: Consolas, Courier, monospace;
-    font-size: 160%;
-  }
+    #scriptResult {
+        font-family: Consolas, Courier, monospace;
+        font-size: 160%;
+    }
 </style>
 <link rel="stylesheet" type="text/css" href="partials/page_1.css">
 
 <p>This page executes an inline script. <span id="scriptResult"></span></p>
 
 <script>
-  var seconds = 0;
-  var interval;
+    var seconds = 0;
+    var interval;
 
-  function showNumber(num) {
-    if (num < 10) {
-      return '0' + num;
+    function showNumber(num) {
+        if (num < 10) {
+            return '0' + num;
+        }
+        return num;
     }
-    return num;
-  }
 
-  function showTime() {
-    var elem = document.getElementById('scriptResult');
-    if (elem) {
-      elem.innerHTML = Math.floor(seconds / 60) + ':' + showNumber(seconds % 60);
-      seconds++;
-    }
-    else {
-      clearInterval(interval);
-    }
-  }
+    function showTime() {
+        var elem = document.getElementById('scriptResult');
 
-  showTime();
-  interval = setInterval(function () {
+        if (elem) {
+            elem.innerHTML = Math.floor(seconds / 60) + ':' + showNumber(seconds % 60);
+            seconds++;
+        } else {
+            clearInterval(interval);
+        }
+    }
+
     showTime();
-  }, 1000);
+    interval = setInterval(function () {
+        showTime();
+    }, 1000);
 </script>
 <script src="partials/external.js"></script>

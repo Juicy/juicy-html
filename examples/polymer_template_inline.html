@@ -1,6 +1,5 @@
-<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>&lt;juicy-html&gt; Fancy inline partial within Polymer's dom-bind</title>
@@ -12,21 +11,22 @@
 
     <style>
         body {
-          font-family: Helvetica, Arial, sans-serif;
-          color: #333;
-          padding: 2em;
+            font-family: Helvetica, Arial, sans-serif;
+            color: #333;
+            padding: 2em;
         }
-        textarea{
+
+        textarea {
             width: 100%;
             height: 11em;
         }
     </style>
 </head>
-
 <body class="markdown-body">
     <template id="test" is="dom-bind">
         <h1>Fancy inline partial within Polymer's dom-bind</h1>
-        <template is="juicy-html" content$="{{model.subpage.Html}}" model="{{model.subpage}}"></template>
+        <template is="juicy-html" content$="{{model.subpage.Html}}" model="{{model.subpage}}">
+        </template>
         <h3>Code (live)</h3>
         <textarea value="{{model.subpage.Html::input}}"></textarea>
     </template>
@@ -34,22 +34,24 @@
     <script>
         var model = {
             subpage: {
-              name: "World",
-              polymer: "Polymer's dom-bind",
-              vanilla: "as well as by native JS <code>&lt;script&gt;</code> or custom elements",
-              Html: "All those nodes will get <code>.model</code> property with object given in model attribute.\n" +
-                "<template is=\"dom-bind\">\n" +
-                "    <p> which can be used by <span>{{model.polymer}}</span></p>\n" +
-                "</template>\n" +
-                "<div></div>\n" +
-                "<script>\n" +
-                "    document.currentScript.previousElementSibling.innerHTML = document.currentScript.model.vanilla;\n" +
-                "    console.info(\"attached model\", document.currentScript.model);\n</" +
-                "script>"
-             }
+                name: "World",
+                polymer: "Polymer's dom-bind",
+                vanilla: "as well as by native JS <code>&lt;script&gt;</code> or custom elements",
+                Html: "All those nodes will get <code>.model</code> property with object given in model attribute.\n" +
+                  "<template is=\"dom-bind\">\n" +
+                  "    <p> which can be used by <span>{{model.polymer}}</span></p>\n" +
+                  "</template>\n" +
+                  "<div></div>\n" +
+                  "<script>\n" +
+                  "    var script = document._currentScript || document.currentScript;" +
+                  "    var div = script.previousElementSibling;" +
+                  "    div.innerHTML = script.model.vanilla;\n" +
+                  "    console.info(\"attached model\", document.currentScript.model);\n</" +
+                  "script>"
+            }
         };
+
         document.getElementById('test').model = model;
     </script>
 </body>
-
 </html>
