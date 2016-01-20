@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 
 <head>
@@ -54,8 +54,8 @@
                 it('should remove stamped nodes after it\s detached from DOM', function(done){
                     var parent = myEl.parentNode;
                     parent.removeChild(myEl);
-                    setTimeout(function waitForDetachedPolyfill(){
-                        expect(parent.children).to.be.empty;
+                    setTimeout(function waitForDetachedPolyfill() {
+                        expect(parent.children.length).to.be.equal(0);
                         done();
                     },1);
                 });
