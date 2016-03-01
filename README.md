@@ -120,6 +120,17 @@ Name      | details            | Description
 `<juicy-html>` is framework agnostic custom element, so all you need is Web Components support.
 However, it plays really nice with [Polymer](http://www.polymer-project.org/) [Auto-binding templates](https://www.polymer-project.org/1.0/docs/devguide/templates.html#dom-bind), or any other binding library, that sets HTML elements' properties and/or attributes. Check our demos and examples.
 
+## Browser compatibility
+
+Name       | Support    | Comments
+-----------|------------|---------
+Chrome 48  | yes        |
+Firefox 43 | yes        |
+IE 11      | partially  | `document._currentScript` behaves wrong in inserted scripts
+Edge 25    | yes        |
+Safari 9   | yes        |
+Safari 8   | not tested |
+
 ## Contributing
 
 1. Fork it!
