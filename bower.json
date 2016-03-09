@@ -19,7 +19,8 @@
   "ignore": [
     "examples",
     "index.html",
-    ".gitignore"
+    ".gitignore",
+    "test"
   ],
   "dependencies": {
   },
