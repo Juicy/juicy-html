@@ -26,20 +26,28 @@ version: 1.0.2
         JuicyHTMLPrototype.loadTemplate_ = function() {
             var val = this.getAttribute('content');
             if (val && (val.indexOf('/') === 0 || val.indexOf('./') === 0 || val.indexOf('../') === 0)) {
-                //val is a URL, load the partial from the HTTP server/cache
-                var oReq = new XMLHttpRequest();
-                var that = this;
-                oReq.onload = function(event) {
-                    that.reattachTemplate_(event.target.responseText);
-                };
-                oReq.open("GET", val, true);
-                oReq.send();
+                //val is a URL, load the partial from external file
+                this._loadExternalFile(val);
             } else if (val === null) {
                 this.clear();
             } else {
                 //val is HTML code, insert the partial from the string
                 this.reattachTemplate_(val);
             }
+        };
+        /**
+         * Load the partial from the HTTP server/cache, via XHR.
+         * @param  {String} url relative/absolute string to load the resource
+         * @return {HTMLElement}     itself
+         */
+        JuicyHTMLPrototype._loadExternalFile = function(url){
+            var oReq = new XMLHttpRequest();
+            var that = this;
+            oReq.onload = function(event) {
+                that.reattachTemplate_(event.target.responseText);
+            };
+            oReq.open("GET", url, true);
+            oReq.send();
         };
 
         JuicyHTMLPrototype.reattachTemplate_ = function(html) {
