@@ -34,6 +34,8 @@ version: 1.0.2
                 };
                 oReq.open("GET", val, true);
                 oReq.send();
+            } else if (val === null) {
+                this.clear();
             } else {
                 //val is HTML code, insert the partial from the string
                 this.reattachTemplate_(val);
@@ -76,6 +78,8 @@ version: 1.0.2
                     child.parentNode.removeChild(child);
                 }
             }
+            // forget the removed nodes
+            this.stampedNodes = null;
         };
 
         JuicyHTMLPrototype.isAttached = false;

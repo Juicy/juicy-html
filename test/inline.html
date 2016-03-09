@@ -17,10 +17,9 @@
     <!-- You can use the document as a place to set up your fixtures. -->
     <test-fixture id="juicy-html-fixture">
         <template>
-            <div><!-- nest to workaround test-fixture bug -->
-                <template is="juicy-html" content="<h1>Hello World</h1>">
-                </template>
-            </div>
+            <!-- nest to workaround test-fixture bug -->
+            <div><template is="juicy-html" content="<h1>Hello World</h1>">
+            </template></div>
         </template>
     </test-fixture>
 
@@ -56,8 +55,17 @@
                     parent.removeChild(myEl);
                     setTimeout(function waitForDetachedPolyfill() {
                         expect(parent.children.length).to.be.equal(0);
+                        expect(parent.childNodes.length).to.be.equal(0);
                         done();
                     },1);
+                });
+
+                // https://github.com/Juicy/juicy-html/issues/17
+                it('should remove stamped nodes after `content` attribute is removed', function(){
+                    var parent = myEl.parentNode;
+                    myEl.removeAttribute('content');
+                    expect(parent.children.length).to.be.equal(1);
+                    expect(parent.childNodes.length).to.be.equal(1);
                 });
             });
         });
