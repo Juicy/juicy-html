@@ -1,0 +1,117 @@
+﻿<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <!-- Step 1: import the element to test -->
+    <link rel="import" href="../juicy-html.html">
+</head>
+
+<body>
+
+    <test-fixture id="juicy-html-with-content">
+        <template>
+            <!-- nest to workaround test-fixture bug -->
+            <div><template is="juicy-html" content="/mock/smth">
+            </template></div>
+        </template>
+    </test-fixture>
+    <test-fixture id="juicy-html-204-empty">
+        <template>
+            <!-- nest to workaround test-fixture bug -->
+            <div><template is="juicy-html" content="/mock/204">
+            </template></div>
+        </template>
+    </test-fixture>
+    <test-fixture id="juicy-html-200-empty">
+        <template>
+            <!-- nest to workaround test-fixture bug -->
+            <div><template is="juicy-html" content="/mock/200">
+            </template></div>
+        </template>
+    </test-fixture>
+
+    <script>
+        describe('<juicy-html>', function () {
+            var myEl, changedEl, server, infoSpy, warnSpy, errorSpy;
+            beforeEach(function () {
+                infoSpy = sinon.spy(console, 'info');
+                infoSpy.displayName = 'console.info';
+                warnSpy = sinon.spy(console, 'warn');
+                warnSpy.displayName = 'console.warn';
+                errorSpy = sinon.spy(console, 'error');
+                errorSpy.displayName = 'console.error';
+            });
+            afterEach(function () {
+                infoSpy.restore();
+                warnSpy.restore();
+                errorSpy.restore();
+            });
+            before(function () {
+                var server = sinon.fakeServer.create();
+                server.xhr.useFilters = true;
+                server.xhr.addFilter(function (method, url) {
+                    //whenever the this returns true the request will not faked
+                    return !url.match(/mock\//);
+                });
+                server.respondWith('GET', '/mock/204', [204, {"Content-Type": "text/html"}, '']);
+                server.respondWith('GET', '/mock/200', [200, {"Content-Type": "text/html"}, '']);
+                server.respondWith('GET', '/mock/smth', [200, {"Content-Type": "text/html"}, '<div id="smth">smth</div>']);
+                server.autoRespond = true;
+            });
+            context('when external file returns <code>204 No Content</code>', function () {
+                beforeEach(function (done) {
+
+                    myEl = fixture('juicy-html-204-empty').querySelector('template[is="juicy-html"]');
+                    changedEl = fixture('juicy-html-with-content').querySelector('template[is="juicy-html"]');
+                    changedEl.setAttribute('content', '/mock/204');
+                    // wait for (faked) XHR
+                    setTimeout(done, 100);
+                });
+                it('should not throw any error', function () {
+                    expect(errorSpy).not.to.be.called;
+                });
+
+                it('should remove previously stamped nodes', function () {
+                    expect(changedEl.nextElementSibling).to.be.null;
+                    expect(changedEl.previousElementSibling).to.be.null;
+                });
+                it('should call <code>console.info</code>', function () {
+                    expect(infoSpy).to.be.called;
+                    expect(infoSpy).to.be.calledTwice; // once per element
+                });
+
+            });
+            context('when external file returns <code>200 Ok</code> but no content', function () {
+                beforeEach(function (done) {
+                    myEl = fixture('juicy-html-200-empty').querySelector('template[is="juicy-html"]');
+                    changedEl = fixture('juicy-html-with-content').querySelector('template[is="juicy-html"]');
+                    changedEl.setAttribute('content', '/mock/200');
+                    // wait for (faked) XHR
+                    setTimeout(done, 100);
+                });
+                it('should not throw any error', function () {
+                    expect(errorSpy).not.to.be.called;
+                });
+
+                it('should remove previously stamped nodes', function () {
+                    expect(changedEl.nextElementSibling).to.be.null;
+                    expect(changedEl.previousElementSibling).to.be.null;
+                });
+                it('should call <code>console.warn</code>', function () {
+                    expect(warnSpy).to.be.called;
+                    expect(warnSpy).to.be.calledTwice; // once per element
+                });
+
+            });
+        });
+    </script>
+
+</body>
+
+</html>

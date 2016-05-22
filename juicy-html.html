@@ -44,14 +44,21 @@ version: 1.1.0
             var oReq = new XMLHttpRequest();
             var that = this;
             oReq.onload = function(event) {
-                that.reattachTemplate_(event.target.responseText);
+                that.reattachTemplate_(event.target.responseText, oReq.status);
             };
             oReq.open("GET", url, true);
             oReq.send();
         };
 
-        JuicyHTMLPrototype.reattachTemplate_ = function(html) {
+        JuicyHTMLPrototype.reattachTemplate_ = function(html, statusCode) {
             this.clear();
+            if(html === ''){
+                if(statusCode === 204){
+                    console.info('no content was returned for juicy-html (', this, ')');
+                } else {
+                    console.warn('content given for juicy-html (', this, ') is an empty file');
+                }
+            }
             // fragmentFromString(strHTML) from http://stackoverflow.com/a/25214113/868184
             var range = document.createRange();
 
