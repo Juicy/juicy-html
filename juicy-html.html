@@ -12,13 +12,26 @@ version: 1.1.0
 
         JuicyHTMLPrototype.createdCallback = function() {
             var model = null;
-            Object.defineProperty(this, "model", {
-                set: function(newValue) {
-                    model = newValue;
-                    this.attachModel(newValue);
+            Object.defineProperties(this, {
+                'model': {
+                    set: function(newValue) {
+                        model = newValue;
+                        this.attachModel(newValue);
+                    },
+                    get: function() {
+                        return model;
+                    }
                 },
-                get: function() {
-                    return model;
+                // experimental name, and support for property binding
+                // in the shortest and less code-intrusive way, to make it work with Polymer 2.0
+                // workaround https://github.com/Polymer/polymer/issues/4060
+                'externalContent': {
+                    set: function(newValue) {
+                        this.setAttribute('content', newValue);
+                    },
+                    get: function() {
+                        return this.getAttribute('content');
+                    }
                 }
             });
         };

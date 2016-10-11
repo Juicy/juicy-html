@@ -104,9 +104,10 @@ Attribute           | Options         | Default     | Description
 
 ## Properties
 
-Property | Type     | Default     | Description
----      | ---      | ---         | ---
-`model`  | *Object* | `undefined` | see above
+Property          | Type            | Default     | Description
+---               | ---             | ---         | ---
+`model`           | *Object*        | `undefined` | see above
+`externalContent` | *Object|String* | `undefined` | reflects `content` attribute
 
 ## Events
 
