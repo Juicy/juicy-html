@@ -6,10 +6,6 @@ before_script:
   - npm install bower
   - 'export PATH=$PWD/node_modules/.bin:$PATH'
   - bower install
-branches:
-  only:
-    - gh-pages
-    - master
 node_js: 4
 addons:
   firefox: latest
