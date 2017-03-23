@@ -1,0 +1,67 @@
+﻿<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <!-- Step 1: import the element to test -->
+    <link rel="import" href="../juicy-html.html">
+</head>
+
+<body>
+
+    <!-- You can use the document as a place to set up your fixtures. -->
+    <test-fixture id="juicy-html-fixture">
+        <template>
+            <!-- nest to workaround test-fixture bug -->
+            <div><template is="juicy-html">
+            </template></div>
+        </template>
+    </test-fixture>
+
+    <script>
+        describe('<juicy-html>', function() {
+            var myEl;
+            context('when skip method is called after request for file was send but before it responded', function() {
+                beforeEach(function() {
+                    myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
+                    myEl.setAttribute('content', '../partials/basic.html');
+                    myEl.skip();
+                });
+                it('should NOT stamp anything', function(done){
+                    setTimeout(function(){
+                        expect(myEl.parentNode.childNodes.length).to.equal(1);
+                        expect(myEl.parentNode.childNodes[0]).to.equal(myEl);
+                        done();
+                    }, 300);
+                });
+            });
+            context('when content property is changed', function() {
+                beforeEach(function() {
+                    myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
+                    myEl.setAttribute('content', '../partials/basic.html');
+                    sinon.spy(myEl, 'skip');
+                });
+                it('to another url, skip method should get called', function(){
+                    myEl.setAttribute('content', '../partials/page_1.html');
+                    expect(myEl.skip).to.be.calledOnce;
+                });
+                it('to a string, skip method should get called', function(){
+                    myEl.setAttribute('content', 'blah');
+                    expect(myEl.skip).to.be.calledOnce;
+                });
+                it('to `null`, skip method should get called', function(){
+                    myEl.setAttribute('content', null);
+                    expect(myEl.skip).to.be.calledOnce;
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
