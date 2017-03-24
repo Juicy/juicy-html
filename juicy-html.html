@@ -22,6 +22,12 @@ version: 1.1.0
                 }
             });
         };
+        /**
+         * Reference to pending request
+         * @type {XMLHttpRequest}
+         */
+        ImportedTemplatePrototype.pending = null;
+
         JuicyHTMLPrototype.stampedNodes = null;
         JuicyHTMLPrototype.loadTemplate_ = function() {
             // skip pending request
