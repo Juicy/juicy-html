@@ -26,11 +26,11 @@
     <script>
         describe('<juicy-html>', function() {
             var myEl;
-            context('when skip method is called after request for file was send but before it responded', function() {
+            context('when skipStampingPendingFile method is called after request for file was send but before it responded', function() {
                 beforeEach(function() {
                     myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
                     myEl.setAttribute('content', '../partials/basic.html');
-                    myEl.skip();
+                    myEl.skipStampingPendingFile();
                 });
                 it('should NOT stamp anything', function(done){
                     setTimeout(function(){
@@ -44,19 +44,19 @@
                 beforeEach(function() {
                     myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
                     myEl.setAttribute('content', '../partials/basic.html');
-                    sinon.spy(myEl, 'skip');
+                    sinon.spy(myEl, 'skipStampingPendingFile');
                 });
-                it('to another url, skip method should get called', function(){
+                it('to another url, skipStampingPendingFile method should get called', function(){
                     myEl.setAttribute('content', '../partials/page_1.html');
-                    expect(myEl.skip).to.be.calledOnce;
+                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
                 });
-                it('to a string, skip method should get called', function(){
+                it('to a string, skipStampingPendingFile method should get called', function(){
                     myEl.setAttribute('content', 'blah');
-                    expect(myEl.skip).to.be.calledOnce;
+                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
                 });
-                it('to `null`, skip method should get called', function(){
+                it('to `null`, skipStampingPendingFile method should get called', function(){
                     myEl.setAttribute('content', null);
-                    expect(myEl.skip).to.be.calledOnce;
+                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
                 });
             });
         });

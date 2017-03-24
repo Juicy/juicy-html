@@ -25,7 +25,7 @@ version: 1.1.0
         JuicyHTMLPrototype.stampedNodes = null;
         JuicyHTMLPrototype.loadTemplate_ = function() {
             // skip pending request
-            this.skip();
+            this.skipStampingPendingFile();
             var val = this.getAttribute('content');
             if (val && (val.indexOf('/') === 0 || val.indexOf('./') === 0 || val.indexOf('../') === 0)) {
                 //val is a URL, load the partial from external file
@@ -38,14 +38,12 @@ version: 1.1.0
             }
         };
         /**
-         * Skips/disregards pending request if any
-         * @return {XMLHttpRequest} skipped XHR request, in fact just `this.pending`
+         * Skips/disregards pending request if any.
          */
-        JuicyHTMLPrototype.skip = function() {
+        JuicyHTMLPrototype.skipStampingPendingFile = function() {
             if(this.pending){
                 this.pending.onload = null;
             }
-            return this.pending;
         };
         /**
          * Load the partial from the HTTP server/cache, via XHR.
