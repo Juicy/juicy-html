@@ -27,8 +27,10 @@
         describe('<juicy-html>', function() {
             var myEl;
             context('when created with HTML markup in href attribute', function() {
-                beforeEach(function() {
+                beforeEach(function(done) {
                     myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
+                    // wait for polyfilled callbacks
+                    setTimeout(done, 10);
                 });
                 it('should stamp it into DOM as a sibling', function(){
                     expect(myEl.nextElementSibling).to.be.not.null;
