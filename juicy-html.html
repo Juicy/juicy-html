@@ -7,18 +7,39 @@ version: 1.2.0
 -->
 <script>
     (function(scope) {
+        /**
+         * Thor a warning to the console about deprecated content attribute
+         * @param  {JuicyHTMLElement} element reference to the element
+         */
+        function warnAboutDeprecatedContentOn(element){
+            console.warn('`content` attribute is deprecated! Please, use `href` instead.', element);
+        }
         var JuicyHTMLPrototype = Object.create((HTMLTemplateElement || HTMLElement).prototype);
         var isSafari = navigator.vendor && navigator.vendor.indexOf("Apple") > -1 && navigator.userAgent && !navigator.userAgent.match("CriOS");
 
         JuicyHTMLPrototype.createdCallback = function() {
             var model = null;
-            Object.defineProperty(this, "model", {
-                set: function(newValue) {
-                    model = newValue;
-                    this.attachModel(newValue);
+            Object.defineProperties(this, {
+                'model': {
+                    set: function(newValue) {
+                        model = newValue;
+                        this.attachModel(newValue);
+                    },
+                    get: function() {
+                        return model;
+                    }
                 },
-                get: function() {
-                    return model;
+                'href': {
+                    set: function(newValue) {
+                        if(newValue === null){
+                            this.removeAttribute('href');
+                        } else {
+                            this.setAttribute('href', newValue);
+                        }
+                    },
+                    get: function() {
+                        return this.getAttribute('href');
+                    }
                 }
             });
         };
@@ -32,7 +53,7 @@ version: 1.2.0
         JuicyHTMLPrototype.loadTemplate_ = function() {
             // skip pending request
             this.skipStampingPendingFile();
-            var val = this.getAttribute('content');
+            var val = this.getAttribute('href');
             if (val && (val.indexOf('/') === 0 || val.indexOf('./') === 0 || val.indexOf('../') === 0)) {
                 //val is a URL, load the partial from external file
                 this._loadExternalFile(val);
@@ -72,9 +93,9 @@ version: 1.2.0
             this.clear();
             if(html === ''){
                 if(statusCode === 204){
-                    console.info('no content was returned for juicy-html (', this, ')');
+                    console.info('no content was returned for juicy-html', this);
                 } else {
-                    console.warn('content given for juicy-html (', this, ') is an empty file');
+                    console.warn('content given for juicy-html is an empty file', this);
                 }
             }
             // fragmentFromString(strHTML) from http://stackoverflow.com/a/25214113/868184
@@ -117,6 +138,11 @@ version: 1.2.0
 
         JuicyHTMLPrototype.isAttached = false;
         JuicyHTMLPrototype.attachedCallback = function() {
+            // translate legacy `content` attribute to href
+            if(this.hasAttribute('content')){
+                warnAboutDeprecatedContentOn(this);
+                this.setAttribute('href', this.getAttribute('content'));
+            }
             this.isAttached = true;
             this.loadTemplate_();
         };
@@ -134,6 +160,14 @@ version: 1.2.0
                         this.model = newVal;
                         break;
                     case "content":
+                        warnAboutDeprecatedContentOn(this);
+                        if(newVal === null){
+                            this.removeAttribute('href');
+                        } else {
+                            this.setAttribute('href', newVal);
+                        }
+                        break;
+                    case "href":
                         this.loadTemplate_();
                         break;
                 }
