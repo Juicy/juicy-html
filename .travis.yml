@@ -6,7 +6,7 @@ before_script:
   - npm install bower
   - 'export PATH=$PWD/node_modules/.bin:$PATH'
   - bower install
-node_js: 4
+node_js: stable
 addons:
   firefox: latest
   apt:
