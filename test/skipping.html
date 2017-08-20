@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script>var _MO=window.MutationObserver;delete window.MutationObserver;</script>
+    <script src="../../document-register-element/build/document-register-element.js"></script>
+    <script>window.MutationObserver=_MO</script>
     <script src="../../web-component-tester/browser.js"></script>
 
     <!-- Step 1: import the element to test -->
@@ -27,10 +30,13 @@
         describe('<juicy-html>', function() {
             var myEl;
             context('when skipStampingPendingFile method is called after request for file was send but before it responded', function() {
-                beforeEach(function() {
-                    myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
-                    myEl.setAttribute('content', '../partials/basic.html');
-                    myEl.skipStampingPendingFile();
+                beforeEach(function(done) {
+                    myEl = fixture('juicy-html-fixture').querySelector('[is=juicy-html]');
+                    setTimeout(function waitForConnectedCallbackPolyfill(){
+                        myEl.setAttribute('content', '../partials/basic.html');
+                        myEl.skipStampingPendingFile();
+                        done();
+                    }, 10);
                 });
                 it('should NOT stamp anything', function(done){
                     setTimeout(function(){
@@ -41,10 +47,13 @@
                 });
             });
             context('when content property is changed', function() {
-                beforeEach(function() {
-                    myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
-                    myEl.setAttribute('content', '../partials/basic.html');
-                    sinon.spy(myEl, 'skipStampingPendingFile');
+                beforeEach(function(done) {
+                    myEl = fixture('juicy-html-fixture').querySelector('[is=juicy-html]');
+                    setTimeout(function waitForConnectedCallbackPolyfill(){
+                        myEl.setAttribute('content', '../partials/basic.html');
+                        sinon.spy(myEl, 'skipStampingPendingFile');
+                        done();
+                    }, 10);
                 });
                 it('to another url, skipStampingPendingFile method should get called', function(){
                     myEl.setAttribute('content', '../partials/page_1.html');

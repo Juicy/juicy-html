@@ -7,10 +7,25 @@ version: 1.2.0
 -->
 <script>
     (function(scope) {
-        var JuicyHTMLPrototype = Object.create((HTMLTemplateElement || HTMLElement).prototype);
+        class JuicyHTMLElement extends HTMLTemplateElement {
+            static get observedAttributes() {return ['model', 'content']; }
+            constructor(self){
+                self = super(self);
+                self.create();
+            }
+            connectedCallback(){
+                this.isAttached = true;
+                this.loadTemplate_();
+            }
+            disconnectedCallback(){
+                this.isAttached = false;
+                this.clear();
+            }
+        };
+        var JuicyHTMLPrototype = JuicyHTMLElement.prototype;
         var isSafari = navigator.vendor && navigator.vendor.indexOf("Apple") > -1 && navigator.userAgent && !navigator.userAgent.match("CriOS");
 
-        JuicyHTMLPrototype.createdCallback = function() {
+        JuicyHTMLPrototype.create = function() {
             var model = null;
             Object.defineProperty(this, "model", {
                 set: function(newValue) {
@@ -116,14 +131,6 @@ version: 1.2.0
         };
 
         JuicyHTMLPrototype.isAttached = false;
-        JuicyHTMLPrototype.attachedCallback = function() {
-            this.isAttached = true;
-            this.loadTemplate_();
-        };
-        JuicyHTMLPrototype.detachedCallback = function() {
-            this.isAttached = false;
-            this.clear();
-        };
         JuicyHTMLPrototype.attributeChangedCallback = function(name, oldVal, newVal) {
             if (this.isAttached) {
                 switch (name) {
@@ -150,9 +157,7 @@ version: 1.2.0
             }
         };
 
-        scope.JuicyHTMLElement = document.registerElement('juicy-html', {
-            prototype: JuicyHTMLPrototype,
-            extends: "template"
-        });
+        scope.JuicyHTMLElement = JuicyHTMLElement
+        customElements.define('juicy-html', JuicyHTMLElement, {extends: 'template'});
     })(window);
 </script>

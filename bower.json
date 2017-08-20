@@ -25,8 +25,9 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "polymer": "^1.9.1",
+    "polymer": "^2.0.0",
     "web-component-tester": "^6.0.0",
-    "webcomponentsjs": "^0.7.24"
+    "webcomponentsjs": "^1.0.0",
+    "document-register-element": "^1.7.0"
   }
 }

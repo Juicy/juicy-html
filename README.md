@@ -69,7 +69,15 @@ Please note, that loaded `<script>` and `<style>` will be executed every time HT
 1. Import Web Components' polyfill (if needed):
 
     ```html
-    <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <!--
+        CEv1 with is attribute polyfill
+        with snipped needed to make polyfill synchronous
+        https://github.com/WebReflection/document-register-element/issues/106#issuecomment-303805643 
+    -->
+    <script>var _MO=window.MutationObserver;delete window.MutationObserver;</script>
+    <script src="../../document-register-element/build/document-register-element.js"></script>
+    <script>window.MutationObserver=_MO</script>
     ```
 
 2. Import Custom Element:

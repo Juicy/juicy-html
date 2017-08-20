@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>&lt;juicy-html&gt; in a &lt;template&gt; with HTML partial loaded from a file</title>
-    <script src="../../webcomponentsjs/webcomponents.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../document-register-element/build/document-register-element.js"></script>
 
     <link rel="import" href="../juicy-html.html">
     <link rel="import" href="../../polymer/polymer.html">
@@ -16,9 +17,11 @@
     </style>
 </head>
 <body>
-    <template id="test" is="dom-bind">
-        <template model="{{model.subpage}}" is="juicy-html" content$="{{model.subpage.html}}"></template>
-    </template>
+    <dom-bind>
+        <template id="test" is="dom-bind">
+            <template model="{{model.subpage}}" is="juicy-html" content$="{{model.subpage.html}}"></template>
+        </template>
+    </dom-bind>
     <script>
         var model = {
             subpage: {
@@ -26,7 +29,14 @@
                 html: "./partials/page_1.html"
             }
         };
-        document.getElementById('test').model = model;
+
+      window.addEventListener('WebComponentsReady', function() {
+          if(Polymer.Element){
+              document.getElementById('test').parentNode.model = model;
+          } else {
+              document.getElementById('test').model = model;
+          }
+      });
     </script>
 </body>
 </html>
