@@ -25,5 +25,9 @@
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-bump": "^0.3.0"
+  },
+  "scripts": {
+    "test": "wct",
+    "wct:sauce-only": "wct --skip-plugin local --plugin sauce"
   }
 }
