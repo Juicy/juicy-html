@@ -24,24 +24,29 @@
     </style>
 </head>
 <body class="markdown-body">
-    <template id="test" is="dom-bind">
-        <h1>Fancy inline partial within Polymer's dom-bind</h1>
-        <template is="juicy-html" content$="{{model.subpage.Html}}" model="{{model.subpage}}">
+    <dom-bind>
+        <template id="test" is="dom-bind">
+            <h1>Fancy inline partial within Polymer's dom-bind</h1>
+            <template is="juicy-html" content$="{{model.subpage.Html}}" model="{{model.subpage}}">
+            </template>
+            <h3>Code (live)</h3>
+            <textarea value="{{model.subpage.Html::input}}"></textarea>
         </template>
-        <h3>Code (live)</h3>
-        <textarea value="{{model.subpage.Html::input}}"></textarea>
-    </template>
+    </dom-bind>
 
     <script>
+    document.addEventListener('WebComponentsReady', function(){
         var model = {
             subpage: {
                 name: "World",
                 polymer: "Polymer's dom-bind",
                 vanilla: "as well as by native JS <code>&lt;script&gt;</code> or custom elements",
                 Html: "All those nodes will get <code>.model</code> property with object given in model attribute.\n" +
-                  "<template is=\"dom-bind\">\n" +
-                  "    <p> which can be used by <span>{{model.polymer}}</span></p>\n" +
-                  "</template>\n" +
+                  "<dom-bind>\n"+
+                  "    <template is=\"dom-bind\">\n" +
+                  "        <p> which can be used by <span>{{model.polymer}}</span></p>\n" +
+                  "    </template>\n" +
+                  "</dom-bind>\n" +
                   "<div></div>\n" +
                   "<script>\n" +
                   "    var script = document._currentScript || document.currentScript;" +
@@ -52,7 +57,12 @@
             }
         };
 
-        document.getElementById('test').model = model;
+        if(Polymer.Element){
+            document.querySelector('dom-bind').model = model;
+        } else {
+            document.getElementById('test').model = model;
+        }
+    });
     </script>
 </body>
 </html>

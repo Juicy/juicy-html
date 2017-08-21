@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>&lt;juicy-html&gt; basic inline partial</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../document-register-element/build/document-register-element.js"></script>
     <link rel="stylesheet" href="//juicy.github.io/juicy-tile-list/examples/github-markdown.css">
 
     <link rel="import" href="../juicy-html.html">
@@ -20,9 +21,11 @@
 <body class="markdown-body">
     <template is="juicy-html" content='
         All those nodes will get <code>.model</code> property with object given in model attribute.
-        <template is="dom-bind">
-            <p>which can be used by <span>{{model.polymer}}</span></p>
-        </template>
+        <dom-bind>
+            <template is="dom-bind">
+                <p>which can be used by <span>{{model.polymer}}</span></p>
+            </template>
+        </dom-bind>
         <div></div>
         <script>
             var script = (document._currentScript || document.currentScript);
