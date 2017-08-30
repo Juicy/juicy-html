@@ -21,21 +21,23 @@
     <test-fixture id="juicy-html-fixture">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html">
-            </template></div>
+            <div><template is="juicy-html"></template></div>
         </template>
     </test-fixture>
-
     <script>
         describe('<juicy-html>', function() {
             var myEl;
-            context('when skipStampingPendingFile method is called after request for file was send but before it responded', function() {
+            var currentCallback;
+            context('when skipStampingPendingFile method is called after request for file was sent but before it responded', function() {
                 beforeEach(function(done) {
                     myEl = fixture('juicy-html-fixture').querySelector('[is=juicy-html]');
                     setTimeout(function waitForConnectedCallbackPolyfill(){
-                        myEl.setAttribute('content', '../partials/basic.html');
-                        myEl.skipStampingPendingFile();
-                        done();
+                        myEl.addEventListener('attribute-changed', (currentCallback = function() { 
+                            myEl.skipStampingPendingFile();
+                            myEl.removeEventListener('attribute-changed', currentCallback);
+                            done();
+                        }));
+                        myEl.setAttribute('content', '../examples/partials/basic.html');                        
                     }, 10);
                 });
                 it('should NOT stamp anything', function(done){
@@ -50,22 +52,35 @@
                 beforeEach(function(done) {
                     myEl = fixture('juicy-html-fixture').querySelector('[is=juicy-html]');
                     setTimeout(function waitForConnectedCallbackPolyfill(){
-                        myEl.setAttribute('content', '../partials/basic.html');
-                        sinon.spy(myEl, 'skipStampingPendingFile');
-                        done();
+                        myEl.setAttribute('content', '../examples/partials/basic.html');
+                        setTimeout(function() { 
+                            sinon.spy(myEl, 'skipStampingPendingFile');
+                            done();
+                        }, 200);
                     }, 10);
                 });
-                it('to another url, skipStampingPendingFile method should get called', function(){
-                    myEl.setAttribute('content', '../partials/page_1.html');
-                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+                it('to another url, skipStampingPendingFile method should get called', function(done){
+                    myEl.setAttribute('content', '../examples/partials/page_1.html');
+                    setTimeout(function() { 
+                        expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+                        done();
+                    }, 10)
                 });
-                it('to a string, skipStampingPendingFile method should get called', function(){
-                    myEl.setAttribute('content', 'blah');
-                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+                it('to a string, skipStampingPendingFile method should get called', function(donee){
+                    myEl.addEventListener('attribute-changed', (currentCallback = function() { 
+                        expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+                        myEl.removeEventListener('attribute-changed', currentCallback);
+                        donee();
+                    }));
+                    myEl.setAttribute('content', 'blah');                                        
                 });
-                it('to `null`, skipStampingPendingFile method should get called', function(){
+                it('to `null`, skipStampingPendingFile method should get called', function(done){
+                    myEl.addEventListener('attribute-changed', (currentCallback = function() { 
+                        expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+                        myEl.removeEventListener('attribute-changed', currentCallback);
+                        done();
+                    }));
                     myEl.setAttribute('content', null);
-                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
                 });
             });
         });
