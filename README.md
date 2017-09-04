@@ -104,9 +104,10 @@ Attribute           | Options         | Default     | Description
 
 ## Properties
 
-Property | Type     | Default     | Description
----      | ---      | ---         | ---
-`model`  | *Object* | `undefined` | see above
+Property  | Type             | Default     | Description
+---       | ---              | ---         | ---
+`model`   | *Object*         | `undefined` | see above
+`pending` | *XMLHttpRequest* |             | pending XHR if any
 
 ## Events
 
@@ -114,6 +115,11 @@ Name      | details            | Description
 ---       | ---                | ---
 `stamped` | *Array* of *Node* s | Trigger every time content is (re-)stamped, with array of stamped nodes in `event.detail`
 
+## Methods
+
+Name                      | Description
+---                       | ---
+`skipStampingPendingFile` | Call to disregard currently pending request
 
 ### Dependencies
 
