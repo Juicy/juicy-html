@@ -145,6 +145,9 @@ version: 1.2.0
                         break;
                 }
             }
+            /* even though it usually doesn't make sense to dispatch an event for a change coming from the outside, 
+            this time it does. Because attributeChangedCallback is asynchronous (due to the polyfill) and we need to know when it was actually called */
+            this.dispatchEvent(new CustomEvent('attribute-changed', {name, value: newVal}));
         };
 
         JuicyHTMLPrototype.attachModel = function(model, arrayOfElements) {
