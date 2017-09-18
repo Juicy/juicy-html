@@ -18,7 +18,7 @@
     <test-fixture id="juicy-html-fixture">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html" href="<h1>Hello World</h1>">
+            <div><template is="juicy-html" html="<h1>Hello World</h1>">
             </template></div>
         </template>
     </test-fixture>
@@ -26,7 +26,7 @@
     <script>
         describe('<juicy-html>', function() {
             var myEl;
-            context('when created with HTML markup in href attribute', function() {
+            context('when created with HTML markup in html attribute', function() {
                 beforeEach(function(done) {
                     myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
                     // wait for polyfilled callbacks
@@ -38,14 +38,14 @@
                     expect(myEl.nextElementSibling.innerHTML).to.equal('Hello World');
                 });
 
-                it('should remove stamped nodes after href is cleared', function(){
-                    myEl.setAttribute('href', null);
+                it('should remove stamped nodes after html is cleared', function(){
+                    myEl.setAttribute('html', null);
                     expect(myEl.nextElementSibling).to.be.null;
                     expect(myEl.previousElementSibling).to.be.null;
                 });
 
                 it('after markup is changed, should re-stamp it into DOM as a sibling', function(){
-                    myEl.setAttribute('href', '<h2>new content</h2>');
+                    myEl.setAttribute('html', '<h2>new content</h2>');
                     expect(myEl.nextElementSibling).to.be.not.null;
                     expect(myEl.nextElementSibling.tagName).to.equal('H2');
                     expect(myEl.nextElementSibling.innerHTML).to.equal('new content');
@@ -63,9 +63,9 @@
                 });
 
                 // https://github.com/Juicy/juicy-html/issues/17
-                it('should remove stamped nodes after `href` attribute is removed', function(){
+                it('should remove stamped nodes after `html` attribute is removed', function(){
                     var parent = myEl.parentNode;
-                    myEl.removeAttribute('href');
+                    myEl.removeAttribute('html');
                     expect(parent.children.length).to.be.equal(1);
                     expect(parent.childNodes.length).to.be.equal(1);
                 });

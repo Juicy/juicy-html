@@ -6,12 +6,12 @@
 ### External files
 To load HTML from external file all you need is:
 ```html
-<template is="juicy-html" content="./path/to/file.html"></template>
+<template is="juicy-html" href="./path/to/file.html"></template>
 ```
 
 ### Markup provided by attribute
 ```html
-<template is="juicy-html" content="<h1>Hello World</h1>"></template>
+<template is="juicy-html" html="<h1>Hello World</h1>"></template>
 ```
 
 ### Data Binding
@@ -19,7 +19,7 @@ To load HTML from external file all you need is:
 
 ```html
 <template is="juicy-html"
-  content='
+  html='
     All those nodes will get <code>.model</code> property
     with the reference to the object given in model attribute.
     <template is="dom-bind">
@@ -83,30 +83,36 @@ Please note, that loaded `<script>` and `<style>` will be executed every time HT
 	Load HTML partial from a string:
 
 	```html
-	<template is="juicy-html" content="<b>some</b> HTML"></template>
-	<!-- Or <template is="juicy-html" content$="{{var}}"></template> where {{ var }} equals "<b>some</b> HTML" -->
+	<template is="juicy-html" html="<b>some</b> HTML"></template>
+	<!-- Or <template is="juicy-html" html="{{var}}"></template> where {{ var }} equals "<b>some</b> HTML" -->
 	```
 
 	Load HTML partial from a URL:
 
 	```html
-	<template is="juicy-html" content="./path/to/file.html"></template>
-	<!-- Or <template is="juicy-html" content$="{{var}}"></template>
+	<template is="juicy-html" href="./path/to/file.html"></template>
+	<!-- Or <template is="juicy-html" href="{{var}}"></template>
 	     where {{var}} equals "./path/to/file.html", a path relative to the document that must start with / or ./ -->
 	```
 
-## Options/Attributes
+## Attributes
 
 Attribute           | Options         | Default     | Description
 ---                 | ---             | ---         | ---
-`content`           | *string*		  | `""`	    | Safe HTML code, or path (starts with `/`, `./`, or `../`) to partial to be loaded.
+`html`              | *string*		  | `""`	    | Safe HTML code to be stamped.
+`href`              | *string*		  | `""`	    | Path of a partial to be loaded.
 `model`(_optional_) | *Object|String* | `undefined` | Object (or `JSON.stringify`'ied Object) to be attached to every root node of loaded document
 
 ## Properties
 
 Property | Type     | Default     | Description
 ---      | ---      | ---         | ---
-`model`  | *Object* | `undefined` | see above
+`model`  | *Object* | `undefined` | See [attributes](#Attributes)
+`html`   | *string* | `""`	      | See [attributes](#Attributes)
+`href`   | *string* | `""`	      | See [attributes](#Attributes)
+
+Please note, that properties are available after element is upgraded.
+To provide a state before element is upgraded, please use attributes.
 
 ## Events
 

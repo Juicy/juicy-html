@@ -62,8 +62,8 @@
                     setTimeout(done, 100);
                 });
 
-                it('should call <code>console.warn</code> with message about "deprecate" and "href"', function () {
-                    expect(warnSpy.withArgs(sinon.match(/deprecate.*href/))).to.be.calledOnce;
+                it('should call <code>console.warn</code> with message about "deprecate", "href" and "html"', function () {
+                    expect(warnSpy.withArgs(sinon.match(/deprecate.*href.*html/))).to.be.calledOnce;
                 });
 
             });
@@ -75,8 +75,8 @@
                     setTimeout(done, 100);
                 });
 
-                it('should call <code>console.warn</code> with message about "deprecate" and "href"', function () {
-                    expect(warnSpy.withArgs(sinon.match(/deprecate.*href/))).to.be.calledOnce;
+                it('should call <code>console.warn</code> with message about "deprecate", "href" and "html"', function () {
+                    expect(warnSpy.withArgs(sinon.match(/deprecate.*href.*html/))).to.be.calledOnce;
                 });
 
             });
