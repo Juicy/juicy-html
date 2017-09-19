@@ -68,13 +68,13 @@ version: 1.2.0
                 'html': {
                     set: function(newValue) {
                         if(newValue === null){
-                            this.removeAttribute('href');
+                            this.removeAttribute('html');
                         } else {
-                            this.setAttribute('href', newValue);
+                            this.setAttribute('html', newValue);
                         }
                     },
                     get: function() {
-                        return this.getAttribute('href');
+                        return this.getAttribute('html');
                     }
                 }
             });
