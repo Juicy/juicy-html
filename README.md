@@ -105,21 +105,27 @@ Attribute           | Options         | Default     | Description
 
 ## Properties
 
-Property | Type     | Default     | Description
----      | ---      | ---         | ---
-`model`  | *Object* | `undefined` | See [attributes](#Attributes)
-`html`   | *string* | `""`	      | See [attributes](#Attributes)
-`href`   | *string* | `""`	      | See [attributes](#Attributes)
+Property  | Type             | Default     | Description
+---       | ---              | ---         | ---
+`model`   | *Object*         | `undefined` | See [attributes](#Attributes)
+`html`    | *string*         | `""`	       | See [attributes](#Attributes)
+`href`    | *string*         | `""`	       | See [attributes](#Attributes)
+`pending` | *XMLHttpRequest* |             | pending XHR if any
 
 Please note, that properties are available after element is upgraded.
 To provide a state before element is upgraded, please use attributes.
 
 ## Events
 
-Name      | details            | Description
----       | ---                | ---
+Name      | details             | Description
+---       | ---                 | ---
 `stamped` | *Array* of *Node* s | Trigger every time content is (re-)stamped, with array of stamped nodes in `event.detail`
 
+## Methods
+
+Name                      | Description
+---                       | ---
+`skipStampingPendingFile` | Call to disregard currently pending request
 
 ### Dependencies
 
