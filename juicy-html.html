@@ -7,18 +7,75 @@ version: 1.2.0
 -->
 <script>
     (function(scope) {
+        /**
+         * Throw a warning to the console about deprecated content attribute
+         * @param  {JuicyHTMLElement} element reference to the element
+         */
+        function warnAboutDeprecatedContentOn(element){
+            console.warn(
+                '`content` attribute is deprecated! Please, use `href` or `html` instead.',
+                element,
+                'We will drop support for it in next release.'
+            );
+        }
+        /**
+         * Translate content tag changes to href and html attributes
+         * @param {JuicyHTMLElement} element to set attibutes on
+         * @param {String} value value of content attr
+         */
+        function forwardContentValue(element, value){
+            if (value && (value.indexOf('/') === 0 || value.indexOf('./') === 0 || value.indexOf('../') === 0)) {
+                //value is a URL, load the partial from external file
+                element.removeAttribute('html');
+                element.setAttribute('href', value);
+            } else if (value === null) {
+                element.removeAttribute('html');
+                element.removeAttribute('href');
+            } else {
+                //value is HTML code, insert the partial from the string
+                element.removeAttribute('href');
+                element.setAttribute('html', value);
+            }
+        }
+
         var JuicyHTMLPrototype = Object.create((HTMLTemplateElement || HTMLElement).prototype);
         var isSafari = navigator.vendor && navigator.vendor.indexOf("Apple") > -1 && navigator.userAgent && !navigator.userAgent.match("CriOS");
 
         JuicyHTMLPrototype.createdCallback = function() {
-            var model = null;
-            Object.defineProperty(this, "model", {
-                set: function(newValue) {
-                    model = newValue;
-                    this.attachModel(newValue);
+            var model = null; // XXX(tomalec): || this.model ? // to consider for https://github.com/Juicy/juicy-html/issues/30
+            Object.defineProperties(this, {
+                'model': {
+                    set: function(newValue) {
+                        model = newValue;
+                        this.attachModel(newValue);
+                    },
+                    get: function() {
+                        return model;
+                    }
                 },
-                get: function() {
-                    return model;
+                'href': {
+                    set: function(newValue) {
+                        if(newValue === null){
+                            this.removeAttribute('href');
+                        } else {
+                            this.setAttribute('href', newValue);
+                        }
+                    },
+                    get: function() {
+                        return this.getAttribute('href');
+                    }
+                },
+                'html': {
+                    set: function(newValue) {
+                        if(newValue === null){
+                            this.removeAttribute('html');
+                        } else {
+                            this.setAttribute('html', newValue);
+                        }
+                    },
+                    get: function() {
+                        return this.getAttribute('html');
+                    }
                 }
             });
         };
@@ -29,20 +86,6 @@ version: 1.2.0
         JuicyHTMLPrototype.pending = null;
 
         JuicyHTMLPrototype.stampedNodes = null;
-        JuicyHTMLPrototype.loadTemplate_ = function() {
-            // skip pending request
-            this.skipStampingPendingFile();
-            var val = this.getAttribute('content');
-            if (val && (val.indexOf('/') === 0 || val.indexOf('./') === 0 || val.indexOf('../') === 0)) {
-                //val is a URL, load the partial from external file
-                this._loadExternalFile(val);
-            } else if (val === null) {
-                this.clear();
-            } else {
-                //val is HTML code, insert the partial from the string
-                this.reattachTemplate_(val);
-            }
-        };
         /**
          * Skips/disregards pending request if any.
          */
@@ -72,9 +115,9 @@ version: 1.2.0
             this.clear();
             if(html === ''){
                 if(statusCode === 204){
-                    console.info('no content was returned for juicy-html (', this, ')');
+                    console.info('no content was returned for juicy-html', this);
                 } else {
-                    console.warn('content given for juicy-html (', this, ') is an empty file');
+                    console.warn('content given for juicy-html is an empty file', this);
                 }
             }
             // fragmentFromString(strHTML) from http://stackoverflow.com/a/25214113/868184
@@ -118,7 +161,12 @@ version: 1.2.0
         JuicyHTMLPrototype.isAttached = false;
         JuicyHTMLPrototype.attachedCallback = function() {
             this.isAttached = true;
-            this.loadTemplate_();
+            // autostamp
+            // TODO(tomalec): read pre-upgrade properties in cheap manner
+            this.hasAttribute('href') && this.attributeChangedCallback('href', null, this.getAttribute('href'));
+            this.hasAttribute('html') && this.attributeChangedCallback('html', null, this.getAttribute('html'));
+            // translate legacy `content` attribute
+            this.hasAttribute('content') && this.attributeChangedCallback('content', null, this.getAttribute('content'));
         };
         JuicyHTMLPrototype.detachedCallback = function() {
             this.isAttached = false;
@@ -134,7 +182,26 @@ version: 1.2.0
                         this.model = newVal;
                         break;
                     case "content":
-                        this.loadTemplate_();
+                        warnAboutDeprecatedContentOn(this);
+                        forwardContentValue(this, newVal);
+                        break;
+                    case "href":
+                        // skip pending request
+                        this.skipStampingPendingFile();
+                        if(newVal !== null){
+                            this.removeAttribute('html');
+                            this._loadExternalFile(newVal);
+                        } else {
+                            this.clear();
+                        }
+                        break;
+                    case "html":
+                        if(newVal !== null){
+                            this.removeAttribute('href');
+                            this.reattachTemplate_(newVal);
+                        } else {
+                            this.clear();
+                        }
                         break;
                 }
             }

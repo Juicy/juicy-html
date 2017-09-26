@@ -25,7 +25,7 @@
 <body class="markdown-body">
     <template id="test" is="dom-bind">
         <h1>Fancy inline partial within Polymer's dom-bind</h1>
-        <template is="juicy-html" content$="{{model.subpage.Html}}" model="{{model.subpage}}">
+        <template is="juicy-html" href="{{model.subpage.Html}}" model="{{model.subpage}}">
         </template>
         <h3>Code (live)</h3>
         <textarea value="{{model.subpage.Html::input}}"></textarea>

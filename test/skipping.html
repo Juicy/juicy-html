@@ -24,12 +24,15 @@
     </test-fixture>
 
     <script>
-        describe('<juicy-html>', function() {
+        describe('<juicy-html> after request for file was send but before it responded', function() {
             var myEl;
-            context('when skipStampingPendingFile method is called after request for file was send but before it responded', function() {
+            beforeEach(function() {
+                myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
+                myEl.setAttribute('href', '../examples/partials/basic.html');
+                sinon.spy(myEl, 'skipStampingPendingFile');
+            });
+            context('when skipStampingPendingFile method is called', function() {
                 beforeEach(function() {
-                    myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
-                    myEl.setAttribute('content', '../partials/basic.html');
                     myEl.skipStampingPendingFile();
                 });
                 it('should NOT stamp anything', function(done){
@@ -40,23 +43,47 @@
                     }, 300);
                 });
             });
-            context('when content property is changed', function() {
-                beforeEach(function() {
-                    myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
-                    myEl.setAttribute('content', '../partials/basic.html');
-                    sinon.spy(myEl, 'skipStampingPendingFile');
-                });
+            context('when href attribute is changed', function() {
                 it('to another url, skipStampingPendingFile method should get called', function(){
-                    myEl.setAttribute('content', '../partials/page_1.html');
+                    myEl.setAttribute('href', '../examples/partials/page_1.html');
                     expect(myEl.skipStampingPendingFile).to.be.calledOnce;
                 });
-                it('to a string, skipStampingPendingFile method should get called', function(){
-                    myEl.setAttribute('content', 'blah');
+                it('- removed, skipStampingPendingFile method should get called', function(){
+                    myEl.removeAttribute('href');
+                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+                });
+            });
+            context('when href property is changed', function() {
+                it('to another url, skipStampingPendingFile method should get called', function(){
+                    myEl.href = '../examples/partials/page_1.html';
                     expect(myEl.skipStampingPendingFile).to.be.calledOnce;
                 });
                 it('to `null`, skipStampingPendingFile method should get called', function(){
-                    myEl.setAttribute('content', null);
+                    myEl.href = null;
                     expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+                });
+            });
+            context('when html attribute is changed', function() {
+                it('to a string, skipStampingPendingFile method should get called', function(){
+                    myEl.setAttribute('html', 'blah');
+                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+                });
+                it('- removed, skipStampingPendingFile method should NOT get called', function(done){
+                    myEl.removeAttribute('html');
+                    setTimeout(function waitForCall(){
+                        expect(myEl.skipStampingPendingFile).not.to.be.called;
+                        done();
+                    }, 200);
+                });
+            });
+            context('when html property is changed', function() {
+                it('to a string, skipStampingPendingFile method should get called', function(){
+                    myEl.html = 'blah';
+                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+                });
+                it('to `null`, skipStampingPendingFile method should NOT get called', function(){
+                    myEl.html = null;
+                    expect(myEl.skipStampingPendingFile).not.to.be.called;
                 });
             });
         });
