@@ -42,7 +42,7 @@ version: 1.2.0
         var isSafari = navigator.vendor && navigator.vendor.indexOf("Apple") > -1 && navigator.userAgent && !navigator.userAgent.match("CriOS");
 
         JuicyHTMLPrototype.createdCallback = function() {
-            var model = null; // XXX(tomalec): || this.model ?
+            var model = null; // XXX(tomalec): || this.model ? // to consider for https://github.com/Juicy/juicy-html/issues/30
             Object.defineProperties(this, {
                 'model': {
                     set: function(newValue) {
@@ -162,15 +162,11 @@ version: 1.2.0
         JuicyHTMLPrototype.attachedCallback = function() {
             this.isAttached = true;
             // autostamp
+            // TODO(tomalec): read pre-upgrade properties in cheap manner
+            this.hasAttribute('href') && this.attributeChangedCallback('href', null, this.getAttribute('href'));
+            this.hasAttribute('html') && this.attributeChangedCallback('html', null, this.getAttribute('html'));
             // translate legacy `content` attribute
-            if(this.hasAttribute('content')){
-                warnAboutDeprecatedContentOn(this);
-                forwardContentValue(this, this.getAttribute('content'));
-            } else {
-                // TODO(tomalec): read pre-upgrade properties in cheap manner
-                this.hasAttribute('href') && this.attributeChangedCallback('href', null, this.getAttribute('href'));
-                this.hasAttribute('html') && this.attributeChangedCallback('html', null, this.getAttribute('html'));
-            }
+            this.hasAttribute('content') && this.attributeChangedCallback('content', null, this.getAttribute('content'));
         };
         JuicyHTMLPrototype.detachedCallback = function() {
             this.isAttached = false;

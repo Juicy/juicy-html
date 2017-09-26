@@ -99,8 +99,8 @@ Please note, that loaded `<script>` and `<style>` will be executed every time HT
 
 Attribute           | Options         | Default     | Description
 ---                 | ---             | ---         | ---
-`html`              | *string*		  | `""`	    | Safe HTML code to be stamped.
-`href`              | *string*		  | `""`	    | Path of a partial to be loaded.
+`html`              | *string*		  | `""`	    | Safe HTML code to be stamped. Setting this one will skip any pending request for `href` and remove `href` attribute.
+`href`              | *string*		  | `""`	    | Path of a partial to be loaded. Setting this one will remove `html` attribute.
 `model`(_optional_) | *Object|String* | `undefined` | Object (or `JSON.stringify`'ied Object) to be attached to every root node of loaded document
 
 ## Properties
