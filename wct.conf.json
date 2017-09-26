@@ -18,10 +18,6 @@
                 "browserName": "safari",
                 "platform": "OS X 10.11",
                 "version": "10"
-            }, {
-                "browserName": "safari",
-                "platform": "OS X 10.11",
-                "version": "11"
             }]
         }
     }
