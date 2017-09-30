@@ -21,6 +21,15 @@
       "url": "http://www.opensource.org/licenses/MIT"
     }
   ],
+  "keywords": [
+    "include",
+    "partials",
+    "html",
+    "declarative",
+    "client-side",
+    "custom-element",
+    "web-components"
+  ],
   "main": "./juicy-html.html",
   "devDependencies": {
     "grunt": "~0.4.5",

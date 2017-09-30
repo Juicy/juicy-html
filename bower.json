@@ -11,9 +11,12 @@
   "main": "juicy-html.html",
   "license": "https://github.com/Juicy/juicy-html/blob/master/LICENSE",
   "keywords": [
+    "include",
     "partials",
     "html",
-    "include",
+    "declarative",
+    "client-side",
+    "custom-element",
     "web-components"
   ],
   "ignore": [
