@@ -1,6 +1,6 @@
 {
   "name": "juicy-html",
-  "description": "Custom Element that lets you load HTML partials into your Web Components",
+  "description": "A custom element that lets you load HTML partials into your Web page. Declarative way for client-side includes.",
   "version": "2.0.0",
   "homepage": "https://github.com/Juicy/juicy-html",
   "authors": [

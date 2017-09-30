@@ -1,5 +1,6 @@
 &lt;juicy-html&gt; [![Build Status](https://travis-ci.org/Juicy/juicy-html.svg?branch=master)](https://travis-ci.org/Juicy/juicy-html)
 ==============
+> Declarative way for client-side includes
 
 `<juicy-html>` is a custom element that lets you load HTML partials from JS objects and external files into your DOM. It acts more or less, as `include` statement known in many other languages. It also provides data binding, that works for native JS/HTML as well as for Polymer's `dom-bind`.
 
