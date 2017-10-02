@@ -17,7 +17,7 @@
     <test-fixture id="juicy-html-with-content">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html" content="/mock/smth">
+            <div><template is="juicy-html" content="../mock/smth.html">
             </template></div>
         </template>
     </test-fixture>
@@ -31,7 +31,7 @@
 
     <script>
         describe('<juicy-html>', function () {
-            var myEl, changedEl, server, infoSpy, warnSpy, errorSpy;
+            var myEl, changedEl, infoSpy, warnSpy, errorSpy;
             beforeEach(function () {
                 infoSpy = sinon.spy(console, 'info');
                 infoSpy.displayName = 'console.info';
@@ -44,16 +44,6 @@
                 infoSpy.restore();
                 warnSpy.restore();
                 errorSpy.restore();
-            });
-            before(function () {
-                var server = sinon.fakeServer.create();
-                server.xhr.useFilters = true;
-                server.xhr.addFilter(function (method, url) {
-                    //whenever the this returns true the request will not faked
-                    return !url.match(/mock\//);
-                });
-                server.respondWith('GET', '/mock/smth', [200, {"Content-Type": "text/html"}, '<div id="smth">smth</div>']);
-                server.autoRespond = true;
             });
             context('when element is attached with content attribute', function () {
                 beforeEach(function (done) {
@@ -70,7 +60,7 @@
             context('when content attribute is changed', function () {
                 beforeEach(function (done) {
                     myEl = fixture('juicy-html-without-content').querySelector('template[is="juicy-html"]');
-                    myEl.setAttribute('content', '/mock/smth');
+                    myEl.setAttribute('content', '../mock/smth.html');
                     // wait for (faked) XHR
                     setTimeout(done, 100);
                 });

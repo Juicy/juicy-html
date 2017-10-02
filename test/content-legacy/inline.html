@@ -37,6 +37,10 @@
                 });
 
                 it('should remove stamped nodes after content is cleared', function(){
+                    var parent = myEl.parentNode;
+                    // pre-test conditions
+                    expect(parent.children.length).to.be.equal(2);
+                    // actual test
                     myEl.setAttribute('content', null);
                     expect(myEl.nextElementSibling).to.be.null;
                     expect(myEl.previousElementSibling).to.be.null;
@@ -50,8 +54,11 @@
                     expect(myEl.parentNode.children.length).to.equal(2);
                 });
 
-                it('should remove stamped nodes after it\s detached from DOM', function(done){
+                it('should remove stamped nodes after it\'s detached from DOM', function(done){
                     var parent = myEl.parentNode;
+                    // pre-test conditions
+                    expect(parent.children.length).to.be.equal(2);
+                    // actual test
                     parent.removeChild(myEl);
                     setTimeout(function waitForDetachedPolyfill() {
                         expect(parent.children.length).to.be.equal(0);
@@ -63,6 +70,9 @@
                 // https://github.com/Juicy/juicy-html/issues/17
                 it('should remove stamped nodes after `content` attribute is removed', function(){
                     var parent = myEl.parentNode;
+                    // pre-test conditions
+                    expect(parent.children.length).to.be.equal(2);
+                    // actual test
                     myEl.removeAttribute('content');
                     expect(parent.children.length).to.be.equal(1);
                     expect(parent.childNodes.length).to.be.equal(1);

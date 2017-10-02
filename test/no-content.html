@@ -17,7 +17,7 @@
     <test-fixture id="juicy-html-with-href">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html" href="/mock/smth">
+            <div><template is="juicy-html" href="./mock/smth">
             </template></div>
         </template>
     </test-fixture>
@@ -31,7 +31,7 @@
     <test-fixture id="juicy-html-200-empty">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html" href="/mock/200">
+            <div><template is="juicy-html" href="./mock/200">
             </template></div>
         </template>
     </test-fixture>
@@ -53,16 +53,17 @@
                 errorSpy.restore();
             });
             before(function () {
-                var server = sinon.fakeServer.create();
+                server = sinon.fakeServer.create();
                 server.xhr.useFilters = true;
                 server.xhr.addFilter(function (method, url) {
-                    //whenever the this returns true the request will not faked
+                    //whenever this returns true the request will not faked
                     return !url.match(/mock\//);
                 });
                 server.respondWith('GET', '/mock/204', [204, {"Content-Type": "text/html"}, '']);
-                server.respondWith('GET', '/mock/200', [200, {"Content-Type": "text/html"}, '']);
-                server.respondWith('GET', '/mock/smth', [200, {"Content-Type": "text/html"}, '<div id="smth">smth</div>']);
                 server.autoRespond = true;
+            });
+            after(function () {
+                server.restore();
             });
             context('when external file returns <code>204 No Content</code>', function () {
                 beforeEach(function (done) {
@@ -91,7 +92,7 @@
                 beforeEach(function (done) {
                     myEl = fixture('juicy-html-200-empty').querySelector('template[is="juicy-html"]');
                     changedEl = fixture('juicy-html-with-href').querySelector('template[is="juicy-html"]');
-                    changedEl.setAttribute('href', '/mock/200');
+                    changedEl.setAttribute('href', './mock/200');
                     // wait for (faked) XHR
                     setTimeout(done, 100);
                 });
