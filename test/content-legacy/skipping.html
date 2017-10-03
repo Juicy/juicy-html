@@ -47,14 +47,23 @@
                     sinon.spy(myEl, 'skipStampingPendingFile');
                 });
                 it('to another url, skipStampingPendingFile method should get called', function(){
+                    // pre-test conditions
+                    expect(myEl.skipStampingPendingFile).not.to.be.called;
+                    // actual test
                     myEl.setAttribute('content', '../../partials/page_1.html');
                     expect(myEl.skipStampingPendingFile).to.be.calledOnce;
                 });
                 it('to a string, skipStampingPendingFile method should get called', function(){
+                    // pre-test conditions
+                    expect(myEl.skipStampingPendingFile).not.to.be.called;
+                    // actual test
                     myEl.setAttribute('content', 'blah');
                     expect(myEl.skipStampingPendingFile).to.be.calledOnce;
                 });
                 it('to `null`, skipStampingPendingFile method should get called', function(){
+                    // pre-test conditions
+                    expect(myEl.skipStampingPendingFile).not.to.be.called;
+                    // actual test
                     myEl.setAttribute('content', null);
                     expect(myEl.skipStampingPendingFile).to.be.calledOnce;
                 });

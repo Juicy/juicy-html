@@ -2,7 +2,7 @@
 ==============
 > Declarative way for client-side includes
 
-`<juicy-html>` is a custom element that lets you load HTML partials from JS objects and external files into your DOM. It acts more or less, as `include` statement known in many other languages. It also provides data binding, that works for native JS/HTML as well as for Polymer's `dom-bind`.
+`<juicy-html>` is a custom element that lets you load HTML partials from JS objects and external files into your DOM. It acts more or less, as `include` statement known in many other languages. It also provides a simple data binding, that works for native JS/HTML as well as for Polymer's `dom-bind`.
 
 ### External files
 To load HTML from external file all you need is:
@@ -100,18 +100,19 @@ Please note, that loaded `<script>` and `<style>` will be executed every time HT
 
 Attribute           | Options         | Default     | Description
 ---                 | ---             | ---         | ---
-`html`              | *string*		  | `""`	    | Safe HTML code to be stamped. Setting this one will skip any pending request for `href` and remove `href` attribute.
-`href`              | *string*		  | `""`	    | Path of a partial to be loaded. Setting this one will remove `html` attribute.
-`model`(_optional_) | *Object|String* | `undefined` | Object (or `JSON.stringify`'ied Object) to be attached to every root node of loaded document
+`html`              | *String*		  | `""`	    | Safe HTML code to be stamped. Setting this one will skip any pending request for `href` and remove `href` attribute.
+`href`              | *String*		  | `""`	    | Path of a partial to be loaded. Setting this one will remove `html` attribute.
+`model`(_optional_) | *Object/String* | `undefined` | Object (or `JSON.stringify`'ied Object) to be attached to every root node of loaded document
 
 ## Properties
 
-Property  | Type             | Default     | Description
----       | ---              | ---         | ---
-`model`   | *Object*         | `undefined` | See [attributes](#Attributes)
-`html`    | *string*         | `""`	       | See [attributes](#Attributes)
-`href`    | *string*         | `""`	       | See [attributes](#Attributes)
-`pending` | *XMLHttpRequest* |             | pending XHR if any
+Property       | Type              | Default     | Description
+---            | ---               | ---         | ---
+`model`        | *Object*          | `undefined` | See [attributes](#Attributes), plays nice with Polymer data-binding
+`html`         | *String*          | `""`	     | See [attributes](#Attributes)
+`href`         | *String*          | `""`	     | See [attributes](#Attributes)
+`pending`      | *XMLHttpRequest*  |             | pending XHR if any
+`stampedNodes` | *Array*           | `[]`        | Array of stamped nodes.
 
 Please note, that properties are available after element is upgraded.
 To provide a state before element is upgraded, please use attributes.
