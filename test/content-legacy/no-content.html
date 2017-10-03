@@ -40,19 +40,14 @@
         describe('<juicy-html>', function () {
             var myEl, changedEl, server, infoSpy, warnSpy, errorSpy;
             beforeEach(function () {
+                // set up spies
                 infoSpy = sinon.spy(console, 'info');
                 infoSpy.displayName = 'console.info';
                 warnSpy = sinon.spy(console, 'warn');
                 warnSpy.displayName = 'console.warn';
                 errorSpy = sinon.spy(console, 'error');
                 errorSpy.displayName = 'console.error';
-            });
-            afterEach(function () {
-                infoSpy.restore();
-                warnSpy.restore();
-                errorSpy.restore();
-            });
-            before(function () {
+                // setup server
                 server = sinon.fakeServer.create();
                 server.xhr.useFilters = true;
                 server.xhr.addFilter(function (method, url) {
@@ -62,7 +57,11 @@
                 server.respondWith('GET', '../mock/204', [204, {"Content-Type": "text/html"}, '']);
                 server.autoRespond = true;
             });
-            after(function (){
+            afterEach(function () {
+                infoSpy.restore();
+                warnSpy.restore();
+                errorSpy.restore();
+
                 server.restore();
             });
             context('when external file returns <code>204 No Content</code>', function () {
