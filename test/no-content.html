@@ -72,7 +72,7 @@
                     changedEl = fixture('juicy-html-with-href').querySelector('template[is="juicy-html"]');
                     changedEl.setAttribute('href', './mock/204');
                     // wait for (faked) XHR
-                    setTimeout(done, 100);
+                    setTimeout(done, 300);
                 });
                 it('should not throw any error', function () {
                     expect(errorSpy).not.to.be.called;
@@ -94,7 +94,7 @@
                     changedEl = fixture('juicy-html-with-href').querySelector('template[is="juicy-html"]');
                     changedEl.setAttribute('href', './mock/200');
                     // wait for (faked) XHR
-                    setTimeout(done, 100);
+                    setTimeout(done, 300);
                 });
                 it('should not throw any error', function () {
                     expect(errorSpy).not.to.be.called;
