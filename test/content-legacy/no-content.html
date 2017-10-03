@@ -17,14 +17,14 @@
     <test-fixture id="juicy-html-with-content">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html" content="/mock/smth.html">
+            <div><template is="juicy-html" content="../mock/smth.html">
             </template></div>
         </template>
     </test-fixture>
     <test-fixture id="juicy-html-204-empty">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html" content="/mock/204">
+            <div><template is="juicy-html" content="../mock/204">
             </template></div>
         </template>
     </test-fixture>
@@ -57,9 +57,9 @@
                 server.xhr.useFilters = true;
                 server.xhr.addFilter(function (method, url) {
                     //whenever this returns true the request will not faked
-                    return !url.match(/mock\/204/);
+                    return !url.match(/\.\.\/mock\/204/);
                 });
-                server.respondWith('GET', '/mock/204', [204, {"Content-Type": "text/html"}, '']);
+                server.respondWith('GET', '../mock/204', [204, {"Content-Type": "text/html"}, '']);
                 server.autoRespond = true;
             });
             after(function (){
@@ -70,9 +70,9 @@
 
                     myEl = fixture('juicy-html-204-empty').querySelector('template[is="juicy-html"]');
                     changedEl = fixture('juicy-html-with-content').querySelector('template[is="juicy-html"]');
-                    changedEl.setAttribute('content', '/mock/204');
+                    changedEl.setAttribute('content', '../mock/204');
                     // wait for (faked) XHR
-                    setTimeout(done, 100);
+                    setTimeout(done, 300);
                 });
                 it('should not throw any error', function () {
                     expect(errorSpy).not.to.be.called;
@@ -94,7 +94,7 @@
                     changedEl = fixture('juicy-html-with-content').querySelector('template[is="juicy-html"]');
                     changedEl.setAttribute('content', '../mock/200');
                     // wait for (faked) XHR
-                    setTimeout(done, 100);
+                    setTimeout(done, 300);
                 });
                 it('should not throw any error', function () {
                     expect(errorSpy).not.to.be.called;

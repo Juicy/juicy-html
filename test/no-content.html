@@ -24,7 +24,7 @@
     <test-fixture id="juicy-html-204-empty">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html" href="/mock/204">
+            <div><template is="juicy-html" href="./mock/204">
             </template></div>
         </template>
     </test-fixture>
@@ -57,9 +57,9 @@
                 server.xhr.useFilters = true;
                 server.xhr.addFilter(function (method, url) {
                     //whenever this returns true the request will not faked
-                    return !url.match(/mock\//);
+                    return !url.match(/\.\/mock\/204/);
                 });
-                server.respondWith('GET', '/mock/204', [204, {"Content-Type": "text/html"}, '']);
+                server.respondWith('GET', './mock/204', [204, {"Content-Type": "text/html"}, '']);
                 server.autoRespond = true;
             });
             after(function () {
@@ -70,7 +70,7 @@
 
                     myEl = fixture('juicy-html-204-empty').querySelector('template[is="juicy-html"]');
                     changedEl = fixture('juicy-html-with-href').querySelector('template[is="juicy-html"]');
-                    changedEl.setAttribute('href', '/mock/204');
+                    changedEl.setAttribute('href', './mock/204');
                     // wait for (faked) XHR
                     setTimeout(done, 100);
                 });
