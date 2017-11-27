@@ -86,6 +86,14 @@
                     expect(myEl.skipStampingPendingFile).not.to.be.called;
                 });
             });
+            describe("Undefined URL", function() {
+                it("It shouldn't issue a request if URL is undefined", function() {
+                    myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
+                    sinon.spy(myEl, '_loadExternalFile');
+                    myEl.href = undefined;
+                    expect(myEl._loadExternalFile).not.to.be.called;
+                });
+            });
         });
     </script>
 
