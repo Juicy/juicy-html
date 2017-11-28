@@ -18,8 +18,7 @@
     <test-fixture id="juicy-html-fixture">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html" html="<h1>Hello World</h1>">
-            </template></div>
+            <div><juicy-html html="<h1>Hello World</h1>"></juicy-html></div>
         </template>
     </test-fixture>
 
@@ -28,7 +27,7 @@
             var myEl;
             context('when created with HTML markup in html attribute', function() {
                 beforeEach(function(done) {
-                    myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
+                    myEl = fixture('juicy-html-fixture').querySelector('juicy-html');
                     // wait for polyfilled callbacks
                     setTimeout(done, 10);
                 });

@@ -17,15 +17,13 @@
     <test-fixture id="juicy-html-with-content">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html" content="../mock/smth.html">
-            </template></div>
+            <div><juicy-html content="../mock/smth.html"></juicy-html></div>
         </template>
     </test-fixture>
     <test-fixture id="juicy-html-without-content">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html">
-            </template></div>
+            <div><juicy-html></juicy-html></div>
         </template>
     </test-fixture>
 
@@ -47,7 +45,7 @@
             });
             context('when element is attached with content attribute', function () {
                 beforeEach(function (done) {
-                    myEl = fixture('juicy-html-with-content').querySelector('template[is="juicy-html"]');
+                    myEl = fixture('juicy-html-with-content').querySelector('juicy-html');
                     // wait for (faked) XHR
                     setTimeout(done, 100);
                 });
@@ -59,7 +57,7 @@
             });
             context('when content attribute is changed', function () {
                 beforeEach(function (done) {
-                    myEl = fixture('juicy-html-without-content').querySelector('template[is="juicy-html"]');
+                    myEl = fixture('juicy-html-without-content').querySelector('juicy-html');
                     myEl.setAttribute('content', '../mock/smth.html');
                     // wait for (faked) XHR
                     setTimeout(done, 100);

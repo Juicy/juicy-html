@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>&lt;juicy-html&gt; basic inline partial</title>
-    <script src="../../webcomponentsjs/webcomponents.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="stylesheet" href="//juicy.github.io/juicy-tile-list/examples/github-markdown.css">
 
     <link rel="import" href="../juicy-html.html">
@@ -18,11 +18,13 @@
     </style>
 </head>
 <body class="markdown-body">
-    <template is="juicy-html" content='
+    <juicy-html html='
         All those nodes will get <code>.model</code> property with object given in model attribute.
-        <template is="dom-bind">
-            <p>which can be used by <span>{{model.polymer}}</span></p>
-        </template>
+        <dom-bind>
+            <template>
+                <p>which can be used by <span>{{model.polymer}}</span></p>
+            </template>
+        </dom-bind>
         <div></div>
         <script>
             var script = (document._currentScript || document.currentScript);
@@ -35,13 +37,15 @@
             "polymer": "Polymer&apos;s dom-bind",
             "vanilla": "as well as by native JS <code>&amp;lt;script&amp;gt;</code> or custom elements"
         }'>
-    </template>
+    </juicy-html>
     <h2>Code</h2>
-    <pre><code>&lt;template is="juicy-html" content='
+    <pre><code>&lt;juicy-html html='
     All those nodes will get &lt;code&gt;.model&lt;/code&gt; property with object given in model attribute.
-    &lt;template is="dom-bind"&gt;
-      &lt;p&gt;which can be used by &lt;span&gt;{{model.polymer}}&lt;/span&gt;&lt;/p&gt;
-    &lt;/template&gt;
+    &lt;dom-bind&gt;
+      &lt;template is="dom-bind"&gt;
+        &lt;p&gt;which can be used by &lt;span&gt;{{model.polymer}}&lt;/span&gt;&lt;/p&gt;
+      &lt;/template&gt;
+    &lt;/dom-bind&gt;
     &lt;div&gt;&lt;/div&gt;
     &lt;script&gt;
       var script = (document._currentScript || document.currentScript);
@@ -53,6 +57,6 @@
     "polymer": "Polymer&apos;s dom-bind",
     "vanilla": "as well as by native JS &lt;code&gt;&amp;amp;lt;script&amp;amp;gt;&lt;/code&gt; or custom elements"
   }'>
-&lt;/template></code></pre>
+&lt;/juicy-html&gt;</code></pre>
 </body>
 </html>

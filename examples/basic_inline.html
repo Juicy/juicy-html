@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>&lt;juicy-html&gt; basic inline partial</title>
-    <script src="../../webcomponentsjs/webcomponents.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="stylesheet" href="//juicy.github.io/juicy-tile-list/examples/github-markdown.css">
     <link rel="import" href="../juicy-html.html">
     <style>
@@ -15,8 +15,8 @@
     </style>
 </head>
 <body class="markdown-body">
-    <template is="juicy-html" href="<h1>Hello World!</h1> <p>I'm <strong>inline</strong> content.</p>"></template>
+    <juicy-html html="<h1>Hello World!</h1> <p>I'm <strong>inline</strong> content.</p>"></juicy-html>
     <h2>code</h2>
-    <pre><code>&lt;template is="juicy-html" href="&lt;h1&gt;Hello World!&lt;/h1&gt; &lt;p&gt;I'm &lt;strong&gt;inline&lt;/strong&gt; content.&lt;/p&gt;"&gt;&lt;/template&gt;</code></pre>
+    <pre><code>&lt;juicy-html html="&lt;h1&gt;Hello World!&lt;/h1&gt; &lt;p&gt;I'm &lt;strong&gt;inline&lt;/strong&gt; content.&lt;/p&gt;"&gt;&lt;/juicy-html&gt;</code></pre>
 </body>
 </html>

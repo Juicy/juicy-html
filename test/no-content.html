@@ -17,22 +17,19 @@
     <test-fixture id="juicy-html-with-href">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html" href="./mock/smth">
-            </template></div>
+            <div><juicy-html href="./mock/smth"></juicy-html></div>
         </template>
     </test-fixture>
     <test-fixture id="juicy-html-204-empty">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html" href="./mock/204">
-            </template></div>
+            <div><juicy-html href="./mock/204"></juicy-html></div>
         </template>
     </test-fixture>
     <test-fixture id="juicy-html-200-empty">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html" href="./mock/200">
-            </template></div>
+            <div><juicy-html href="./mock/200"></juicy-html></div>
         </template>
     </test-fixture>
 
@@ -68,8 +65,8 @@
             context('when external file returns <code>204 No Content</code>', function () {
                 beforeEach(function (done) {
 
-                    myEl = fixture('juicy-html-204-empty').querySelector('template[is="juicy-html"]');
-                    changedEl = fixture('juicy-html-with-href').querySelector('template[is="juicy-html"]');
+                    myEl = fixture('juicy-html-204-empty').querySelector('juicy-html');
+                    changedEl = fixture('juicy-html-with-href').querySelector('juicy-html');
                     changedEl.setAttribute('href', './mock/204');
                     // wait for (faked) XHR
                     setTimeout(done, 300);
@@ -90,8 +87,8 @@
             });
             context('when external file returns <code>200 Ok</code> but no content', function () {
                 beforeEach(function (done) {
-                    myEl = fixture('juicy-html-200-empty').querySelector('template[is="juicy-html"]');
-                    changedEl = fixture('juicy-html-with-href').querySelector('template[is="juicy-html"]');
+                    myEl = fixture('juicy-html-200-empty').querySelector('juicy-html');
+                    changedEl = fixture('juicy-html-with-href').querySelector('juicy-html');
                     changedEl.setAttribute('href', './mock/200');
                     // wait for (faked) XHR
                     setTimeout(done, 300);

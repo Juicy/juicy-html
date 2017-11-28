@@ -18,8 +18,7 @@
     <test-fixture id="juicy-html-fixture">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html">
-            </template></div>
+            <div><juicy-html></juicy-html></div>
         </template>
     </test-fixture>
 
@@ -28,7 +27,7 @@
             var myEl;
             context('when skipStampingPendingFile method is called after request for file was send but before it responded', function() {
                 beforeEach(function() {
-                    myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
+                    myEl = fixture('juicy-html-fixture').querySelector('juicy-html');
                     myEl.setAttribute('content', '../../partials/basic.html');
                     myEl.skipStampingPendingFile();
                 });
@@ -42,7 +41,7 @@
             });
             context('when content property is changed', function() {
                 beforeEach(function() {
-                    myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
+                    myEl = fixture('juicy-html-fixture').querySelector('juicy-html');
                     myEl.setAttribute('content', '../../partials/basic.html');
                     sinon.spy(myEl, 'skipStampingPendingFile');
                 });
