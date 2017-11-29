@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>&lt;juicy-html&gt; in a &lt;template&gt; with HTML partial loaded as a sibling</title>
-    <script src="../../webcomponentsjs/webcomponents.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="stylesheet" href="//juicy.github.io/juicy-tile-list/examples/github-markdown.css">
 
     <link rel="import" href="../juicy-html.html">
@@ -19,7 +19,7 @@
     <h2>Hey! those are siblings:</h2>
     <ul>
         <li class="specialExternal">Just plain <code>&lt;li&gt;</code></li>
-        <template is="juicy-html" href="./partials/page_4.html"></template>
+        <juicy-html href="./partials/page_4.html"></juicy-html>
     </ul>
 </body>
 </html>

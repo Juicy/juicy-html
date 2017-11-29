@@ -18,8 +18,7 @@
     <test-fixture id="juicy-html-fixture">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><template is="juicy-html">
-            </template></div>
+            <div><juicy-html></juicy-html></div>
         </template>
     </test-fixture>
 
@@ -27,7 +26,7 @@
         describe('<juicy-html> after request for file was send but before it responded', function() {
             var myEl;
             beforeEach(function() {
-                myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
+                myEl = fixture('juicy-html-fixture').querySelector('juicy-html');
                 myEl.setAttribute('href', '../examples/partials/basic.html');
                 sinon.spy(myEl, 'skipStampingPendingFile');
             });
@@ -88,7 +87,7 @@
             });
             describe("Undefined URL", function() {
                 it("It shouldn't issue a request if URL is undefined", function() {
-                    myEl = fixture('juicy-html-fixture').querySelector('template[is="juicy-html"]');
+                    myEl = fixture('juicy-html-fixture').querySelector('juicy-html');
                     sinon.spy(myEl, '_loadExternalFile');
                     myEl.href = undefined;
                     expect(myEl._loadExternalFile).not.to.be.called;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>&lt;juicy-html&gt; Fancy inline partial within Polymer's dom-bind</title>
-    <script src="../../webcomponentsjs/webcomponents.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="stylesheet" href="//juicy.github.io/juicy-tile-list/examples/github-markdown.css">
 
     <link rel="import" href="../juicy-html.html">
@@ -23,13 +23,15 @@
     </style>
 </head>
 <body class="markdown-body">
-    <template id="test" is="dom-bind">
+    <dom-bind>
+      <template is="dom-bind" id="test">
         <h1>Fancy inline partial within Polymer's dom-bind</h1>
-        <template is="juicy-html" href="{{model.subpage.Html}}" model="{{model.subpage}}">
-        </template>
+        <juicy-html html="{{model.subpage.Html}}" model="{{model.subpage}}">
+        </juicy-html>
         <h3>Code (live)</h3>
         <textarea value="{{model.subpage.Html::input}}"></textarea>
-    </template>
+      </template>
+    </dom-bind>
 
     <script>
         var model = {
@@ -38,9 +40,11 @@
                 polymer: "Polymer's dom-bind",
                 vanilla: "as well as by native JS <code>&lt;script&gt;</code> or custom elements",
                 Html: "All those nodes will get <code>.model</code> property with object given in model attribute.\n" +
-                  "<template is=\"dom-bind\">\n" +
-                  "    <p> which can be used by <span>{{model.polymer}}</span></p>\n" +
-                  "</template>\n" +
+                  "<dom-bind>\n" +
+                  "    <template is=\"dom-bind\">\n" +
+                  "        <p> which can be used by <span>{{model.polymer}}</span></p>\n" +
+                  "    </template>\n" +
+                  "</dom-bind>\n" +
                   "<div></div>\n" +
                   "<script>\n" +
                   "    var script = document._currentScript || document.currentScript;" +
@@ -50,8 +54,8 @@
                   "script>"
             }
         };
-
-        document.getElementById('test').model = model;
+        document.getElementById('test').model = model; // Polymer 1.x
+        document.getElementById('test').parentNode.model = model; // Polymer 2.0
     </script>
 </body>
 </html>
