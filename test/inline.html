@@ -23,6 +23,13 @@
         </template>
     </test-fixture>
 
+    <test-fixture id="juicy-html-fixture-polymer-hybrid">
+        <template>
+            <!-- nest to workaround test-fixture bug -->
+            <div><template is="juicy-html" html="<dom-xxx><template is='dom-xxx'><h1>Hello World</h1></template></dom-xxx>"></template></div>
+        </template>
+    </test-fixture>
+
     <script>
         describe('<juicy-html>', function() {
             var myEl;
@@ -36,6 +43,11 @@
                     expect(myEl.nextElementSibling).to.be.not.null;
                     expect(myEl.nextElementSibling.tagName).to.equal('H1');
                     expect(myEl.nextElementSibling.innerHTML).to.equal('Hello World');
+                });
+
+                it('should assign the model to all stamped elements', function(){   
+                    myEl.model = {};
+                    expect(myEl.parentNode.querySelector("h1").model).to.equal(myEl.model);
                 });
 
                 it('should remove stamped nodes after html is cleared', function(){
@@ -78,6 +90,18 @@
                     myEl.removeAttribute('html');
                     expect(parent.children.length).to.be.equal(1);
                     expect(parent.childNodes.length).to.be.equal(1);
+                });
+            });
+
+            context('when the HTML markup contains Polymer helper elements', function() {
+                beforeEach(function(done) {
+                    myEl = fixture('juicy-html-fixture-polymer-hybrid').querySelector('template[is="juicy-html"]');
+                    setTimeout(done, 10);
+                });
+                it('should assign the model to Polymer 1 helper elements nested in Polymer 2 helper elements', function(){ 
+                    myEl.model = {};
+                    expect(myEl.parentNode.querySelector("dom-xxx").model).to.equal(myEl.model);
+                    expect(myEl.parentNode.querySelector("template[is='dom-xxx']").model).to.equal(myEl.model);
                 });
             });
         });

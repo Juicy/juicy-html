@@ -218,8 +218,15 @@ version: 2.0.2
             if (model === null || !arrayOfElements) {
                 return;
             }
-            for (var childNo = 0; childNo < arrayOfElements.length; childNo++) {
-                arrayOfElements[childNo].model = model;
+            for (let childNo = 0; childNo < arrayOfElements.length; childNo++) {
+                const elem = arrayOfElements[childNo];
+                elem.model = model;
+
+                //mirrored implementation of this fix: https://github.com/Polymer/polymer/pull/4537/files
+                const firstElemChild = elem.firstElementChild;
+                if (firstElemChild && firstElemChild.getAttribute("is") === elem.localName) {
+                   firstElemChild.model = model;
+                }
             }
         };
 
