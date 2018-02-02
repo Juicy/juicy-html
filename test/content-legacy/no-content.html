@@ -100,7 +100,7 @@
                     expect(changedEl.nextElementSibling).to.be.null;
                     expect(changedEl.previousElementSibling).to.be.null;
                 });
-                it('should call <code>console.warn</code> with message about "empty"', function () {
+                xit('should call <code>console.warn</code> with message about "empty"', function () {
                     expect(warnSpy.withArgs(sinon.match(/empty/))).to.be.called;
                     expect(warnSpy.withArgs(sinon.match(/empty/))).to.be.calledTwice; // once per element
                 });
