@@ -32,7 +32,9 @@
   ],
   "main": "./juicy-html.html",
   "devDependencies": {
+    "got": "^8.0.3",
     "grunt": "~0.4.5",
-    "grunt-bump": "^0.3.0"
+    "grunt-bump": "^0.3.0",
+    "shelljs": "^0.8.1"
   }
 }

@@ -90,7 +90,7 @@
                     changedEl = fixture('juicy-html-with-content').querySelector('juicy-html');
                     changedEl.setAttribute('content', '../mock/200');
                     // wait for (faked) XHR
-                    setTimeout(done, 300);
+                    setTimeout(done, 800);
                 });
                 it('should not throw any error', function () {
                     expect(errorSpy).not.to.be.called;
