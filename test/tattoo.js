@@ -3,13 +3,16 @@
 
 const shell = require('shelljs'),
   path = require('path'),
-  got = require('got');
+  got = require('got'),
+  fs = require("fs");
 
+const TOKEN = process.env.TRAVIS_API_TOKEN;
+const repoRoot = path.join(__dirname, '..');
 
 console.log(`Fetching Git commit hash...`);
 
 const gitCommitRet = shell.exec('git rev-parse HEAD', {
-  cwd: path.join(__dirname, '..')
+  cwd: repoRoot
 });
 
 if (0 !== gitCommitRet.code) {
@@ -22,29 +25,55 @@ const gitCommitHash = gitCommitRet.stdout.trim();
 
 console.log(`Git commit: ${gitCommitHash}`);
 
-console.log('Calling Travis...');
 
 
-got.post(`https://api.travis-ci.org/repo/Juicy%2Fimported-template/requests`, {
-  headers: {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-    "Travis-API-Version": "3",
-    "Authorization": `token ${process.env.TRAVIS_API_TOKEN}`,
-  },
-  body: JSON.stringify({
-    request: {
-      message: `Trigger build at Juicy/juicy-html commit: ${gitCommitHash}`,
-      branch: 'master',
-    },
-  }),
-})
-.then((response) => {
-  console.log("Triggered build of Juicy/imported-template");
-  // console.log(response.body);
-})
-.catch((err) => {
-  console.error(err);
+// Read Synchrously
+const tattooConfig = JSON.parse(fs.readFileSync(path.join(repoRoot, 'test/tattoo.json')));
 
-  process.exit(-1);
+var currentRepo = tattooConfig.name;
+
+tattooConfig.dependants.forEach((dependantRepo)=>{
+    console.log(`Calling Travis for ${dependantRepo}...`);
+
+    const currentRepoSlug = currentRepo.replace('/','%2F');
+    const dependantRepoSlug = dependantRepo.replace('/','%2F');
+
+
+    got.post(`https://api.travis-ci.org/repo/${dependantRepoSlug}/requests`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Travis-API-Version": "3",
+        "Authorization": `token ${TOKEN}`,
+      },
+      body: JSON.stringify({
+        request: {
+          message: `Trigger build at ${currentRepoSlug} commit: ${gitCommitHash}`,
+          branch: 'master',
+        },
+      }),
+    })
+    .then((response) => {
+      console.log(`Triggered build of ${dependantRepoSlug}`);
+      console.log(response.body);
+    //   const respJSON = JSON.parse(response.body);
+    //   return got.get(`https://api.travis-ci.org/repo/${respJSON.request.repository.id}/request/${respJSON.request.id}`, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "Accept": "application/json",
+    //       "Travis-API-Version": "3",
+    //       "Authorization": `token ${TOKEN}`,
+    //     },
+    // }).then((response)=>{
+    //     console.log(response.body);
+    //     const respJSON = JSON.parse(response.body);
+    //     console.log(`https://travis-ci.org/${dependantRepo}/builds/${response.body.builds[0].id}`);
+    //   });
+    })
+    .catch((err) => {
+      console.error(err);
+
+      process.exit(-1);
+    });
+
 });
