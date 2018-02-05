@@ -211,6 +211,7 @@ version: 3.0.0
             }
 
             attachModel(model, arrayOfElements) {
+                return;
                 arrayOfElements || (arrayOfElements = this.stampedNodes);
                 if (model === null || !arrayOfElements) {
                     return;
