@@ -17,9 +17,6 @@ addons:
     - google-chrome-stable
 script:
 - xvfb-run wct --skip-plugin sauce
-- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct --skip-plugin local --plugin
-  sauce; fi
-- juicy-tattoo
 env:
   global:
     secure: aZjGwkB3IEs3uUilTWlNyZmF1j9R43+nfU+XIRt2Oru2jcFg7lcDOflkYMOZl7fw35CyZVYv0ZAH2ibGSYW7UqUju+7551f/mBj5+2P+rTzCGhX0N9gF8gV8zuOTKAErVx5tlvLUzpVXPTO3PHNG199U+xvZBBkBBYwpcgV0+Qw=
