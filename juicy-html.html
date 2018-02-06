@@ -99,13 +99,13 @@ version: 3.0.0
             reattachTemplate_(html, statusCode) {
                 this.clear();
                 if (html === '') {
-                    if(window.testthis){
-                        throw "reattachTemplate_ called "+statusCode+''+window.testthat;
-                    }
                     if (statusCode === 204) {
                         console.info('no content was returned for juicy-html', this);
                     } else {
                         console.warn('href given for juicy-html is an empty file', this);
+                        if(window.testthis){
+                            throw "console.warn called "+statusCode+''+window.testthat;
+                        }
                     }
                 }
                 // fragmentFromString(strHTML) from http://stackoverflow.com/a/25214113/868184

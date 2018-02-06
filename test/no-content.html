@@ -25,11 +25,11 @@
         describe('<juicy-html>', function () {
             var myEl, server, warnSpy;
             beforeEach(function () {
-                warnSpy = sinon.spy(console, 'warn');
-                warnSpy.displayName = 'console.warn';
+                sinon.spy(console, 'warn');
+                // warnSpy.displayName = 'console.warn';
             });
             afterEach(function () {
-                warnSpy.restore();
+                console.warn.restore();
             });
             before(function () {
             });
@@ -69,7 +69,7 @@
                     // wait for (faked) XHR
                     setTimeout(function(){
                         window.testthat = 'after';
-                        expect(warnSpy).to.be.called;
+                        expect(console.warn).to.be.called;
                         done();
                     }, 300);
                 });
