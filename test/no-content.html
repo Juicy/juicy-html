@@ -71,11 +71,11 @@
                     // wait for (faked) XHR
                     setTimeout(done, 300);
                 });
-                xit('should not throw any error', function () {
+                it('should not throw any error', function () {
                     expect(errorSpy).not.to.be.called;
                 });
 
-                xit('should remove previously stamped nodes', function () {
+                it('should remove previously stamped nodes', function () {
                     expect(changedEl.nextElementSibling).to.be.null;
                     expect(changedEl.previousElementSibling).to.be.null;
                 });
