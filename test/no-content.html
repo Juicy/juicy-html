@@ -55,21 +55,16 @@
 
             });
             context('when external file returns <code>200 Ok</code> but no content', function () {
-                beforeEach(function () {
-                });
-                it('should not throw any error', function (done) {
-                    if(navigator.userAgent.indexOf('Firefox') == -1){
+                if(navigator.userAgent.indexOf('Firefox') == -1){
+                    it('should not throw any error', function (done) {
                         myEl = stamp('#juicy-html-200-empty');
                         // wait for (faked) XHR
                         setTimeout(function(){
                             expect(true).to.be.ok;
                             done();
                         }, 300);
-                    } else {
-                        expect(true).to.be.ok;
-                        done();
-                    }
-                });
+                    });
+                }
 
                 it('should call <code>console.warn</code>', function (done) {
                     if(navigator.userAgent.indexOf('Firefox') == -1){
