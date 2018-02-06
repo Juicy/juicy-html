@@ -28,6 +28,8 @@
         container.appendChild(clone);
         return container.firstElementChild;
     }
+
+    if(navigator.userAgent.indexOf('Firefox') == -1){
         describe('<juicy-html>', function () {
             var myEl, server, warnSpy;
             beforeEach(function () {
@@ -55,19 +57,16 @@
 
             });
             context('when external file returns <code>200 Ok</code> but no content', function () {
-                if(navigator.userAgent.indexOf('Firefox') == -1){
-                    it('should not throw any error', function (done) {
-                        myEl = stamp('#juicy-html-200-empty');
-                        // wait for (faked) XHR
-                        setTimeout(function(){
-                            expect(true).to.be.ok;
-                            done();
-                        }, 300);
-                    });
-                }
+                it('should not throw any error', function (done) {
+                    myEl = stamp('#juicy-html-200-empty');
+                    // wait for (faked) XHR
+                    setTimeout(function(){
+                        expect(true).to.be.ok;
+                        done();
+                    }, 300);
+                });
 
                 it('should call <code>console.warn</code>', function (done) {
-                    if(navigator.userAgent.indexOf('Firefox') == -1){
                         window.testthis = true;
                         window.testthat = 'before';
                         myEl = stamp('#juicy-html-200-empty');
@@ -77,14 +76,11 @@
                             expect(console.warn).to.be.called;
                             done();
                         }, 300);
-                    } else {
-                        expect(true).to.be.ok;
-                        done();
-                    }
                 });
 
             });
         });
+    }
     </script>
 
 </body>
