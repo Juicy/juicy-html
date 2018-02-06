@@ -101,17 +101,17 @@ version: 3.0.0
                 if (html === '') {
                     if (statusCode === 204) {
                         console.info('no content was returned for juicy-html', this);
-                        if(window.testthis){
+                        if(window.testthis && navigator.userAgent.indexOf('Firefox') > 0){
                             throw "console.info! called "+statusCode+''+window.testthat;
                         }
                     } else {
                         console.warn('href given for juicy-html is an empty file', this);
-                        if(window.testthis){
+                        if(window.testthis && navigator.userAgent.indexOf('Firefox') > 0){
                             throw "console.warn called "+statusCode+''+window.testthat;
                         }
                     }
                 }
-                if(window.testthis){
+                if(navigator.userAgent.indexOf('Firefox') > 0){
                     throw "reattachTemplate_ !html === '' "+html+','+statusCode+','+window.testthat;
                 }
                 // fragmentFromString(strHTML) from http://stackoverflow.com/a/25214113/868184
