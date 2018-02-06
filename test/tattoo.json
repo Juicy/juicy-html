@@ -1,0 +1,6 @@
+{
+    "name": "Juicy/juicy-html",
+    "dependants": [
+        "Juicy/imported-template"
+    ]
+}
