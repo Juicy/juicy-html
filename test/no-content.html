@@ -14,12 +14,6 @@
 
 <body>
 
-    <test-fixture id="juicy-html-204-empty">
-        <template>
-            <!-- nest to workaround test-fixture bug -->
-            <div><juicy-html href="./mock/204"></juicy-html></div>
-        </template>
-    </test-fixture>
     <test-fixture id="juicy-html-200-empty">
         <template>
             <!-- nest to workaround test-fixture bug -->
@@ -38,17 +32,8 @@
                 warnSpy.restore();
             });
             before(function () {
-                server = sinon.fakeServer.create();
-                server.xhr.useFilters = true;
-                server.xhr.addFilter(function (method, url) {
-                    //whenever this returns true the request will not faked
-                    return !url.match(/\.\/mock\/204/);
-                });
-                server.respondWith('GET', './mock/204', [204, {"Content-Type": "text/html"}, '']);
-                server.autoRespond = true;
             });
             after(function () {
-                server.restore();
             });
             context('when external file returns <code>204 No Content</code>', function () {
                 beforeEach(function (done) {
