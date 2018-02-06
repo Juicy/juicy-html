@@ -20,20 +20,24 @@
             <div><juicy-html href="./mock/200"></juicy-html></div>
         </template>
     </test-fixture>
+    <div id="container"></div>
 
     <script>
+    var container = document.querySelector('#container');
+    function stamp(){
+        container.innerHTML = '<juicy-html href="./mock/200"></juicy-html>';
+        return container.firstElementChild;
+    }
         describe('<juicy-html>', function () {
             var myEl, server, warnSpy;
             beforeEach(function () {
                 sinon.spy(console, 'warn');
                 // warnSpy.displayName = 'console.warn';
             });
-            afterEach(function () {
+            afterEach(function (done) {
                 console.warn.restore();
-            });
-            before(function () {
-            });
-            after(function () {
+                container.innerHTML = '';
+                setTimeout(done, 100);
             });
             context('when external file returns <code>204 No Content</code>', function () {
                 beforeEach(function (done) {
@@ -55,7 +59,7 @@
                 });
                 it('should not throw any error', function (done) {
                     if(navigator.userAgent.indexOf('Firefox') == -1){
-                        myEl = fixture('juicy-html-200-empty').querySelector('juicy-html');
+                        myEl = stamp();
                         // wait for (faked) XHR
                         setTimeout(function(){
                             expect(true).to.be.ok;
@@ -71,7 +75,7 @@
                     if(navigator.userAgent.indexOf('Firefox') == -1){
                         window.testthis = true;
                         window.testthat = 'before';
-                        myEl = fixture('juicy-html-200-empty').querySelector('juicy-html');
+                        myEl = stamp();
                         // wait for (faked) XHR
                         setTimeout(function(){
                             window.testthat = 'after';
