@@ -25,7 +25,6 @@
     <script>
     var container = document.querySelector('#container');
     function stamp(selector){
-        debugger
         const clone = document.importNode(document.querySelector(selector + ' template').content, true);
         container.appendChild(clone);
         return container.firstElementChild;
