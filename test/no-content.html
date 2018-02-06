@@ -101,7 +101,7 @@
                     expect(changedEl.nextElementSibling).to.be.null;
                     expect(changedEl.previousElementSibling).to.be.null;
                 });
-                it('should call <code>console.warn</code>', function () {
+                it.only('should call <code>console.warn</code>', function () {
                     expect(warnSpy).to.be.called;
                     expect(warnSpy).to.be.calledTwice; // once per element
                 });

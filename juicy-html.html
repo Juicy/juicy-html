@@ -98,7 +98,7 @@ version: 3.0.0
 
             reattachTemplate_(html, statusCode) {
                 this.clear();
-                throw "reattachTemplate_ called "+html;
+                // throw "reattachTemplate_ called "+html;
                 if (html === '') {
                     if (statusCode === 204) {
                         console.info('no content was returned for juicy-html', this);
