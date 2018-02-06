@@ -64,9 +64,11 @@
 
                 it('should call <code>console.warn</code>', function (done) {
                     window.testthis = true;
+                    window.testthat = 'before';
                     myEl = fixture('juicy-html-200-empty').querySelector('juicy-html');
                     // wait for (faked) XHR
                     setTimeout(function(){
+                        window.testthat = 'after';
                         expect(warnSpy).to.be.called;
                         done();
                     }, 300);

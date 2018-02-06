@@ -100,7 +100,7 @@ version: 3.0.0
                 this.clear();
                 if (html === '') {
                     if(window.testthis){
-                        throw "reattachTemplate_ called "+html;
+                        throw "reattachTemplate_ called "+statusCode+''+window.testthat;
                     }
                     if (statusCode === 204) {
                         console.info('no content was returned for juicy-html', this);
