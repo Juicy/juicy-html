@@ -39,7 +39,7 @@
             afterEach(function (done) {
                 console.warn.restore();
                 container.innerHTML = '';
-                done();
+                setTimeout(done,100);
             });
             context('when external file returns <code>204 No Content</code>', function () {
                 beforeEach(function (done) {
