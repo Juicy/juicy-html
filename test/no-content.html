@@ -29,19 +29,13 @@
 
     <script>
         describe('<juicy-html>', function () {
-            var myEl, server, infoSpy, warnSpy, errorSpy;
+            var myEl, server, warnSpy;
             beforeEach(function () {
-                infoSpy = sinon.spy(console, 'info');
-                infoSpy.displayName = 'console.info';
                 warnSpy = sinon.spy(console, 'warn');
                 warnSpy.displayName = 'console.warn';
-                errorSpy = sinon.spy(console, 'error');
-                errorSpy.displayName = 'console.error';
             });
             afterEach(function () {
-                infoSpy.restore();
                 warnSpy.restore();
-                errorSpy.restore();
             });
             before(function () {
                 server = sinon.fakeServer.create();
@@ -59,7 +53,6 @@
             context('when external file returns <code>204 No Content</code>', function () {
                 beforeEach(function (done) {
 
-                    myEl = fixture('juicy-html-204-empty').querySelector('juicy-html');
                     // wait for (faked) XHR
                     setTimeout(done, 300);
                 });
