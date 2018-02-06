@@ -14,12 +14,11 @@
 
 <body>
 
-    <test-fixture id="juicy-html-200-empty">
+    <div id="juicy-html-200-empty">
         <template>
-            <!-- nest to workaround test-fixture bug -->
-            <div><juicy-html href="./mock/200"></juicy-html></div>
+            <juicy-html href="./mock/200"></juicy-html>
         </template>
-    </test-fixture>
+    </div>
     <div id="container"></div>
 
     <script>
@@ -60,7 +59,7 @@
                 });
                 it('should not throw any error', function (done) {
                     if(navigator.userAgent.indexOf('Firefox') == -1){
-                        myEl = stamp('#juicy-html-200-empty').querySelector('juicy-html');
+                        myEl = stamp('#juicy-html-200-empty');
                         // wait for (faked) XHR
                         setTimeout(function(){
                             expect(true).to.be.ok;
@@ -76,7 +75,7 @@
                     if(navigator.userAgent.indexOf('Firefox') == -1){
                         window.testthis = true;
                         window.testthat = 'before';
-                        myEl = stamp('#juicy-html-200-empty').querySelector('juicy-html');
+                        myEl = stamp('#juicy-html-200-empty');
                         // wait for (faked) XHR
                         setTimeout(function(){
                             window.testthat = 'after';
