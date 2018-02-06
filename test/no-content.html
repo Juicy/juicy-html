@@ -24,8 +24,9 @@
 
     <script>
     var container = document.querySelector('#container');
-    function stamp(){
-        container.innerHTML = '<juicy-html href="./mock/200"></juicy-html>';
+    function stamp(selector){
+        const clone = document.importNode(document.querySelector(selector + ' template').content, true);
+        container.appendChild(clone);
         return container.firstElementChild;
     }
         describe('<juicy-html>', function () {
@@ -37,7 +38,7 @@
             afterEach(function (done) {
                 console.warn.restore();
                 container.innerHTML = '';
-                setTimeout(done, 100);
+                done();
             });
             context('when external file returns <code>204 No Content</code>', function () {
                 beforeEach(function (done) {
@@ -59,7 +60,7 @@
                 });
                 it('should not throw any error', function (done) {
                     if(navigator.userAgent.indexOf('Firefox') == -1){
-                        myEl = stamp();
+                        myEl = stamp('juicy-html-200-empty').querySelector('juicy-html');
                         // wait for (faked) XHR
                         setTimeout(function(){
                             expect(true).to.be.ok;
@@ -75,7 +76,7 @@
                     if(navigator.userAgent.indexOf('Firefox') == -1){
                         window.testthis = true;
                         window.testthat = 'before';
-                        myEl = stamp();
+                        myEl = stamp('juicy-html-200-empty').querySelector('juicy-html');
                         // wait for (faked) XHR
                         setTimeout(function(){
                             window.testthat = 'after';
