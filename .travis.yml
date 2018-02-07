@@ -4,7 +4,6 @@ dist: trusty
 before_script:
 - npm install web-component-tester
 - npm install bower
-- npm install juicy-tattoo
 - export PATH=$PWD/node_modules/.bin:$PATH
 - bower install
 node_js: stable

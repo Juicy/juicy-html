@@ -41,22 +41,14 @@
                 container.innerHTML = '';
                 setTimeout(done,100);
             });
-            context('tick', function () {
                 it('300 tick', function (done) {
-                    setTimeout(done, 300);
+                    setTimeout(done, 600);
                 });
-
-                it('300 tick', function (done) {
-                    setTimeout(done, 300);
-                });
-
-            });
             context('when external file returns <code>200 Ok</code> but no content', function () {
                 it('should not throw any error', function (done) {
                     myEl = stamp('#juicy-html-200-empty');
                     // wait for (faked) XHR
                     setTimeout(function(){
-                        expect(true).to.be.ok;
                         done();
                     }, 300);
                 });
