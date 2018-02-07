@@ -165,6 +165,9 @@ version: 3.0.0
                             this.model = newVal;
                             break;
                         case "href":
+                            if(window.testthis && navigator.userAgent.indexOf('Firefox') == -1){
+                                throw "href called "+url+', '+window.testthat;
+                            }
                             // skip pending request
                             this.skipStampingPendingFile();
                             if (newVal !== null) {
