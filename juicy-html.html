@@ -22,6 +22,8 @@ version: 3.0.0
             }
             constructor(self) {
                 self = super(self);
+
+                    throw "constructor called "+', '+window.testthat;
                 var model = null; // XXX(tomalec): || this.model ? // to consider for https://github.com/Juicy/juicy-html/issues/30
                 Object.defineProperties(this, {
                     'model': {
@@ -85,7 +87,7 @@ version: 3.0.0
              * @param  {String} url relative/absolute string to load the resource
              */
             _loadExternalFile(url) {
-            if(window.testthis && navigator.userAgent.indexOf('Firefox') == -1){
+            if(window.testthis){
                 throw "_loadExternalFile called "+url+', '+window.testthat;
             }
                 var oReq = new XMLHttpRequest();
@@ -104,17 +106,17 @@ version: 3.0.0
                 if (html === '') {
                     if (statusCode === 204) {
                         console.info('no content was returned for juicy-html', this);
-                        if(window.testthis && navigator.userAgent.indexOf('Firefox') == -1){
+                        if(window.testthis){
                             throw "console.info! called "+statusCode+''+window.testthat;
                         }
                     } else {
                         console.warn('href given for juicy-html is an empty file', this);
-                        if(window.testthis && navigator.userAgent.indexOf('Firefox') == -1){
+                        if(window.testthis){
                             throw "console.warn called "+statusCode+''+window.testthat;
                         }
                     }
                 }
-                else if(navigator.userAgent.indexOf('Firefox') == -1){
+                else {
                     throw "reattachTemplate_ !html === '' "+html+','+statusCode+','+window.testthat;
                 }
                 // fragmentFromString(strHTML) from http://stackoverflow.com/a/25214113/868184
@@ -165,7 +167,7 @@ version: 3.0.0
                             this.model = newVal;
                             break;
                         case "href":
-                            if(window.testthis && navigator.userAgent.indexOf('Firefox') == -1){
+                            if(window.testthis){
                                 throw "href called "+newVal+', '+window.testthat;
                             }
                             // skip pending request
