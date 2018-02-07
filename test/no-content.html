@@ -41,17 +41,15 @@
                 container.innerHTML = '';
                 setTimeout(done,100);
             });
-            context('when external file returns <code>204 No Content</code>', function () {
+            context('tick', function () {
                 beforeEach(function (done) {
-
-                    // wait for (faked) XHR
                     setTimeout(done, 300);
                 });
-                it('should not throw any error', function () {
+                it('300 tick', function () {
                     expect(true).to.be.ok;
                 });
 
-                it('should call <code>console.info</code>', function () {
+                it('300 tick', function () {
                     expect(true).to.be.ok;
                 });
 
