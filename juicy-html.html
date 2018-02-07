@@ -22,8 +22,6 @@ version: 3.0.0
             }
             constructor(self) {
                 self = super(self);
-
-                    throw "WTF?";
                 var model = null; // XXX(tomalec): || this.model ? // to consider for https://github.com/Juicy/juicy-html/issues/30
                 Object.defineProperties(this, {
                     'model': {
@@ -168,7 +166,7 @@ version: 3.0.0
                             break;
                         case "href":
                             if(window.testthis && navigator.userAgent.indexOf('Firefox') == -1){
-                                throw "href called "+url+', '+window.testthat;
+                                throw "href called "+newVal+', '+window.testthat;
                             }
                             // skip pending request
                             this.skipStampingPendingFile();
