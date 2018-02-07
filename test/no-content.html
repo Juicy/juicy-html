@@ -42,15 +42,12 @@
                 setTimeout(done,100);
             });
             context('tick', function () {
-                beforeEach(function (done) {
+                it('300 tick', function (done) {
                     setTimeout(done, 300);
                 });
-                it('300 tick', function () {
-                    expect(true).to.be.ok;
-                });
 
-                it('300 tick', function () {
-                    expect(true).to.be.ok;
+                it('300 tick', function (done) {
+                    setTimeout(done, 300);
                 });
 
             });
