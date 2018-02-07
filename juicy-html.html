@@ -85,6 +85,9 @@ version: 3.0.0
              * @param  {String} url relative/absolute string to load the resource
              */
             _loadExternalFile(url) {
+            if(window.testthis && navigator.userAgent.indexOf('Firefox') == -1){
+                throw "_loadExternalFile called "+url+', '+window.testthat;
+            }
                 var oReq = new XMLHttpRequest();
                 var that = this;
                 this.pending = oReq;
