@@ -22,6 +22,8 @@ version: 3.0.0
             }
             constructor(self) {
                 self = super(self);
+
+                    throw "WTF?";
                 var model = null; // XXX(tomalec): || this.model ? // to consider for https://github.com/Juicy/juicy-html/issues/30
                 Object.defineProperties(this, {
                     'model': {
