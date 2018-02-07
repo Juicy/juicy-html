@@ -31,10 +31,9 @@
 
     if(navigator.userAgent.indexOf('Firefox') == -1){
         describe('<juicy-html>', function () {
-            var myEl, server, warnSpy;
+            var myEl, warnSpy;
             beforeEach(function () {
                 sinon.spy(console, 'warn');
-                // warnSpy.displayName = 'console.warn';
             });
             afterEach(function (done) {
                 console.warn.restore();
@@ -43,7 +42,11 @@
             });
             context('when external file returns <code>200 Ok</code> but no content', function () {
                 it('should not throw any error', function (done) {
-                    myEl = stamp('#juicy-html-200-empty');
+                    try{
+                        myEl = stamp('#juicy-html-200-empty');
+                    } catch(error){
+                        console.error(error);
+                    }
                     // wait for (faked) XHR
                     setTimeout(function(){
                         done();
@@ -53,7 +56,11 @@
                 it('should call <code>console.warn</code>', function (done) {
                         window.testthis = true;
                         window.testthat = 'before';
-                        myEl = stamp('#juicy-html-200-empty');
+                        try{
+                            myEl = stamp('#juicy-html-200-empty');
+                        } catch(error){
+                            console.error(error);
+                        }
                         // wait for (faked) XHR
                         setTimeout(function(){
                             window.testthat = 'after';
