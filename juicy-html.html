@@ -23,7 +23,7 @@ version: 3.0.0
             constructor(self) {
                 self = super(self);
 
-                    throw "constructor called "+', '+window.testthat;
+                    console.error("constructor called "+', '+window.testthat);
                 var model = null; // XXX(tomalec): || this.model ? // to consider for https://github.com/Juicy/juicy-html/issues/30
                 Object.defineProperties(this, {
                     'model': {
@@ -88,7 +88,7 @@ version: 3.0.0
              */
             _loadExternalFile(url) {
             if(window.testthis){
-                throw "_loadExternalFile called "+url+', '+window.testthat;
+                console.error("_loadExternalFile called "+url+', '+window.testthat);
             }
                 var oReq = new XMLHttpRequest();
                 var that = this;
@@ -107,17 +107,17 @@ version: 3.0.0
                     if (statusCode === 204) {
                         console.info('no content was returned for juicy-html', this);
                         if(window.testthis){
-                            throw "console.info! called "+statusCode+''+window.testthat;
+                            console.error("console.info! called "+statusCode+''+window.testthat);
                         }
                     } else {
                         console.warn('href given for juicy-html is an empty file', this);
                         if(window.testthis){
-                            throw "console.warn called "+statusCode+''+window.testthat;
+                            console.error("console.warn called "+statusCode+''+window.testthat);
                         }
                     }
                 }
                 else {
-                    throw "reattachTemplate_ !html === '' "+html+','+statusCode+','+window.testthat;
+                    console.error("reattachTemplate_ !html === '' "+html+','+statusCode+','+window.testthat);
                 }
                 // fragmentFromString(strHTML) from http://stackoverflow.com/a/25214113/868184
                 var range = document.createRange();
@@ -168,7 +168,7 @@ version: 3.0.0
                             break;
                         case "href":
                             if(window.testthis){
-                                throw "href called "+newVal+', '+window.testthat;
+                                console.error("href called "+newVal+', '+window.testthat);
                             }
                             // skip pending request
                             this.skipStampingPendingFile();
