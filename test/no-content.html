@@ -41,9 +41,6 @@
                 container.innerHTML = '';
                 setTimeout(done,100);
             });
-                it('300 tick', function (done) {
-                    setTimeout(done, 600);
-                });
             context('when external file returns <code>200 Ok</code> but no content', function () {
                 it('should not throw any error', function (done) {
                     myEl = stamp('#juicy-html-200-empty');
