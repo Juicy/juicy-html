@@ -57,6 +57,8 @@
                         window.testthis = true;
                         window.testthat = 'before';
                         myEl = stamp('#juicy-html-200-empty');
+                        console.error('WCT  could you log');
+                        throw Error('2WCT  could you log');
                         // wait for (faked) XHR
                         setTimeout(function(){
                             window.testthat = 'after';
