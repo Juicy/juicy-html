@@ -27,7 +27,7 @@
         </dom-bind>
         <div></div>
         <script>
-            var script = (document._currentScript || document.currentScript);
+            var script = document.currentScript;
             var div = script.previousElementSibling
             div.innerHTML = script.model.vanilla;
             console.info("attached model", script.model);
@@ -48,7 +48,7 @@
     &lt;/dom-bind&gt;
     &lt;div&gt;&lt;/div&gt;
     &lt;script&gt;
-      var script = (document._currentScript || document.currentScript);
+      var script = document.currentScript;
       var div = script.previousElementSibling
       div.innerHTML = script.model.vanilla;
       console.info("attached model", document.currentScript.model);
