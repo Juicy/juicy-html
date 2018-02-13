@@ -142,7 +142,6 @@ Name         | Support    | Comments
 -------------|------------|---------
 Chrome 48    | yes        |
 Firefox 43   | yes        |
-IE 11        | partially  | `document._currentScript` behaves wrong in inserted scripts
 Edge 25      | yes        |
 Safari 10-11 | yes        |
 Safari 9-    | not tested |
