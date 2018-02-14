@@ -34,16 +34,16 @@
     </test-fixture>
 
     <script>
+        const infoSpy = sinon.spy(console, 'info');
+        infoSpy.displayName = 'console.info';
+        const warnSpy = sinon.spy(console, 'warn');
+        warnSpy.displayName = 'console.warn';
+        const errorSpy = sinon.spy(console, 'error');
+        errorSpy.displayName = 'console.error';
+
         describe('<juicy-html>', function () {
-            var myEl, changedEl, server, infoSpy, warnSpy, errorSpy;
+            var myEl, changedEl, server;
             beforeEach(function () {
-                // set up spies
-                infoSpy = sinon.spy(console, 'info');
-                infoSpy.displayName = 'console.info';
-                warnSpy = sinon.spy(console, 'warn');
-                warnSpy.displayName = 'console.warn';
-                errorSpy = sinon.spy(console, 'error');
-                errorSpy.displayName = 'console.error';
                 // setup server
                 server = sinon.fakeServer.create();
                 server.xhr.useFilters = true;
@@ -55,9 +55,9 @@
                 server.autoRespond = true;
             });
             afterEach(function () {
-                infoSpy.restore();
-                warnSpy.restore();
-                errorSpy.restore();
+                infoSpy.reset();
+                warnSpy.reset();
+                errorSpy.reset();
 
                 server.restore();
             });
