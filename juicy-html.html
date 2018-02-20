@@ -8,36 +8,6 @@ version: 3.0.0
 <script>
     (function() {
         /**
-         * Throw a warning to the console about deprecated content attribute
-         * @param  {JuicyHTMLElement} element reference to the element
-         */
-        function warnAboutDeprecatedContentOn(element) {
-            console.warn(
-                '`content` attribute is deprecated! Please, use `href` or `html` instead.',
-                element,
-                'We will drop support for it in next release.'
-            );
-        }
-        /**
-         * Translate content tag changes to href and html attributes
-         * @param {JuicyHTMLElement} element to set attibutes on
-         * @param {String} value value of content attr
-         */
-        function forwardContentValue(element, value) {
-            if (value && (value.indexOf('/') === 0 || value.indexOf('./') === 0 || value.indexOf('../') === 0)) {
-                //value is a URL, load the partial from external file
-                element.removeAttribute('html');
-                element.setAttribute('href', value);
-            } else if (value === null) {
-                element.removeAttribute('html');
-                element.removeAttribute('href');
-            } else {
-                //value is HTML code, insert the partial from the string
-                element.removeAttribute('href');
-                element.setAttribute('html', value);
-            }
-        }
-        /**
          * Checks whether a value is null or undefined
          */
         function nullOrUndefined(v) {
@@ -48,7 +18,7 @@ version: 3.0.0
 
         class JuicyHTMLElement extends HTMLElement {
             static get observedAttributes() {
-                return ['model', 'href', 'html', 'content'];
+                return ['model', 'href', 'html'];
             }
             constructor(self) {
                 self = super(self);
@@ -97,8 +67,6 @@ version: 3.0.0
                 // TODO(tomalec): read pre-upgrade properties in cheap manner
                 this.hasAttribute('href') && this.attributeChangedCallback('href', null, this.getAttribute('href'));
                 this.hasAttribute('html') && this.attributeChangedCallback('html', null, this.getAttribute('html'));
-                // translate legacy `content` attribute
-                this.hasAttribute('content') && this.attributeChangedCallback('content', null, this.getAttribute('content'));
             }
             disconnectedCallback() {
                 this.isAttached = false;
@@ -134,7 +102,7 @@ version: 3.0.0
                     if (statusCode === 204) {
                         console.info('no content was returned for juicy-html', this);
                     } else {
-                        console.warn('content given for juicy-html is an empty file', this);
+                        console.warn('href given for juicy-html is an empty file', this);
                     }
                 }
                 // fragmentFromString(strHTML) from http://stackoverflow.com/a/25214113/868184
@@ -158,7 +126,7 @@ version: 3.0.0
             }
 
             /**
-             * Remove stamped content.
+             * Remove stamped nodes.
              */
             clear() {
                 var parent = this.parentNode;
@@ -183,10 +151,6 @@ version: 3.0.0
                                 newVal = newVal ? JSON.parse(newVal) : null;
                             }
                             this.model = newVal;
-                            break;
-                        case "content":
-                            warnAboutDeprecatedContentOn(this);
-                            forwardContentValue(this, newVal);
                             break;
                         case "href":
                             // skip pending request
