@@ -29,12 +29,14 @@
     <test-fixture id="juicy-html-200-empty">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><juicy-html href="./mock/200"></juicy-html></div>
+            <div>
+                <juicy-html href="./mock/200"></juicy-html>
+            </div>
         </template>
     </test-fixture>
 
     <script>
-        describe('<juicy-html>', function () {
+        describe('when external file returns <code>204 No Content</code>', function () {
             var myEl, changedEl, server, infoSpy, warnSpy, errorSpy;
             beforeEach(function () {
                 infoSpy = sinon.spy(console, 'info');
@@ -51,17 +53,16 @@
             });
             before(function () {
                 server = sinon.fakeServer.create();
-                server.xhr.useFilters = true;
-                server.xhr.addFilter(function (method, url) {
-                    //whenever this returns true the request will not faked
-                    return !url.match(/\.\/mock\/204/);
-                });
                 server.respondWith('GET', './mock/204', [204, {"Content-Type": "text/html"}, '']);
+                server.respondWith('GET', './mock/smth.html', [200, {"Content-Type": "text/html"}, '<div id="smth">smth</div></template>']);
+                server.respondWith('GET', './mock/200', [200, { "Content-Type": "text/html" }, '']);
                 server.autoRespond = true;
+                server.autoRespondAfter = 5;
             });
             after(function () {
                 server.restore();
             });
+            
             context('when external file returns <code>204 No Content</code>', function () {
                 beforeEach(function (done) {
 
@@ -69,7 +70,7 @@
                     changedEl = fixture('juicy-html-with-href').querySelector('juicy-html');
                     changedEl.setAttribute('href', './mock/204');
                     // wait for (faked) XHR
-                    setTimeout(done, 300);
+                    setTimeout(done, 20);
                 });
                 it('should not throw any error', function () {
                     expect(errorSpy).not.to.be.called;
@@ -85,14 +86,18 @@
                 });
 
             });
-            context('when external file returns <code>200 Ok</code> but no content', function () {
+
+            context('when external file returns <code>200 Ok</code> but no content', function () {                
                 beforeEach(function (done) {
+                    
                     myEl = fixture('juicy-html-200-empty').querySelector('juicy-html');
                     changedEl = fixture('juicy-html-with-href').querySelector('juicy-html');
+
                     changedEl.setAttribute('href', './mock/200');
                     // wait for (faked) XHR
-                    setTimeout(done, 300);
+                    setTimeout(done, 20);
                 });
+                
                 it('should not throw any error', function () {
                     expect(errorSpy).not.to.be.called;
                 });
@@ -101,14 +106,15 @@
                     expect(changedEl.nextElementSibling).to.be.null;
                     expect(changedEl.previousElementSibling).to.be.null;
                 });
+
                 it('should call <code>console.warn</code>', function () {
                     expect(warnSpy).to.be.called;
                     expect(warnSpy).to.be.calledTwice; // once per element
                 });
-
             });
-        });
-    </script>
+});
+
+       </script>
 
 </body>
 
