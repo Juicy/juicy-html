@@ -36,7 +36,8 @@
     </test-fixture>
 
     <script>
-        describe('when external file returns <code>204 No Content</code>', function () {
+        describe('<juicy-html>', function () {
+
             var myEl, changedEl, server, infoSpy, warnSpy, errorSpy;
             beforeEach(function () {
                 infoSpy = sinon.spy(console, 'info');
@@ -62,7 +63,7 @@
             after(function () {
                 server.restore();
             });
-            
+
             context('when external file returns <code>204 No Content</code>', function () {
                 beforeEach(function (done) {
 
@@ -87,9 +88,9 @@
 
             });
 
-            context('when external file returns <code>200 Ok</code> but no content', function () {                
+            context('when external file returns <code>200 Ok</code> but no content', function () {
                 beforeEach(function (done) {
-                    
+
                     myEl = fixture('juicy-html-200-empty').querySelector('juicy-html');
                     changedEl = fixture('juicy-html-with-href').querySelector('juicy-html');
 
@@ -97,7 +98,7 @@
                     // wait for (faked) XHR
                     setTimeout(done, 20);
                 });
-                
+
                 it('should not throw any error', function () {
                     expect(errorSpy).not.to.be.called;
                 });
