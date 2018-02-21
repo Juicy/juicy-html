@@ -29,7 +29,7 @@
     <test-fixture id="juicy-html-200-empty">
         <template>
             <!-- nest to workaround test-fixture bug -->
-            <div><juicy-html href="./mock/200"></juicy-html></div>
+            <div><juicy-html href="http://localhost:9090/mock/200"></juicy-html></div>
         </template>
     </test-fixture>
 
@@ -89,7 +89,7 @@
                 beforeEach(function (done) {
                     myEl = fixture('juicy-html-200-empty').querySelector('juicy-html');
                     changedEl = fixture('juicy-html-with-href').querySelector('juicy-html');
-                    changedEl.setAttribute('href', './mock/200');
+                    changedEl.setAttribute('href', 'http://localhost:9090/mock/200');
                     // wait for (faked) XHR
                     setTimeout(done, 300);
                 });

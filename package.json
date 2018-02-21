@@ -33,6 +33,7 @@
   "main": "./juicy-html.html",
   "devDependencies": {
     "grunt": "~0.4.5",
-    "grunt-bump": "^0.3.0"
+    "grunt-bump": "^0.3.0",
+    "http-server": "^0.11.1"
   }
 }
