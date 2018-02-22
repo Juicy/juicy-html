@@ -22,4 +22,4 @@ script:
 - juicy-tattoo
 env:
   global:
-    secure: aZjGwkB3IEs3uUilTWlNyZmF1j9R43+nfU+XIRt2Oru2jcFg7lcDOflkYMOZl7fw35CyZVYv0ZAH2ibGSYW7UqUju+7551f/mBj5+2P+rTzCGhX0N9gF8gV8zuOTKAErVx5tlvLUzpVXPTO3PHNG199U+xvZBBkBBYwpcgV0+Qw=
+    secure: hc6T7bNvE58br1nRUxmO1ScvOCuIxoBhNP1hHT9MkPn44qB2x4YJ9mYGB+Y0cdfvAjm4vVxTDR1SHCw1bIv6XBNB8O/HUZmlHFZNFxpvS6sOrSAEPj2V3Ve5S5bQcghQ0xsXMIsRib2lZccg7gBp6cX4FOy9IirGSaiunfvloQY=
