@@ -2,12 +2,12 @@ language: node_js
 sudo: required
 dist: trusty
 before_script:
-- npm install web-component-tester
-- npm install bower
-- npm install juicy-tattoo
+- yarn add web-component-tester
+- yarn add bower
+- yarn add juicy-tattoo
 - export PATH=$PWD/node_modules/.bin:$PATH
 - bower install
-node_js: stable
+node_js: 8
 addons:
   firefox: latest
   apt:

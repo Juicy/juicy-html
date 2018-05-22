@@ -198,6 +198,10 @@ version: 4.0.0
          * @type {Boolean}
          */
         JuicyHTMLElement.prototype.isAttached = false;
+        
+         // to fool Polymer into thinking this is is a Polymer element thus forwarding notifications to it.
+        JuicyHTMLElement.prototype.__dataHasAccessor = { model: true };
+        JuicyHTMLElement.prototype.__isPropertyEffectsClient = true;
 
         customElements.define('juicy-html', JuicyHTMLElement);
     })();
