@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script src="../node_modules/wct-browser-legacy/browser.js"></script>
 
     <!-- Step 1: import the element to test -->
-    <link rel="import" href="../juicy-html.html">
+    <script type="module" src="../juicy-html.js"></script>
 </head>
 
 <body>
@@ -22,79 +22,80 @@
         </template>
     </test-fixture>
 
-    <script>
-        describe('<juicy-html> after request for file was send but before it responded', function() {
-            var myEl;
-            beforeEach(function() {
-                myEl = fixture('juicy-html-fixture').querySelector('juicy-html');
-                myEl.setAttribute('href', '../examples/partials/basic.html');
-                sinon.spy(myEl, 'skipStampingPendingFile');
-            });
-            context('when skipStampingPendingFile method is called', function() {
-                beforeEach(function() {
-                    myEl.skipStampingPendingFile();
-                });
-                it('should NOT stamp anything', function(done){
-                    setTimeout(function(){
-                        expect(myEl.parentNode.childNodes.length).to.equal(1);
-                        expect(myEl.parentNode.childNodes[0]).to.equal(myEl);
-                        done();
-                    }, 300);
-                });
-            });
-            context('when href attribute is changed', function() {
-                it('to another url, skipStampingPendingFile method should get called', function(){
-                    myEl.setAttribute('href', '../examples/partials/page_1.html');
-                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
-                });
-                it('- removed, skipStampingPendingFile method should get called', function(){
-                    myEl.removeAttribute('href');
-                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
-                });
-            });
-            context('when href property is changed', function() {
-                it('to another url, skipStampingPendingFile method should get called', function(){
-                    myEl.href = '../examples/partials/page_1.html';
-                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
-                });
-                it('to `null`, skipStampingPendingFile method should get called', function(){
-                    myEl.href = null;
-                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
-                });
-            });
-            context('when html attribute is changed', function() {
-                it('to a string, skipStampingPendingFile method should get called', function(){
-                    myEl.setAttribute('html', 'blah');
-                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
-                });
-                it('- removed, skipStampingPendingFile method should NOT get called', function(done){
-                    myEl.removeAttribute('html');
-                    setTimeout(function waitForCall(){
-                        expect(myEl.skipStampingPendingFile).not.to.be.called;
-                        done();
-                    }, 200);
-                });
-            });
-            context('when html property is changed', function() {
-                it('to a string, skipStampingPendingFile method should get called', function(){
-                    myEl.html = 'blah';
-                    expect(myEl.skipStampingPendingFile).to.be.calledOnce;
-                });
-                it('to `null`, skipStampingPendingFile method should NOT get called', function(){
-                    myEl.html = null;
-                    expect(myEl.skipStampingPendingFile).not.to.be.called;
-                });
-            });
-            describe("Undefined URL", function() {
-                it("It shouldn't issue a request if URL is undefined", function() {
-                    myEl = fixture('juicy-html-fixture').querySelector('juicy-html');
-                    sinon.spy(myEl, '_loadExternalFile');
-                    myEl.href = undefined;
-                    expect(myEl._loadExternalFile).not.to.be.called;
-                });
-            });
+    <script type="module">
+import '../juicy-html.js';
+describe('<juicy-html> after request for file was send but before it responded', function() {
+    var myEl;
+    beforeEach(function() {
+        myEl = fixture('juicy-html-fixture').querySelector('juicy-html');
+        myEl.setAttribute('href', '../examples/partials/basic.html');
+        sinon.spy(myEl, 'skipStampingPendingFile');
+    });
+    context('when skipStampingPendingFile method is called', function() {
+        beforeEach(function() {
+            myEl.skipStampingPendingFile();
         });
-    </script>
+        it('should NOT stamp anything', function(done){
+            setTimeout(function(){
+                expect(myEl.parentNode.childNodes.length).to.equal(1);
+                expect(myEl.parentNode.childNodes[0]).to.equal(myEl);
+                done();
+            }, 300);
+        });
+    });
+    context('when href attribute is changed', function() {
+        it('to another url, skipStampingPendingFile method should get called', function(){
+            myEl.setAttribute('href', '../examples/partials/page_1.html');
+            expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+        });
+        it('- removed, skipStampingPendingFile method should get called', function(){
+            myEl.removeAttribute('href');
+            expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+        });
+    });
+    context('when href property is changed', function() {
+        it('to another url, skipStampingPendingFile method should get called', function(){
+            myEl.href = '../examples/partials/page_1.html';
+            expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+        });
+        it('to `null`, skipStampingPendingFile method should get called', function(){
+            myEl.href = null;
+            expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+        });
+    });
+    context('when html attribute is changed', function() {
+        it('to a string, skipStampingPendingFile method should get called', function(){
+            myEl.setAttribute('html', 'blah');
+            expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+        });
+        it('- removed, skipStampingPendingFile method should NOT get called', function(done){
+            myEl.removeAttribute('html');
+            setTimeout(function waitForCall(){
+                expect(myEl.skipStampingPendingFile).not.to.be.called;
+                done();
+            }, 200);
+        });
+    });
+    context('when html property is changed', function() {
+        it('to a string, skipStampingPendingFile method should get called', function(){
+            myEl.html = 'blah';
+            expect(myEl.skipStampingPendingFile).to.be.calledOnce;
+        });
+        it('to `null`, skipStampingPendingFile method should NOT get called', function(){
+            myEl.html = null;
+            expect(myEl.skipStampingPendingFile).not.to.be.called;
+        });
+    });
+    describe("Undefined URL", function() {
+        it("It shouldn't issue a request if URL is undefined", function() {
+            myEl = fixture('juicy-html-fixture').querySelector('juicy-html');
+            sinon.spy(myEl, '_loadExternalFile');
+            myEl.href = undefined;
+            expect(myEl._loadExternalFile).not.to.be.called;
+        });
+    });
+});
+</script>
 
 </body>
 

@@ -2,24 +2,23 @@ language: node_js
 sudo: required
 dist: trusty
 before_script:
-- npm install web-component-tester
-- npm install bower
-- npm install juicy-tattoo
-- export PATH=$PWD/node_modules/.bin:$PATH
-- bower install
+  - npm install web-component-tester
+  - npm install
+  - npm install juicy-tattoo
+  - 'export PATH=$PWD/node_modules/.bin:$PATH'
 node_js: stable
 addons:
   firefox: latest
   apt:
     sources:
-    - google-chrome
+      - google-chrome
     packages:
-    - google-chrome-stable
+      - google-chrome-stable
 script:
-- xvfb-run wct --skip-plugin sauce
-- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct --skip-plugin local --plugin
-  sauce; fi
-- juicy-tattoo
+  - xvfb-run wct --module-resolution=node --npm --skip-plugin sauce
+  - 'if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct --module-resolution=node --npm --skip-plugin local --plugin sauce; fi'
+  - juicy-tattoo
 env:
   global:
     secure: hc6T7bNvE58br1nRUxmO1ScvOCuIxoBhNP1hHT9MkPn44qB2x4YJ9mYGB+Y0cdfvAjm4vVxTDR1SHCw1bIv6XBNB8O/HUZmlHFZNFxpvS6sOrSAEPj2V3Ve5S5bQcghQ0xsXMIsRib2lZccg7gBp6cX4FOy9IirGSaiunfvloQY=
+

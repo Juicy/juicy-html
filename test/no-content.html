@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script src="../node_modules/wct-browser-legacy/browser.js"></script>
 
     <!-- Step 1: import the element to test -->
-    <link rel="import" href="../juicy-html.html">
+    <script type="module" src="../juicy-html.js"></script>
 </head>
 
 <body>
@@ -33,87 +33,87 @@
         </template>
     </test-fixture>
 
-    <script>
-        describe('<juicy-html>', function () {
+    <script type="module">
+import '../juicy-html.js';
+describe('<juicy-html>', function () {
 
-            var myEl, changedEl, server, infoSpy, warnSpy, errorSpy;
-            beforeEach(function () {
-                infoSpy = sinon.spy(console, 'info');
-                infoSpy.displayName = 'console.info';
-                warnSpy = sinon.spy(console, 'warn');
-                warnSpy.displayName = 'console.warn';
-                errorSpy = sinon.spy(console, 'error');
-                errorSpy.displayName = 'console.error';
-            });
-            afterEach(function () {
-                infoSpy.restore();
-                warnSpy.restore();
-                errorSpy.restore();
-            });
-            before(function () {
-                server = sinon.fakeServer.create();
-                server.respondWith('GET', './mock/204', [204, {"Content-Type": "text/html"}, '']);
-                server.respondWith('GET', './mock/smth.html', [200, {"Content-Type": "text/html"}, '<div id="smth">smth</div></template>']);
-                server.respondWith('GET', './mock/200', [200, { "Content-Type": "text/html" }, '']);
-                server.autoRespond = true;
-                server.autoRespondAfter = 5;
-            });
-            after(function () {
-                server.restore();
-            });
+    var myEl, changedEl, server, infoSpy, warnSpy, errorSpy;
+    beforeEach(function () {
+        infoSpy = sinon.spy(console, 'info');
+        infoSpy.displayName = 'console.info';
+        warnSpy = sinon.spy(console, 'warn');
+        warnSpy.displayName = 'console.warn';
+        errorSpy = sinon.spy(console, 'error');
+        errorSpy.displayName = 'console.error';
+    });
+    afterEach(function () {
+        infoSpy.restore();
+        warnSpy.restore();
+        errorSpy.restore();
+    });
+    before(function () {
+        server = sinon.fakeServer.create();
+        server.respondWith('GET', './mock/204', [204, {"Content-Type": "text/html"}, '']);
+        server.respondWith('GET', './mock/smth.html', [200, {"Content-Type": "text/html"}, '<div id="smth">smth</div></template>']);
+        server.respondWith('GET', './mock/200', [200, { "Content-Type": "text/html" }, '']);
+        server.autoRespond = true;
+        server.autoRespondAfter = 5;
+    });
+    after(function () {
+        server.restore();
+    });
 
-            context('when external file returns <code>204 No Content</code>', function () {
-                beforeEach(function (done) {
+    context('when external file returns <code>204 No Content</code>', function () {
+        beforeEach(function (done) {
 
-                    myEl = fixture('juicy-html-204-empty').querySelector('juicy-html');
-                    changedEl = fixture('juicy-html-with-href').querySelector('juicy-html');
-                    changedEl.setAttribute('href', './mock/204');
-                    // wait for (faked) XHR
-                    setTimeout(done, 20);
-                });
-                it('should not throw any error', function () {
-                    expect(errorSpy).not.to.be.called;
-                });
+            myEl = fixture('juicy-html-204-empty').querySelector('juicy-html');
+            changedEl = fixture('juicy-html-with-href').querySelector('juicy-html');
+            changedEl.setAttribute('href', './mock/204');
+            // wait for (faked) XHR
+            setTimeout(done, 20);
+        });
+        it('should not throw any error', function () {
+            expect(errorSpy).not.to.be.called;
+        });
 
-                it('should remove previously stamped nodes', function () {
-                    expect(changedEl.nextElementSibling).to.be.null;
-                    expect(changedEl.previousElementSibling).to.be.null;
-                });
-                it('should call <code>console.info</code>', function () {
-                    expect(infoSpy).to.be.called;
-                    expect(infoSpy).to.be.calledTwice; // once per element
-                });
+        it('should remove previously stamped nodes', function () {
+            expect(changedEl.nextElementSibling).to.be.null;
+            expect(changedEl.previousElementSibling).to.be.null;
+        });
+        it('should call <code>console.info</code>', function () {
+            expect(infoSpy).to.be.called;
+            expect(infoSpy).to.be.calledTwice; // once per element
+        });
 
-            });
+    });
 
-            context('when external file returns <code>200 Ok</code> but no content', function () {
-                beforeEach(function (done) {
+    context('when external file returns <code>200 Ok</code> but no content', function () {
+        beforeEach(function (done) {
 
-                    myEl = fixture('juicy-html-200-empty').querySelector('juicy-html');
-                    changedEl = fixture('juicy-html-with-href').querySelector('juicy-html');
+            myEl = fixture('juicy-html-200-empty').querySelector('juicy-html');
+            changedEl = fixture('juicy-html-with-href').querySelector('juicy-html');
 
-                    changedEl.setAttribute('href', './mock/200');
-                    // wait for (faked) XHR
-                    setTimeout(done, 20);
-                });
+            changedEl.setAttribute('href', './mock/200');
+            // wait for (faked) XHR
+            setTimeout(done, 20);
+        });
 
-                it('should not throw any error', function () {
-                    expect(errorSpy).not.to.be.called;
-                });
+        it('should not throw any error', function () {
+            expect(errorSpy).not.to.be.called;
+        });
 
-                it('should remove previously stamped nodes', function () {
-                    expect(changedEl.nextElementSibling).to.be.null;
-                    expect(changedEl.previousElementSibling).to.be.null;
-                });
+        it('should remove previously stamped nodes', function () {
+            expect(changedEl.nextElementSibling).to.be.null;
+            expect(changedEl.previousElementSibling).to.be.null;
+        });
 
-                it('should call <code>console.warn</code>', function () {
-                    expect(warnSpy).to.be.called;
-                    expect(warnSpy).to.be.calledTwice; // once per element
-                });
-            });
+        it('should call <code>console.warn</code>', function () {
+            expect(warnSpy).to.be.called;
+            expect(warnSpy).to.be.calledTwice; // once per element
+        });
+    });
 });
-
-       </script>
+</script>
 
 </body>
 
