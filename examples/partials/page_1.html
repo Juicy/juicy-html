@@ -5,7 +5,7 @@
 </dom-bind>
 <p>
     This is the Page 1.
-    <button onclick="(Polymer.Element ? document.getElementById('test').parentNode : document.getElementById('test')).set('model.subpage.html', './partials/page_2.html')">Press here</button>
+    <button onclick="document.getElementById('test').parentNode.set('model.subpage.html', './partials/page_2.html')">Press here</button>
     to replace the template with Page 2
 </p>
 
