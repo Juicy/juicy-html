@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>&lt;juicy-html&gt; in a &lt;template&gt; with HTML partial loaded from a file</title>
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
-    <link rel="import" href="../juicy-html.html">
-    <link rel="import" href="../../polymer/polymer.html">
+    <script type="module" src="../juicy-html.js"></script>
+    <script type="module" src="../node_modules/@polymer/polymer/polymer-legacy.js"></script>
 
     <style>
         body {
@@ -21,21 +21,22 @@
             <juicy-html model="{{model.subpage}}" href="{{model.subpage.html}}"></juicy-html>
         </template>
     </dom-bind>
-    <script>
-        var model = {
-            subpage: {
-                username: "World",
-                html: "./partials/page_1.html"
-            }
-        };
+    <script type="module">
+// import '../juicy-html.js';
+// import '../../@polymer/polymer/polymer-legacy.js';
+import { PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
+var model = {
+    subpage: {
+        username: "World",
+        html: "./partials/page_1.html"
+    }
+};
 
-      window.addEventListener('WebComponentsReady', function() {
-          if(Polymer.Element){
-              document.getElementById('test').parentNode.model = model;
-          } else {
-              document.getElementById('test').model = model;
-          }
-      });
-    </script>
+if(PolymerElement){
+    document.getElementById('test').parentNode.model = model;
+} else {
+    document.getElementById('test').model = model;
+}
+</script>
 </body>
 </html>
