@@ -30,9 +30,12 @@
     "custom-element",
     "web-components"
   ],
-  "main": "./juicy-html.html",
+  "main": "./juicy-html.js",
   "devDependencies": {
     "grunt": "~0.4.5",
-    "grunt-bump": "^0.3.0"
+    "grunt-bump": "^0.3.0",
+    "@polymer/iron-demo-helpers": "^3.0.0-pre.19",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "wct-browser-legacy": "^1.0.0"
   }
 }
