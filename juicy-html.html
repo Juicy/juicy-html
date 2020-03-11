@@ -25,7 +25,7 @@ version: 4.0.1
                 
                 // Idea: Handle pre-upgrade state
                 // https://github.com/Juicy/juicy-html/issues/30
-                var model = null || this.model;
+                var model = this.model || null;
                 Object.defineProperties(this, {
                     'model': {
                         set: function(newValue) {
